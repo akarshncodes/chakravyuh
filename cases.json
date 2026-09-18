@@ -74,7 +74,8 @@
           "role": "CONTEXT",
           "direction": "OUT",
           "amount": 43135.7,
-          "note": "shown for where the money came from / went to; not accused"
+          "note": "also accused in C011; money links these two cases",
+          "also_core_in": "C011"
         },
         {
           "entity_key": "PERSON00117",
@@ -176,7 +177,16 @@
         "PERSON01192",
         "PERSON01212",
         "PERSON01516"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C011",
+          "via_person": "Manpreet Khan & Sons",
+          "direction": "OUT",
+          "amount": 43135.7
+        }
+      ],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C002",
@@ -349,7 +359,9 @@
         "PERSON01406",
         "PERSON01732",
         "PERSON01742"
-      ]
+      ],
+      "linked_cases": [],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C003",
@@ -568,7 +580,9 @@
         "PERSON00860",
         "PERSON01090",
         "PERSON01567"
-      ]
+      ],
+      "linked_cases": [],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C004",
@@ -646,7 +660,8 @@
           "role": "CONTEXT",
           "direction": "IN",
           "amount": 43924.79,
-          "note": "shown for where the money came from / went to; not accused"
+          "note": "also accused in C011; money links these two cases",
+          "also_core_in": "C011"
         },
         {
           "entity_key": "PERSON00667",
@@ -792,7 +807,22 @@
         "PERSON01011",
         "PERSON01062",
         "PERSON01610"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C008",
+          "via_person": "Chauhan Lakshmi",
+          "direction": "OUT",
+          "amount": 34242.67
+        },
+        {
+          "case_id": "C011",
+          "via_person": "Ajay Saxena",
+          "direction": "IN",
+          "amount": 43924.79
+        }
+      ],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C005",
@@ -1401,7 +1431,16 @@
         "PERSON01228",
         "PERSON01426",
         "PERSON01550"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C006",
+          "via_person": "P. Yadav",
+          "direction": "OUT",
+          "amount": 49458.67
+        }
+      ],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C006",
@@ -1579,7 +1618,8 @@
           "role": "CONTEXT",
           "direction": "IN",
           "amount": 49458.67,
-          "note": "shown for where the money came from / went to; not accused"
+          "note": "also accused in C005; money links these two cases",
+          "also_core_in": "C005"
         },
         {
           "entity_key": "PERSON01774",
@@ -1907,7 +1947,16 @@
         "PERSON01136",
         "PERSON01169",
         "PERSON01774"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C005",
+          "via_person": "P. Yadav",
+          "direction": "IN",
+          "amount": 49458.67
+        }
+      ],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C007",
@@ -2236,7 +2285,9 @@
         "PERSON01133",
         "PERSON01181",
         "PERSON01507"
-      ]
+      ],
+      "linked_cases": [],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C008",
@@ -2315,7 +2366,8 @@
           "role": "CONTEXT",
           "direction": "IN",
           "amount": 34242.67,
-          "note": "shown for where the money came from / went to; not accused"
+          "note": "also accused in C004; money links these two cases",
+          "also_core_in": "C004"
         },
         {
           "entity_key": "PERSON01266",
@@ -2506,7 +2558,16 @@
         "PERSON00945",
         "PERSON01266",
         "PERSON01432"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C004",
+          "via_person": "Chauhan Lakshmi",
+          "direction": "IN",
+          "amount": 34242.67
+        }
+      ],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C009",
@@ -2695,7 +2756,9 @@
         "PERSON01316",
         "PERSON01333",
         "PERSON01749"
-      ]
+      ],
+      "linked_cases": [],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C010",
@@ -2890,7 +2953,9 @@
         "PERSON01302",
         "PERSON01328",
         "PERSON01523"
-      ]
+      ],
+      "linked_cases": [],
+      "found_without_watchlist": true
     },
     {
       "case_id": "C011",
@@ -3137,7 +3202,22 @@
         "PERSON01246",
         "PERSON01688",
         "PERSON01714"
-      ]
+      ],
+      "linked_cases": [
+        {
+          "case_id": "C001",
+          "via_person": "Manpreet Khan & Sons",
+          "direction": "IN",
+          "amount": 43135.7
+        },
+        {
+          "case_id": "C004",
+          "via_person": "Ajay Saxena",
+          "direction": "OUT",
+          "amount": 43924.79
+        }
+      ],
+      "found_without_watchlist": true
     }
   ],
   "watchlist_review": [

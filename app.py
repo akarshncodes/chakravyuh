@@ -439,7 +439,8 @@ with tabs[4]:
         "Lane": c["lane"], "Detectors": " + ".join(c["detectors_fired"]),
         "Core people": len(c["core_people"]), "Context": len(c["context_people"]),
         "Evidence amount": inr(c["total_evidence_amount"]), "Hours": c["hours_spanned"],
-        "Both banks": "yes" if c["crosses_banks"] else "no"} for c in cases]),
+        "Both banks": "yes" if c["crosses_banks"] else "no",
+        "Found without watchlist": "yes" if c.get("found_without_watchlist") else "no"} for c in cases]),
         hide_index=True, width="stretch")
 
     case_ids = [x["case_id"] for x in cases]
@@ -470,7 +471,8 @@ with tabs[4]:
                 continue
             x, y = c["layout"][p["entity_key"]]
             nodes[p["entity_key"]] = dict(x=x, y=y, label=p["name"][:16],
-                                          hover=f"{p['name']} · CONTEXT ({p['direction']}) · not accused",
+                                          hover=f"{p['name']} · CONTEXT ({p['direction']}) · " + (
+                                              f"also accused in {p['also_core_in']}" if p.get("also_core_in") else "not accused"),
                                           color=GREY, size=15)
         agg = {}
         for kind, ids, colr, w in (("ctx", c["context_txn_ids"], "#8fb3e0", 1), ("sup", c["supporting_txn_ids"], "#c5ccd6", 1),
@@ -485,11 +487,20 @@ with tabs[4]:
         st.plotly_chart(draw(nodes, [(u, v, col, w) for (u, v), (col, w) in agg.items()], 470),
                         width="stretch")
         st.caption("Red arrows = evidence (proven claims) · pale = background · blue = context money in/out. "
-                   "Red dots are watchlisted, blue are core, grey are context and NOT accused.")
+                   "Red dots are watchlisted, blue are core, grey are context (not accused, unless the hover says "
+                   "they are accused in another case).")
     with pcol:
         st.markdown("**Why this priority**")
         for line in c["priority_reason"]:
             st.write("• " + line)
+        st.markdown("**Linked cases**")
+        if c.get("linked_cases"):
+            for l in c["linked_cases"]:
+                st.write(f"• {l['case_id']} via {l['via_person']} (money {l['direction']}, "
+                         f"Rs {l['amount']:,.0f})")
+            st.caption("Different rings; money connects them. They are not merged.")
+        else:
+            st.caption("None. No context person here is accused in another case.")
         st.markdown("**Findings merged into this case**")
         for fid in c["finding_ids"]:
             f = next(x for x in D["findings"] if x["finding_id"] == fid)
@@ -499,7 +510,7 @@ with tabs[4]:
             for w in c["watchlist_signals"]:
                 st.write("• " + w["reason"])
 
-    t1, t2, t3, t4 = st.tabs(["Core people (accused)", "Context (not accused)", "Evidence transactions",
+    t1, t2, t3, t4 = st.tabs(["Core people (accused)", "Context (see notes)", "Evidence transactions",
                               "Background (supporting)"])
     with t1:
         st.dataframe(pd.DataFrame([{"Person": p["name"], "Key": p["entity_key"],
@@ -507,9 +518,10 @@ with tabs[4]:
                                     "Accounts": ", ".join(p["accounts"])} for p in c["core_people"]]),
                      hide_index=True, width="stretch")
     with t2:
-        st.caption("Shown for where the money came from / went to; not accused.")
+        st.caption("Shown for where the money came from / went to. Read each note: a person accused in "
+                   "another case is labelled as such.")
         st.dataframe(pd.DataFrame([{"Person": p["name"], "Direction": p["direction"],
-                                    "Amount": inr(p["amount"])} for p in c["context_people"]]),
+                                    "Amount": inr(p["amount"]), "Note": p["note"]} for p in c["context_people"]]),
                      hide_index=True, width="stretch")
     with t3:
         st.dataframe(txn_table(c["evidence_txn_ids"]), hide_index=True, width="stretch")
@@ -540,7 +552,7 @@ with tabs[4]:
         textposition="top center",
         marker=dict(size=[14 if n in core_keys else 10 for n in order],
                     color=[RED if n in core_keys else AMBER for n in order], line=dict(width=1.5, color="white")),
-        hovertext=[D["names"][n] + (" · accused" if n in core_keys else " · context, not accused") for n in order],
+        hovertext=[D["names"][n] + (" · accused" if n in core_keys else " · context") for n in order],
         hoverinfo="text"))
     fig.update_layout(height=420, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
                       xaxis=dict(visible=False), yaxis=dict(visible=False))

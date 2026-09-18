@@ -31,7 +31,7 @@ from collections import defaultdict
 import networkx as nx
 import pandas as pd
 
-from detectors import HOUR, prepare
+from detectors import HOUR, load_account_ages, prepare, run_detectors
 from graph_builder import load_data
 
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -275,6 +275,56 @@ def build_cases(findings, recs, entity_attrs, account_to_bank):
     return cases, review
 
 
+
+# ---------------------------------------------------------------------------
+# Cross-case links and watchlist independence (added after the cases exist)
+# ---------------------------------------------------------------------------
+
+def link_cases(cases):
+    """A context person is "shown for where the money came from / went to; not
+    accused". If that same person is CORE in a different case, the note would
+    contradict itself. Correct it and record the money link on BOTH cases. The
+    cases are NOT merged: they are different rings that money happens to
+    connect."""
+    core_in = defaultdict(list)
+    for c in cases:
+        for p in c["core_people"]:
+            core_in[p["entity_key"]].append(c["case_id"])
+    links = []
+    for c in cases:
+        c.setdefault("linked_cases", [])
+    by_id = {c["case_id"]: c for c in cases}
+    for c in cases:
+        for ctx in c["context_people"]:
+            others = [cid for cid in core_in.get(ctx["entity_key"], []) if cid != c["case_id"]]
+            if not others:
+                continue
+            other = others[0]
+            ctx["also_core_in"] = other
+            ctx["note"] = f"also accused in {other}; money links these two cases"
+            flip = {"IN": "OUT", "OUT": "IN"}[ctx["direction"]]
+            c["linked_cases"].append({"case_id": other, "via_person": ctx["name"],
+                                      "direction": ctx["direction"], "amount": ctx["amount"]})
+            by_id[other]["linked_cases"].append({"case_id": c["case_id"], "via_person": ctx["name"],
+                                                 "direction": flip, "amount": ctx["amount"]})
+            links.append((c["case_id"], other, ctx["entity_key"], ctx["name"], ctx["direction"], ctx["amount"]))
+    for c in cases:
+        c["linked_cases"].sort(key=lambda l: (l["case_id"], l["via_person"], l["direction"]))
+    return links
+
+
+def flag_watchlist_independence(cases, recs, entity_attrs, account_age):
+    """Re-run every detector with nobody on the watchlist. A case is "found
+    without watchlist" if the structural findings of that blind run cover at
+    least half of its evidence transactions. No answer key involved."""
+    blind_attrs = {e: dict(a, is_watchlisted=False) for e, a in entity_attrs.items()}
+    blind = run_detectors(recs, blind_attrs, account_age)
+    covered = {t for f in blind if f["detector"] in SEED_DETECTORS for t in f["txn_ids"]}
+    for c in cases:
+        ev = c["evidence_txn_ids"]
+        c["found_without_watchlist"] = sum(1 for t in ev if t in covered) >= 0.5 * len(ev)
+
+
 # ---------------------------------------------------------------------------
 # SCORING - the ONLY code allowed to read ground_truth.csv
 # ---------------------------------------------------------------------------
@@ -337,7 +387,7 @@ def score_cases(cases, findings, recs, account_to_entity):
 # Report
 # ---------------------------------------------------------------------------
 
-def print_report(findings, cases, review, sc, elapsed):
+def print_report(findings, cases, review, sc, links, elapsed):
     n_seed = sum(1 for f in findings if f["detector"] in SEED_DETECTORS)
     print("=" * 78)
     print("CHAKRAVYUH - Stage 5: case builder")
@@ -361,6 +411,16 @@ def print_report(findings, cases, review, sc, elapsed):
     print(f"Accused precision: {m}/{t} core people are ring members ({m / t * 100:.1f}%)")
     for key, name, cid in sc["innocent"]:
         print(f"  NOT a ring member: {key} {name} (in {cid})")
+
+    print(f"\nCross-case links: {len(links)}")
+    for src, dst, key, name, direction, amount in links:
+        print(f"  {src} context {direction} {key} {name} (Rs {amount:,.0f}) is core in {dst}")
+    n_free = sum(1 for c in cases if c["found_without_watchlist"])
+    print(f"Cases found with nobody on the watchlist: {n_free} of {len(cases)}")
+    stale = [(c["case_id"], p["entity_key"]) for c in cases for p in c["context_people"]
+             if "also_core_in" not in p and any(p["entity_key"] in {q["entity_key"] for q in o["core_people"]}
+                                                for o in cases if o is not c)]
+    print(f"Context people still labelled 'not accused' while core elsewhere: {len(stale)}")
 
     print("\nHero check")
     hc = sc["hero_cases"]
@@ -388,6 +448,8 @@ def main():
     _, recs = prepare(tx, account_to_entity)
 
     cases, review = build_cases(findings, recs, entity_attrs, account_to_bank)
+    links = link_cases(cases)
+    flag_watchlist_independence(cases, recs, entity_attrs, load_account_ages())
 
     # The dashboard highlights case nodes on the full map, so every highlight
     # node must exist in the ALL layout.
@@ -400,7 +462,7 @@ def main():
         json.dump({"cases": cases, "watchlist_review": review}, fh, indent=2, ensure_ascii=False)
 
     sc = score_cases(cases, findings, recs, account_to_entity)
-    print_report(findings, cases, review, sc, time.time() - t0)
+    print_report(findings, cases, review, sc, links, time.time() - t0)
 
 
 if __name__ == "__main__":
