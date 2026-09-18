@@ -351,6 +351,108 @@ def step_html(s):
             f'<div style="font-size:.9rem;margin-top:2px">{"🛑 " if bad else "→ "}{s["result"]}</div></div>')
 
 
+_ID_RE = __import__("re").compile(r"\b(?:ACC|PERSON|TXN)\d+\b")
+_BANK = None
+
+
+def _ids_in(*texts):
+    out = set()
+    for t in texts:
+        out |= set(_ID_RE.findall(json.dumps(t, default=str) if not isinstance(t, str) else t))
+    return out
+
+
+def war_graph(item_id, lg, upto):
+    """The item's money trail at ACCOUNT level, lit up by what DRONA has looked at in steps 1..upto.
+    grey = not looked at yet · navy = examined · gold = this step · purple arrow = a hop one bank
+    alone cannot see · red arrow = evidence sent to SANJAYA · red node = cited in the recommendation."""
+    import math
+    global _BANK
+    if _BANK is None:
+        _BANK = dict(zip(D["full"]["txn_id"], zip(D["full"]["from_bank"], D["full"]["to_bank"])))
+    rec, a2e = D["rec_by_id"], D["a2e"]
+    case = next((c for c in cases if c["case_id"] == item_id), None)
+    if case:
+        txn_ids = list(case["evidence_txn_ids"])
+    else:
+        allids = _ids_in([s.get("args", {}) for s in lg["steps"]], [s["result"] for s in lg["steps"]], lg["decision"])
+        txn_ids = [t for t in sorted(allids) if t.startswith("TXN") and t in rec]
+    txn_ids = sorted(txn_ids, key=lambda t: rec[t].ts_str)
+    accs = []
+    for t in txn_ids:
+        for a in (rec[t].from_acc, rec[t].to_acc):
+            if a not in accs:
+                accs.append(a)
+    pos = {}
+    if case and len(accs) > 12 and case.get("layout"):
+        by_owner = {}
+        for a in accs:
+            by_owner.setdefault(a2e.get(a), []).append(a)
+        for owner, lst in by_owner.items():
+            cx, cy = case["layout"].get(owner, (0.0, 0.0))
+            for j, a in enumerate(lst):
+                ang = 2 * math.pi * j / len(lst)
+                pos[a] = (cx + 0.035 * math.cos(ang) * (len(lst) > 1), cy + 0.035 * math.sin(ang) * (len(lst) > 1))
+    else:                                  # small networks: the money path drawn as a ring
+        for i, a in enumerate(accs):
+            ang = math.pi / 2 - 2 * math.pi * i / max(len(accs), 1)
+            pos[a] = (math.cos(ang), math.sin(ang))
+
+    owner_accs = {}
+    for a in accs:
+        owner_accs.setdefault(a2e.get(a), set()).add(a)
+
+    def to_accs(ids):
+        out = {i for i in ids if i in pos}
+        for i in ids:
+            if i.startswith("PERSON"):
+                out |= owner_accs.get(i, set())
+            if i in rec:
+                out |= {rec[i].from_acc, rec[i].to_acc} & set(pos)
+        return out
+
+    seen, focus, focus_txn, cited = set(), set(), set(), set()
+    blind = sent = False
+    for s in lg["steps"][:upto]:
+        ids = _ids_in(s.get("args", {}), s["result"])
+        focus = to_accs(ids) if s["tool"] in ("account_history", "expand_neighbourhood", "lookup_transaction") else set()
+        focus_txn = {i for i in ids if i.startswith("TXN")} if s["tool"] == "lookup_transaction" else set()
+        if s["tool"] in ("open_item", "check_relationships"):
+            seen |= set(pos)
+        seen |= focus
+        blind = blind or s["tool"] == "compare_bank_views"
+        sent = sent or s["tool"] == "send_to_sanjaya"
+        if s["tool"] == "record_decision" and s["result"].split(":")[0] in ("FILE_STR", "ESCALATE", "ESCALATE_AS_LEAD"):
+            ev = lg["decision"].get("evidence_ids", [])
+            cited = to_accs(set(ev)) | (set(pos) if item_id in ev else set())
+    last_tool = lg["steps"][upto - 1]["tool"] if upto else ""
+
+    nodes = {}
+    for a, (x, y) in pos.items():
+        col, size = "#cdd6e3", 13
+        if a in seen:
+            col, size = "#172a74", 16
+        if a in cited:
+            col, size = "#c0392b", 19
+        if a in focus and last_tool != "record_decision":
+            col, size = "#f1c40f", 26
+        owner = D["names"].get(a2e.get(a), "")
+        nodes[a] = dict(x=x, y=y, size=size, color=col, hover=f"{a} · {owner}",
+                        label=(f"{a}<br>{owner.title()[:12]}" if len(pos) <= 10 or a in focus else ""))
+    agg = {}
+    for t in txn_ids:
+        r = rec[t]
+        colr, w = "#d5dbe5", 1.2
+        if blind and _BANK.get(t, ("", "x"))[0] == _BANK.get(t, ("x", ""))[1]:
+            colr, w = "#8e44ad", 2.2          # both legs in one bank: the other bank never sees this hop
+        if sent:
+            colr, w = "#c0392b", 2.2
+        if t in focus_txn:
+            colr, w = "#f1c40f", 3.5
+        agg[(r.from_acc, r.to_acc)] = (colr, w)
+    return draw(nodes, [(u, v, c_, w) for (u, v), (c_, w) in agg.items()], 440)
+
+
 with tabs[0]:
     st.markdown('<div class="band"><h2>The War Room</h2><p>Three AI agents, one chain of command. '
                 'The detectors find the patterns. DRONA decides where to look, SANJAYA writes the case, '
@@ -396,20 +498,27 @@ with tabs[0]:
         replay = cc[2].button("▶ Replay investigation", type="primary", width="stretch")
         lg = ilog["items"][pick]
         st.caption(f"Triage #{lg['triage_rank']}: {lg['triage_reason']}")
-        box = st.container()
+        left, right = st.columns([5, 4])
+        box = left.container()
+        gph = right.empty()
+        right.caption("🟡 DRONA is looking here now · 🔵 examined · ⚪ not yet looked at · "
+                      "🟣 hop one bank alone cannot see · 🔴 evidence sent to SANJAYA / cited in the recommendation")
         if replay:
             import time as _t
             delay = {"slow": 1.4, "normal": 0.8, "fast": 0.3}[speed]
             ph = box.empty()
             shown = ""
-            for s in lg["steps"]:
+            gph.plotly_chart(war_graph(pick, lg, 0), width="stretch", key=f"wg_{pick}_0")
+            for i, s in enumerate(lg["steps"], 1):
                 shown += step_html(s)
                 ph.markdown(shown + '<div style="color:#9aa5b1;font-size:.8rem">DRONA is thinking…</div>',
                             unsafe_allow_html=True)
+                gph.plotly_chart(war_graph(pick, lg, i), width="stretch", key=f"wg_{pick}_{i}")
                 _t.sleep(delay)
             ph.markdown(shown, unsafe_allow_html=True)
         else:
             box.markdown("".join(step_html(s) for s in lg["steps"]), unsafe_allow_html=True)
+            gph.plotly_chart(war_graph(pick, lg, len(lg["steps"])), width="stretch", key=f"wg_{pick}_final")
 
         d = lg["decision"]
         col = DEC_COLOR.get(d["decision"], "#172a74")
