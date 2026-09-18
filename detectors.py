@@ -658,9 +658,45 @@ def build_view_rows(tx_sorted, view, account_to_entity, account_to_bank, entity_
     return rows, bucketed
 
 
-def circle_txn_sets(tx_sorted, view, account_to_entity, account_to_bank, entity_attrs):
+def bank_confirms(path, exact_by_id):
+    """Bank-side confirmation of a consortium circle candidate.
+
+    The consortium only knows amount bands and hour buckets, so a candidate is
+    a hypothesis. Each pair of consecutive hops meets at ONE pass-through
+    account, held by ONE bank, and that bank sees both legs with exact data.
+    Each bank checks only its own junctions and answers yes/no: the outgoing
+    leg must leave the same account the incoming leg arrived at, strictly
+    later, keeping 85-100% of the incoming amount. No amounts, names or
+    account numbers cross the bank boundary - only the yes/no. The salted
+    evidence refs on consortium edges are what let each bank find its own
+    transactions locally. (Here `exact_by_id` stands in for each bank's own
+    ledger.) The whole loop must also fit inside 72 hours. A candidate is
+    CONFIRMED only if every junction is confirmed."""
+    legs = [exact_by_id[t] for t in path]
+    if legs[-1].ts - legs[0].ts > CIRCLE_WINDOW_HOURS * HOUR:
+        return False
+    for incoming, outgoing in zip(legs, legs[1:]):
+        if outgoing.from_acc != incoming.to_acc:
+            return False
+        if outgoing.ts <= incoming.ts:
+            return False
+        if not (CIRCLE_MIN_RETENTION * incoming.amount - EPS
+                <= outgoing.amount <= CIRCLE_MAX_RETENTION * incoming.amount + EPS):
+            return False
+    return True
+
+
+def circle_txn_sets(tx_sorted, view, account_to_entity, account_to_bank, entity_attrs, exact_by_id):
+    """Returns (candidate count, list of txn-id sets that stand as findings).
+    Single-bank views and ALL use exact data already. CONSORTIUM candidates
+    must additionally be confirmed by the banks."""
     rows, bucketed = build_view_rows(tx_sorted, view, account_to_entity, account_to_bank, entity_attrs)
-    return [ts for ts, _ in find_circle_cycles(rows, bucketed=bucketed)]
+    cycles = find_circle_cycles(rows, bucketed=bucketed)
+    if not bucketed:
+        return len(cycles), [ts for ts, _ in cycles]
+    confirmed = [ts for ts, path in cycles
+                 if bank_confirms([rows[p].txn_id for p in path], exact_by_id)]
+    return len(cycles), confirmed
 
 
 # ---------------------------------------------------------------------------
@@ -704,21 +740,36 @@ def score(findings):
     return per_detector, per_ring
 
 
-def hero_check(tx_sorted, account_to_entity, account_to_bank, entity_attrs):
+def hero_check(tx_sorted, account_to_entity, account_to_bank, entity_attrs, exact_by_id):
+    """The demo claim: ALL six hero txns inside ONE single confirmed circle."""
     hero = load_ground_truth()["CIRC_6_HERO"]
     out = {}
     for view in ["ALL", "BANK_A", "BANK_B", "CONSORTIUM"]:
-        sets = circle_txn_sets(tx_sorted, view, account_to_entity, account_to_bank, entity_attrs)
+        n_cand, sets = circle_txn_sets(tx_sorted, view, account_to_entity, account_to_bank,
+                                       entity_attrs, exact_by_id)
         best = max((len(s & hero) for s in sets), default=0)
-        out[view] = (best, len(hero), best >= 0.5 * len(hero), len(sets))
+        out[view] = (best, len(hero), best == len(hero), len(sets), n_cand)
     return out
+
+
+def discovery_only_score(recs, entity_attrs, account_age):
+    """Re-run every detector with nobody on the watchlist: the full thresholds
+    only, applied to everyone. Answers "you only caught them because you knew
+    who they were"."""
+    blind = {e: dict(a, is_watchlisted=False) for e, a in entity_attrs.items()}
+    findings = run_detectors(recs, blind, account_age)
+    _, per_ring = score(findings)
+    per_detector, _ = score(findings)
+    caught = sum(1 for _, _, by in per_ring.values() if by)
+    false_alarms = sum(per_detector[d][2] for d in STRUCTURAL)
+    return caught, len(per_ring), false_alarms
 
 
 # ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
 
-def print_report(findings, per_detector, per_ring, hero, t_detect, t_total):
+def print_report(findings, per_detector, per_ring, hero, discovery, t_detect, t_total):
     counts = {d: sum(1 for f in findings if f["detector"] == d) for d in DETECTORS}
     print("=" * 78)
     print("CHAKRAVYUH - Stage 4: detection swarm")
@@ -747,12 +798,19 @@ def print_report(findings, per_detector, per_ring, hero, t_detect, t_total):
           f"{structural_fa} false alarms across the four structural detectors "
           f"(+ {per_detector['WATCHLIST_SIGNAL'][2]} watchlist-signal findings that are not ring claims)")
 
-    print("\nHero check - CIRCLE on CIRC_6_HERO, per view")
+    dc, dn, dfa = discovery
+    print(f"\nDiscovery only (nobody known): {dc} of {dn} rings caught, {dfa} false alarms")
+
+    print("\nHero check - CIRCLE on CIRC_6_HERO, per view (caught = all 6 hero txns in ONE confirmed circle)")
     for view in ["ALL", "BANK_A", "BANK_B", "CONSORTIUM"]:
-        best, total, ok, n_sets = hero[view]
-        print(f"  {view:<11} {'hero caught' if ok else 'NOT caught':<12} "
-              f"(best single circle finding covers {best}/{total} hero txns; "
-              f"{n_sets} circle findings in view)")
+        best, total, ok, n_final, n_cand = hero[view]
+        line = (f"  {view:<11} {'hero caught' if ok else 'NOT caught':<12} "
+                f"(best single circle finding covers {best}/{total} hero txns")
+        if view == "CONSORTIUM":
+            line += f"; CONSORTIUM candidates {n_cand} -> bank-confirmed {n_final}"
+        else:
+            line += f"; {n_final} circle findings in view"
+        print(line + ")")
 
     print(f"\nRuntime: detection {t_detect:.1f}s, whole run incl. hero check and scoring {t_total:.1f}s")
 
@@ -768,8 +826,10 @@ def main():
     t_detect = time.time() - t0
 
     per_detector, per_ring = score(findings)
-    hero = hero_check(tx_sorted, account_to_entity, account_to_bank, entity_attrs)
-    print_report(findings, per_detector, per_ring, hero, t_detect, time.time() - t0)
+    exact_by_id = {r.txn_id: r for r in recs}
+    hero = hero_check(tx_sorted, account_to_entity, account_to_bank, entity_attrs, exact_by_id)
+    discovery = discovery_only_score(recs, entity_attrs, account_age)
+    print_report(findings, per_detector, per_ring, hero, discovery, t_detect, time.time() - t0)
 
 
 if __name__ == "__main__":
