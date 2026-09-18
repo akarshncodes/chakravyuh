@@ -88,7 +88,7 @@ pip install -r requirements.txt
 streamlit run app.py        # uses the committed results, so no API key is needed
 ```
 
-**Try this in the app:** War Room → pick **C001** → **▶ Replay investigation** · then Network & cross-bank → Bank A / Bank B / Consortium · then Cases → C001 → **Approve** → download the **STR report**.
+**Try this in the app:** **Dashboard** (the whole picture) → **Case File** (main suspect, where the money came from and went, rotatable 3D money trail) → **AI War Room** → pick **C001** → **▶ Replay investigation** → **Cross-Bank View** → Bank A / Bank B / Consortium → **Case Queue** → C001 → **Approve** → download the **STR report**.
 
 Rebuilding every stage from scratch, the design decisions and the limitations are all in **[docs/TECHNICAL.md](docs/TECHNICAL.md)**.
 
