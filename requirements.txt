@@ -1,0 +1,6 @@
+networkx
+streamlit
+pandas
+openai
+python-dotenv
+scipy

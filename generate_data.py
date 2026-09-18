@@ -303,7 +303,34 @@ def cyclic_assign(owner_ids, n_accounts):
 # RING BUILDERS
 # =====================================================================
 
-def build_circular_ring(ring_id, size, owners_count, cross_bank=False, subtle=False, hero=False):
+def ring_bank_seq(size):
+    """
+    Bank assignment for a circular ring's accounts, in loop order.
+
+    Every ring must have at least one hop that stays entirely inside BANK_A
+    and at least one that stays entirely inside BANK_B - those two hops are
+    each invisible to the other bank, which is exactly what makes cross-bank
+    detection necessary. A naive strict A,B,A,B,... alternation fails this:
+    every single hop crosses banks, so both banks individually see every
+    transaction in the loop and neither is actually blind to anything.
+
+    Positions 0,1 sit inside BANK_A (hop 0->1 is intra-A), positions 2,3 sit
+    inside BANK_B (hop 2->3 is intra-B), and any remaining positions
+    alternate. For size=6 this produces exactly
+    A, A, B, B, A, B - the CIRC_6_HERO assignment.
+    """
+    seq = []
+    for i in range(size):
+        if i < 2:
+            seq.append("BANK_A")
+        elif i < 4:
+            seq.append("BANK_B")
+        else:
+            seq.append("BANK_A" if i % 2 == 0 else "BANK_B")
+    return seq
+
+
+def build_circular_ring(ring_id, size, owners_count, subtle=False, hero=False):
     """
     A circular ring is suspicious because money that starts and ends at the
     same account, after hopping through a closed loop of other accounts, has
@@ -314,11 +341,7 @@ def build_circular_ring(ring_id, size, owners_count, cross_bank=False, subtle=Fa
     owner_ids = consume_owners(owners_count)
     assignments = cyclic_assign(owner_ids, size)
 
-    if cross_bank:
-        bank_seq = [BANKS[i % 2] for i in range(size)]
-    else:
-        bank = random.choice(BANKS)
-        bank_seq = [bank] * size
+    bank_seq = ring_bank_seq(size)
 
     accts = []
     for i in range(size):
@@ -525,7 +548,7 @@ def main():
     #  velocity 4/5/7   -> 3/3/4     structuring 10L/50k -> 6/6   (sum = 76)
     build_circular_ring("CIRC_4", size=4, owners_count=2)
     build_circular_ring("CIRC_5_SUBTLE", size=5, owners_count=3, subtle=True)
-    build_circular_ring("CIRC_6_HERO", size=6, owners_count=3, cross_bank=True, hero=True)
+    build_circular_ring("CIRC_6_HERO", size=6, owners_count=3, hero=True)
     build_circular_ring("CIRC_8", size=8, owners_count=4)
 
     build_mule_network("MULE_12", num_mules=12, owners_count=7)

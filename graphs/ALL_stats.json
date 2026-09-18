@@ -1,0 +1,34 @@
+{
+  "view": "ALL",
+  "num_people": 1828,
+  "num_connections": 29695,
+  "self_transfer_edges": 16,
+  "cross_bank_edges": 14953,
+  "top5_busiest": [
+    {
+      "node": "PERSON00509",
+      "connections": 101,
+      "label": "Jain Suresh"
+    },
+    {
+      "node": "PERSON01137",
+      "connections": 94,
+      "label": "Deepak Yadav & Sons"
+    },
+    {
+      "node": "PERSON01153",
+      "connections": 90,
+      "label": "P. Mehta"
+    },
+    {
+      "node": "PERSON01623",
+      "connections": 89,
+      "label": "S. Kumar"
+    },
+    {
+      "node": "PERSON00752",
+      "connections": 86,
+      "label": "RADHA MENON"
+    }
+  ]
+}

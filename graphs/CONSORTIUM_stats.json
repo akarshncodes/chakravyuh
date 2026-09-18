@@ -1,0 +1,34 @@
+{
+  "view": "CONSORTIUM",
+  "num_people": 1833,
+  "num_connections": 29695,
+  "self_transfer_edges": 16,
+  "cross_bank_edges": 14953,
+  "top5_busiest": [
+    {
+      "node": "PSU_775056222b6e44c2",
+      "connections": 101,
+      "label": "PSU_775056222b6e44c2  [anonymized pseudonym \u2014 no bank can see this person's name]"
+    },
+    {
+      "node": "PSU_08fa57276d4f8ee9",
+      "connections": 94,
+      "label": "PSU_08fa57276d4f8ee9  [anonymized pseudonym \u2014 no bank can see this person's name]"
+    },
+    {
+      "node": "PSU_26e4fd29380be5fb",
+      "connections": 90,
+      "label": "PSU_26e4fd29380be5fb  [anonymized pseudonym \u2014 no bank can see this person's name]"
+    },
+    {
+      "node": "PSU_c25769e849ed0f22",
+      "connections": 89,
+      "label": "PSU_c25769e849ed0f22  [anonymized pseudonym \u2014 no bank can see this person's name]"
+    },
+    {
+      "node": "PSU_fa6140285a52bd55",
+      "connections": 86,
+      "label": "PSU_fa6140285a52bd55  [anonymized pseudonym \u2014 no bank can see this person's name]"
+    }
+  ]
+}

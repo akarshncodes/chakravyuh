@@ -1,0 +1,34 @@
+{
+  "view": "BANK_A",
+  "num_people": 2302,
+  "num_connections": 23028,
+  "self_transfer_edges": 2,
+  "cross_bank_edges": 14976,
+  "top5_busiest": [
+    {
+      "node": "PERSON01623",
+      "connections": 89,
+      "label": "S. Kumar"
+    },
+    {
+      "node": "PERSON00015",
+      "connections": 77,
+      "label": "Anna Malik & Sons"
+    },
+    {
+      "node": "PERSON00041",
+      "connections": 74,
+      "label": "Zubair Naidu & Sons"
+    },
+    {
+      "node": "PERSON00509",
+      "connections": 72,
+      "label": "Jain Suresh"
+    },
+    {
+      "node": "PERSON01533",
+      "connections": 71,
+      "label": "ANIL IYER"
+    }
+  ]
+}

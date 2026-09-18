@@ -1,0 +1,34 @@
+{
+  "view": "BANK_B",
+  "num_people": 2304,
+  "num_connections": 21744,
+  "self_transfer_edges": 5,
+  "cross_bank_edges": 14987,
+  "top5_busiest": [
+    {
+      "node": "PERSON00364",
+      "connections": 85,
+      "label": "Joseph Agarwal"
+    },
+    {
+      "node": "PERSON00081",
+      "connections": 79,
+      "label": "Manpreet Khan & Sons"
+    },
+    {
+      "node": "PERSON00510",
+      "connections": 78,
+      "label": "POOJA GHOSH"
+    },
+    {
+      "node": "PERSON00072",
+      "connections": 76,
+      "label": "ZUBAIR KAUR"
+    },
+    {
+      "node": "PERSON01614",
+      "connections": 76,
+      "label": "RITU THOMAS"
+    }
+  ]
+}

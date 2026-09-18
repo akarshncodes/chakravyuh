@@ -32,3 +32,6 @@ htmlcov/
 # Ignore only scratch/export CSVs.
 scratch_*.csv
 export_*.csv
+
+# Local Claude settings
+.claude/settings.local.json
