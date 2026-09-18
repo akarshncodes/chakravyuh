@@ -29,11 +29,12 @@ VIEW_TITLES = {
 }
 BLUE, RED, GREY, TEAL, AMBER = "#1f4e8c", "#c0392b", "#9aa5b1", "#138d75", "#d68910"
 
-st.set_page_config(page_title="Chakravyuh", page_icon="🌀", layout="wide")
+st.set_page_config(page_title="Chakravyuh · AML Investigation Portal", page_icon="🌀", layout="wide",
+                   initial_sidebar_state="collapsed")
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@600;700&display=swap');
 .stMarkdown, .stMarkdown p, h1, h2, h3, h4, label p, button p, [data-testid="stMetricLabel"] p,
 [data-testid="stMetricValue"] {font-family: 'Poppins', system-ui, sans-serif;}
 .stApp {background:#ffffff;}
@@ -109,6 +110,67 @@ header[data-testid="stHeader"] {background:transparent;}
 .footer {background:var(--navy2); color:#c9d4f2; border-top:5px solid var(--saffron); padding:18px 24px; margin-top:26px;
          font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
 .footer b {color:#fff;}
+/* ---- final design pass: calmer type, bank-dashboard components ---- */
+.stMarkdown, .stMarkdown p, h1, h2, h3, h4, label p, button p, [data-testid="stMetricLabel"] p,
+[data-testid="stMetricValue"], .stTabs [role="tab"] p {font-family:'IBM Plex Sans', system-ui, sans-serif !important;}
+[data-testid="stToolbar"], [data-testid="stDecoration"], #MainMenu {visibility:hidden; height:0;}
+.block-container {padding-top:.4rem !important; max-width:1280px;}
+.stApp {background:#f7f8fb;}
+.stTabs [role="tab"] p {font-size:0.95rem; letter-spacing:.01em;}
+.band {padding:22px 28px;} .band h2 {font-size:1.6rem;}
+[data-testid="stMetric"] {border-left:1px solid var(--line); border-top:3px solid var(--navy);}
+[data-testid="stMetricValue"] {font-size:1.45rem; font-weight:600;}
+.dash-head {display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin:18px 0 14px;}
+.eyebrow-s {font-family:'IBM Plex Mono',monospace; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:#6b7385;}
+.dash-title {font-size:1.75rem; font-weight:700; color:#101a3a; letter-spacing:-.01em; margin:4px 0 4px;}
+.dash-sub {color:#4a5468; font-size:.95rem; max-width:760px;}
+.status-chip {white-space:nowrap; background:#e9f6ee; color:#146c3d; border:1px solid #bfe3cd; border-radius:999px;
+              padding:6px 14px; font-weight:600; font-size:.85rem;}
+.dot-live {display:inline-block; width:8px; height:8px; border-radius:50%; background:#1f9d57; margin-right:8px;
+           box-shadow:0 0 0 3px #1f9d5733;}
+.kpis {display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin:6px 0 14px;}
+.kpi {background:#fff; border:1px solid #e1e5ee; border-radius:10px; padding:14px 16px;}
+.kpi .k-l {font-size:.78rem; color:#5e6678; font-weight:500;}
+.kpi .k-v {font-size:1.6rem; font-weight:700; color:#101a3a; margin:4px 0 2px; font-variant-numeric:tabular-nums;}
+.kpi .k-s {font-size:.76rem; color:#8a91a1;}
+.kpi.good {border-color:#bfe3cd; background:#f3fbf6;} .kpi.good .k-v {color:#146c3d;}
+.flow {display:flex; align-items:center; background:#fff; border:1px solid #e1e5ee; border-radius:10px; padding:12px 16px; margin-bottom:18px;}
+.flow .fs {flex:1; text-align:center;} .flow .fa {color:#b3b9c6; font-size:1.4rem; padding:0 4px;}
+.flow .fv {font-size:1.25rem; font-weight:700; color:#101a3a; font-variant-numeric:tabular-nums;}
+.flow .fl {font-size:.78rem; color:#6b7385;}
+.flow .fs.hi .fv {color:#1F4E8C;}
+.chart-t {font-weight:600; color:#101a3a; font-size:1rem; margin:6px 0 2px;}
+.leg {display:inline-flex; align-items:center; margin:0 14px 4px 0; font-size:.82rem; color:#3b4459;}
+.leg i {display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px;}
+table.q {width:100%; border-collapse:separate; border-spacing:0; background:#fff; border:1px solid #e1e5ee; border-radius:10px;
+         overflow:hidden; font-size:.88rem;}
+table.q th {background:#f2f4f9; color:#4a5468; font-weight:600; text-align:left; padding:10px 12px; font-size:.78rem;
+            text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid #e1e5ee;}
+table.q td {padding:10px 12px; border-bottom:1px solid #eef0f5; color:#1c2333;}
+table.q tr:last-child td {border-bottom:none;} table.q tr:hover td {background:#f8f9fc;}
+table.q td.num {text-align:right; font-variant-numeric:tabular-nums;} table.q td.cid {font-family:'IBM Plex Mono',monospace; font-weight:500;}
+table.q td.rec {font-weight:600; color:#101a3a;}
+.tp {display:inline-block; padding:2px 10px; border-radius:999px; font-size:.78rem; font-weight:600; color:var(--c);
+     background:color-mix(in srgb, var(--c) 12%, white); border:1px solid color-mix(in srgb, var(--c) 30%, white);}
+.bd {display:inline-block; padding:2px 9px; border-radius:6px; font-size:.74rem; font-weight:600;}
+.bd.PASS {background:#e9f6ee; color:#146c3d;} .bd.REVISE {background:#fff4e0; color:#8a5a00;} .bd.REJECT {background:#fdecea; color:#a2281b;}
+.bd.cHIGH {background:#e8eefb; color:#1F4E8C;} .bd.cMEDIUM {background:#f3f0fa; color:#5b4690;} .bd.cLOW {background:#f1f2f5; color:#5e6678;}
+.block-container h3 {border-top:1px solid #e1e5ee; padding-top:22px !important; margin-top:26px !important; color:#101a3a;}
+[data-testid="stExpander"] {background:#fff; border:1px solid #e1e5ee !important; border-radius:10px;}
+[data-testid="stExpander"] summary p {font-weight:600; color:#1c2b4a;}
+.masthead .badge span {background:#fff; color:#4a5468;}
+.cf-head {display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin:6px 0 14px;}
+.cf-status {background:#fff; border:1px solid #e1e5ee; border-radius:10px; padding:12px 18px; text-align:right; min-width:220px;}
+.cf-rec {font-size:1.35rem; font-weight:700; color:#a2281b; margin:2px 0;}
+.cf-grid {display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:12px; margin-bottom:16px;}
+.cf-card {background:#fff; border:1px solid #e1e5ee; border-radius:10px; padding:14px 16px; border-top:3px solid #4c7dff;}
+.cf-card.sus {border-top-color:#ff3b30;} .cf-card.in {border-top-color:#35c28a;} .cf-card.out {border-top-color:#f0a53a;}
+.cf-name {font-size:1.3rem; font-weight:700; color:#101a3a; margin:4px 0;}
+.cf-row {display:flex; justify-content:space-between; font-size:.88rem; padding:5px 0; border-bottom:1px dashed #eceef3; color:#2a3242;}
+.cf-row:last-child {border-bottom:none;} .cf-row b {font-variant-numeric:tabular-nums; color:#101a3a;}
+.cf-sum {background:#fff; border:1px solid #e1e5ee; border-left:4px solid #1F4E8C; border-radius:10px; padding:14px 16px; font-size:.95rem; color:#1c2333; line-height:1.5;}
+[data-testid="stPlotlyChart"] {border-radius:12px; overflow:hidden;}
+@media (max-width: 1000px) {.kpis {grid-template-columns:repeat(3,1fr);} .flow {flex-wrap:wrap;}}
 @media (max-width: 800px) {.masthead .badge {display:none;} .masthead .hi {font-size:1.3rem;} .band:after,.band:before {display:none;}}
 </style>
 """, unsafe_allow_html=True)
@@ -324,14 +386,12 @@ def case_label(c):
 # --------------------------------------------------------------- header ---
 
 st.markdown("""
-<div class="util"><span>Prototype demonstration · Not an official government or bank website</span>
-<span>IGNITRRON'26 · Project J.A.R.V.I.S. · Problem FC-02</span></div>
 <div class="tricolor"></div>
 <div class="masthead">
   <div class="logo">🌀</div>
   <div><div class="hi">चक्रव्यूह</div>
        <div class="en"><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal</div></div>
-  <div class="badge"><span>Team Tech Coders (7-300)</span><span>Fintech &amp; Cyber</span></div>
+  <div class="badge"><span>Consortium · Bank A · Bank B</span><span>Screening run · 19 Sep 2026</span></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -340,7 +400,7 @@ def pagetitle(text):
 
 
 def helpbox(text):
-    st.markdown(f'<div class="help">💡 {text}</div>', unsafe_allow_html=True)
+    return None      # guidance lives in the page titles; kept as a no-op so call sites stay simple
 
 with st.sidebar:
     st.header("Officer decision log")
@@ -354,8 +414,8 @@ with st.sidebar:
     else:
         st.caption("No decisions yet. Open a case in the Cases tab.")
 
-tabs = st.tabs(["⚔️ War Room", "Overview", "1 · Identity", "2 · Network & cross-bank", "3 · Detectors",
-                "4 · Cases", "Scorecard"])
+tabs = st.tabs(["Dashboard", "Case Queue", "Case File", "AI War Room", "Cross-Bank View", "Identity",
+                "Detection Rules", "Accuracy"])
 
 # ------------------------------------------------------------ war room ---
 TOOL_LOOK = {
@@ -481,7 +541,7 @@ def war_graph(item_id, lg, upto):
     return draw(nodes, [(u, v, c_, w) for (u, v), (c_, w) in agg.items()], 440)
 
 
-with tabs[0]:
+with tabs[3]:
     st.markdown('<div class="band"><h2>The War Room</h2><p>Three AI agents, one chain of command. '
                 'The detectors find the patterns. DRONA decides where to look, SANJAYA writes the case, '
                 'VIDURA argues the innocent side. A human officer makes the call.</p></div>', unsafe_allow_html=True)
@@ -506,12 +566,11 @@ with tabs[0]:
         k[3].metric("Facts confirmed by code", f"{m['facts_confirmed']} / {m['facts_checked']}")
         k[4].metric("AI mistakes blocked", m["blocked_citations"])
         k[5].metric("Filed automatically", 0)
-        st.caption(f"{m['cases']} cases + {m['weak_signals']} weak signals · {m['evidence_tool_calls']} of the tool calls were "
-                   f"evidence lookups · mistakes are rejected by code before any officer sees them · every decision goes to a human.")
 
-        st.markdown("#### DRONA's triage")
-        st.caption("DRONA ordered the queue himself and wrote down why. The final column is his recommendation, not a filing.")
-        st.dataframe(pd.DataFrame([{
+
+        _tri = st.expander(f"DRONA's triage: how he ordered all {m['items']} items, and why", expanded=False)
+        _tri.caption("DRONA ordered the queue himself and wrote down why. The final column is his recommendation, not a filing.")
+        _tri.dataframe(pd.DataFrame([{
             "#": i, "Item": t["item"], "Type": ilog["items"][t["item"]]["kind"].replace("_", " ").title(),
             "Why this position": t["reason"],
             "Tool calls": len(ilog["items"][t["item"]]["steps"]),
@@ -568,47 +627,329 @@ with tabs[0]:
         if lg["blocked"]:
             st.caption(f"🛑 DRONA tried to cite {sum(len(b.get('invalid_ids', [])) + len(b.get('invalid_amounts', [])) for b in lg['blocked'])} "
                        f"ID(s) or amount(s) that no tool had shown him. Code rejected them and he had to try again.")
-        st.markdown('<div class="note">Guardrails are code, not promises: DRONA has no tool that can create a finding '
-                    'or a case, cannot cite an ID his tools did not show him, must look at evidence before deciding, '
-                    'and cannot recommend filing a report VIDURA rejected.</div>', unsafe_allow_html=True)
-        st.caption(f"Recorded {m['generated_at']} · DRONA {m['commander_model']} · SANJAYA/VIDURA {m['writer_model']} · "
-                   f"replayed from investigation_log.json, no live API call.")
+        st.caption("Replayed from the saved investigation log. No live AI call is made during the demo.")
 
-# ------------------------------------------------------------- overview ---
-with tabs[1]:
-    st.markdown('<div class="band"><h2>Detect. Connect. Confirm.</h2><p>Banks see one transaction at a time. '
-                'Chakravyuh joins accounts into real people, people into networks, and networks into '
-                'evidence-backed cases for the investigating officer.</p></div>', unsafe_allow_html=True)
-    pagetitle("We score networks, not transactions")
-    helpbox("New here? Start in the War Room, then Identity, Network, Detectors, Cases, Scorecard.")
-    st.write("Banks check one transaction at a time, so they cannot see money that is passed through "
-             "many accounts to hide it. Chakravyuh joins the dots and hands the officer a finished, "
-             "evidence-backed case instead of a pile of alerts.")
-    c = st.columns(5)
-    c[0].metric("Transactions", f"{len(D['tx']):,}")
-    c[1].metric("Real people (from 2,500 accounts)", f"{len(D['attrs']):,}")
-    c[2].metric("Detector findings", len(D["findings"]))
-    c[3].metric("Cases", len(cases))
-    c[4].metric("Rings caught", f"{sum(1 for v in per_ring.values() if v[2])} / {len(per_ring)}")
+# ------------------------------------------------------------ dashboard ---
+TYPO = {"CIRCLE": "Round-tripping", "SPRAY": "Mule network", "THRESHOLD": "Structuring", "SPEED": "Rapid layering"}
+TYPO_COL = {"Round-tripping": "#1F4E8C", "Mule network": "#C8553D", "Structuring": "#2E7D5B", "Rapid layering": "#7B5EA7"}
 
-    st.markdown("#### The pipeline")
-    steps = [("1 · Data", "80,000 bank transactions with 12 hidden laundering rings"),
-             ("2 · Identity", "Scattered customer records merged into real people"),
-             ("3 · Graph", "People are nodes, money is edges. Four views incl. cross-bank"),
-             ("4 · Detectors", "Circle, Spray, Speed, Threshold. Deterministic, no AI"),
-             ("5 · Cases", "Findings merged into one case per crime, with context")]
-    cols = st.columns(5)
-    for col, (h, p) in zip(cols, steps):
-        col.markdown(f'<div class="card"><h4>{h}</h4><p>{p}</p></div>', unsafe_allow_html=True)
-    st.write("")
-    st.markdown("**Design principle:** detection is deterministic and re-checkable by hand. "
-                "Every finding names the exact transactions that prove it.")
-    st.markdown("**Suggested tour:** Identity → Network & cross-bank (the hero ring) → Detectors → "
-                "Cases (C001) → Scorecard.")
+
+def typology(dets):
+    for d in ("CIRCLE", "SPRAY", "THRESHOLD", "SPEED"):
+        if d in dets:
+            return TYPO[d]
+    return "Other"
+
+
+def moved_raw(c):
+    if "CIRCLE" in c["detectors_fired"]:
+        return float(D["full"].set_index("txn_id").loc[c["evidence_txn_ids"], "amount"].max())
+    return float(c["total_evidence_amount"])
+
+
+def _fig_style(fig, h):
+    fig.update_layout(height=h, margin=dict(l=8, r=8, t=8, b=8), paper_bgcolor="white", plot_bgcolor="white",
+                      font=dict(family="IBM Plex Sans, system-ui, sans-serif", size=13, color="#1c2333"),
+                      showlegend=False)
+    return fig
+
+
+with tabs[0]:
+    rows = []
+    for c_ in cases:
+        dec = (ilog.get("items", {}).get(c_["case_id"], {}) if ilog else {}).get("decision", {})
+        wc_ = written_cases.get(c_["case_id"], {})
+        rows.append(dict(case=c_["case_id"], typ=typology(c_["detectors_fired"]), amt=moved_raw(c_),
+                         people=len(c_["core_people"]), accts=len({a for p in c_["core_people"] for a in p["accounts"]}),
+                         banks="Both" if c_["crosses_banks"] else c_["banks_involved"][0].replace("BANK_", "Bank "),
+                         verdict=wc_.get("verification", {}).get("verdict", "—"),
+                         conf=wc_.get("final_confidence", "—"),
+                         rec=dec.get("decision", "—").replace("_", " "), hours=c_["hours_spanned"]))
+    dfq = pd.DataFrame(rows)
+    at_risk = dfq["amt"].sum()
+    ev_ids = sorted({t for c_ in cases for t in c_["evidence_txn_ids"]})
+    evb = D["full"].set_index("txn_id").loc[ev_ids, ["from_bank", "to_bank"]]
+    seen_a = ((evb["from_bank"] == "BANK_A") | (evb["to_bank"] == "BANK_A")).mean()
+    seen_b = ((evb["from_bank"] == "BANK_B") | (evb["to_bank"] == "BANK_B")).mean()
+    cs_sum = relationships.get("case_summary", {})
+    cg_sum = relationships.get("control_group", {})
+    m_ = ilog.get("meta", {}) if ilog else {}
+
+    st.markdown(f"""
+<div class="dash-head">
+  <div><div class="eyebrow-s">Screening summary · run of 19 Sep 2026 · Bank A + Bank B consortium</div>
+       <div class="dash-title">{len(cases)} suspicious networks found in {len(D['tx']):,} transactions</div>
+       <div class="dash-sub">Every case below is backed by the exact transactions that prove it, investigated by AI,
+       fact-checked by code, and waiting for an officer's decision.</div></div>
+  <div class="status-chip"><span class="dot-live"></span>All {len(cases)} reports verified</div>
+</div>
+<div class="kpis">
+  <div class="kpi"><div class="k-l">Transactions screened</div><div class="k-v">{len(D['tx']):,}</div><div class="k-s">30 days · 2 banks</div></div>
+  <div class="kpi"><div class="k-l">Customers resolved</div><div class="k-v">{len(D['attrs']):,}</div><div class="k-s">from 2,500 accounts</div></div>
+  <div class="kpi"><div class="k-l">Suspicious networks</div><div class="k-v">{len(cases)}</div><div class="k-s">11 of 12 hidden rings</div></div>
+  <div class="kpi"><div class="k-l">Value at risk</div><div class="k-v">{inr(at_risk)}</div><div class="k-s">money moved in these networks</div></div>
+  <div class="kpi"><div class="k-l">STR drafts ready</div><div class="k-v">{sum(1 for r in rows if r['verdict'] == 'PASS')}</div><div class="k-s">passed independent review</div></div>
+  <div class="kpi good"><div class="k-l">False positives</div><div class="k-v">0</div><div class="k-s">industry norm: 85–95%</div></div>
+</div>
+<div class="flow">
+  <div class="fs"><div class="fv">{len(D['tx']):,}</div><div class="fl">transactions</div></div><div class="fa">›</div>
+  <div class="fs"><div class="fv">{len(D['findings'])}</div><div class="fl">pattern findings</div></div><div class="fa">›</div>
+  <div class="fs"><div class="fv">{len(cases)}</div><div class="fl">cases, one per network</div></div><div class="fa">›</div>
+  <div class="fs"><div class="fv">{m_.get('facts_confirmed', '—')}</div><div class="fl">facts checked by code</div></div><div class="fa">›</div>
+  <div class="fs hi"><div class="fv">{len(cases)}</div><div class="fl">reports for the officer</div></div>
+</div>
+""", unsafe_allow_html=True)
+
+    g1, g2 = st.columns([2, 3])
+    with g1:
+        st.markdown('<div class="chart-t">Cases by laundering method</div>', unsafe_allow_html=True)
+        tc = dfq["typ"].value_counts()
+        fig = go.Figure(go.Pie(labels=tc.index, values=tc.values, hole=.62, sort=False,
+                               marker=dict(colors=[TYPO_COL.get(t, "#999") for t in tc.index], line=dict(color="white", width=2)),
+                               textinfo="value", textfont=dict(size=14, color="white"),
+                               hovertemplate="%{label}: %{value} case(s)<extra></extra>"))
+        fig.add_annotation(text=f"<b>{len(cases)}</b><br><span style='font-size:12px;color:#5e6470'>cases</span>",
+                           showarrow=False, font=dict(size=26, color="#1c2333"))
+        _fig_style(fig, 250)
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False}, key="d_pie")
+        st.markdown("".join(f'<span class="leg"><i style="background:{TYPO_COL[t]}"></i>{t}</span>' for t in tc.index),
+                    unsafe_allow_html=True)
+    with g2:
+        st.markdown('<div class="chart-t">Money moved per case</div>', unsafe_allow_html=True)
+        d2 = dfq.sort_values("amt")
+        fig = go.Figure(go.Bar(x=d2["amt"] / 1e5, y=d2["case"], orientation="h",
+                               marker=dict(color=[TYPO_COL.get(t, "#999") for t in d2["typ"]]),
+                               text=[inr(a) for a in d2["amt"]], textposition="outside", cliponaxis=False,
+                               hovertemplate="%{y}: %{text}<extra></extra>"))
+        _fig_style(fig, 300)
+        fig.update_xaxes(title=None, showgrid=True, gridcolor="#eef0f4", ticksuffix=" L", zeroline=False,
+                         range=[0, float(d2["amt"].max()) / 1e5 * 1.28])
+        fig.update_yaxes(title=None)
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False}, key="d_bar")
+        st.caption("For round-tripping, the amount is the principal that went round the loop. L = lakh.")
+
+    g3, g4 = st.columns(2)
+    with g3:
+        st.markdown('<div class="chart-t">What one bank alone can see</div>', unsafe_allow_html=True)
+        vis = pd.DataFrame({"who": ["Bank A alone", "Bank B alone", "Consortium"],
+                            "pct": [seen_a * 100, seen_b * 100, 100.0]})
+        fig = go.Figure(go.Bar(x=vis["pct"], y=vis["who"], orientation="h",
+                               marker=dict(color=["#9AA7BF", "#9AA7BF", "#1F4E8C"]),
+                               text=[f"{p:.0f}%" for p in vis["pct"]], textposition="inside",
+                               insidetextanchor="end", textfont=dict(color="white", size=14),
+                               hovertemplate="%{y}: %{x:.0f}% of suspicious transfers<extra></extra>"))
+        _fig_style(fig, 190)
+        fig.update_xaxes(range=[0, 100], ticksuffix="%", showgrid=True, gridcolor="#eef0f4")
+        fig.update_yaxes(autorange="reversed")
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False}, key="d_vis")
+        st.caption("Share of the suspicious transfers each party can see. Banks share only hashed IDs, never customer data.")
+    with g4:
+        st.markdown('<div class="chart-t">Relationship red flags: cases vs ordinary customers</div>', unsafe_allow_html=True)
+        fig = go.Figure(go.Bar(x=[cs_sum.get("avg_signals_per_case", 0), cg_sum.get("avg_signals_per_group", 0)],
+                               y=["Suspicious cases", "Ordinary customers"], orientation="h",
+                               marker=dict(color=["#C8553D", "#9AA7BF"]),
+                               text=[f"{cs_sum.get('avg_signals_per_case', 0)} per case",
+                                     f"{cg_sum.get('avg_signals_per_group', 0)} per group"],
+                               textposition="outside", cliponaxis=False,
+                               hovertemplate="%{y}: %{x}<extra></extra>"))
+        _fig_style(fig, 190)
+        fig.update_xaxes(range=[0, 3.6], showgrid=True, gridcolor="#eef0f4")
+        fig.update_yaxes(autorange="reversed")
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False}, key="d_rf")
+        st.caption("Fresh accounts, one person behind many accounts, first-ever contact, shared phones, bank blind spots. "
+                   f"Measured on {cg_sum.get('groups', 0)} random customer groups.")
+
+    st.markdown('<div class="chart-t" style="margin-top:6px">Case queue: highest priority first</div>', unsafe_allow_html=True)
+    body = ""
+    for r in rows:
+        body += (f"<tr><td class='cid'>{r['case']}</td>"
+                 f"<td><span class='tp' style='--c:{TYPO_COL.get(r['typ'], '#999')}'>{r['typ']}</span></td>"
+                 f"<td class='num'>{inr(r['amt'])}</td><td class='num'>{r['accts']}</td><td>{r['banks']}</td>"
+                 f"<td class='num'>{r['hours']:.1f} h</td>"
+                 f"<td><span class='bd {r['verdict']}'>{r['verdict']}</span></td>"
+                 f"<td><span class='bd c{r['conf']}'>{r['conf']}</span></td>"
+                 f"<td class='rec'>{r['rec']}</td></tr>")
+    st.markdown(f"<table class='q'><thead><tr><th>Case</th><th>Pattern</th><th>Amount</th><th>Accounts</th><th>Banks</th>"
+                f"<th>Duration</th><th>Review</th><th>Confidence</th><th>AI recommends</th></tr></thead>"
+                f"<tbody>{body}</tbody></table>", unsafe_allow_html=True)
+
+
+# ------------------------------------------------------------- case file ---
+def main_suspect(c):
+    """The person the money story starts from. Circle / chain: whoever sent the first
+    evidence transfer. Mule network: whoever paid the most distinct accounts.
+    Structuring: whoever received the deposits. Deterministic, no AI."""
+    rec = D["rec_by_id"]
+    ev = sorted((rec[t] for t in c["evidence_txn_ids"] if t in rec), key=lambda r: r.ts_str)
+    core = {p["entity_key"] for p in c["core_people"]}
+    if not ev:
+        return c["core_people"][0]["entity_key"], "core person"
+    d = c["detectors_fired"]
+    if "SPRAY" in d:
+        outs = {}
+        for r in ev:
+            outs.setdefault(r.from_ent, set()).add(r.to_ent)
+        who = max(outs, key=lambda k: len(outs[k]))
+        return who, f"paid {len(outs[who])} different people"
+    if "THRESHOLD" in d and "CIRCLE" not in d:
+        cnt = {}
+        for r in ev:
+            cnt[r.to_ent] = cnt.get(r.to_ent, 0) + 1
+        who = max(cnt, key=cnt.get)
+        return who, f"received {cnt[who]} deposits just under the limit"
+    who = ev[0].from_ent if ev[0].from_ent in core else next(iter(core))
+    return who, ("sent the money that came back to them" if "CIRCLE" in d else "started the chain")
+
+
+def money_flow_3d(c, suspect):
+    """3D money-flow graph: sources on the left, the network in the middle, destinations
+    on the right. Drag to rotate, scroll to zoom, right-drag to pan."""
+    import math
+    import networkx as _nx
+    rec = D["rec_by_id"]
+    core = {p["entity_key"] for p in c["core_people"]}
+    ins = {p["entity_key"]: p for p in c["context_people"] if p["direction"] == "IN" and p["entity_key"] not in core}
+    outs = {p["entity_key"]: p for p in c["context_people"] if p["direction"] == "OUT" and p["entity_key"] not in core}
+    G = _nx.Graph()
+    G.add_nodes_from(core)
+    for t in c["evidence_txn_ids"]:
+        r = rec.get(t)
+        if r and r.from_ent in core and r.to_ent in core and r.from_ent != r.to_ent:
+            G.add_edge(r.from_ent, r.to_ent)
+    p3 = _nx.spring_layout(G, dim=3, seed=7) if len(G) > 1 else {n: (0, 0, 0) for n in G}
+    pos = {n: (float(v[0]) * 2.2, float(v[1]) * 2.2, float(v[2]) * 2.2) for n, v in p3.items()}
+    if suspect in pos and len(core) > 8:          # hub-shaped networks: put the suspect at the centre
+        cx, cy, cz = pos[suspect]
+        pos = {n: (x - cx, y - cy, z - cz) for n, (x, y, z) in pos.items()}
+    for grp, x0 in ((ins, -4.2), (outs, 4.2)):
+        ks = sorted(grp)
+        for i, k in enumerate(ks):
+            ang = 2 * math.pi * i / max(len(ks), 1)
+            pos[k] = (x0, 1.6 * math.cos(ang), 1.6 * math.sin(ang))
+
+    edges = {}
+    for kind, ids in (("ev", c["evidence_txn_ids"]), ("ctx", c["context_txn_ids"])):
+        for t in ids:
+            r = rec.get(t)
+            if not r or r.from_ent == r.to_ent or r.from_ent not in pos or r.to_ent not in pos:
+                continue
+            k = (r.from_ent, r.to_ent)
+            e = edges.setdefault(k, {"kind": kind, "amt": 0.0, "n": 0})
+            e["amt"] += r.amount
+            e["n"] += 1
+    fig = go.Figure()
+    col = {"ev": "#ff5a4f", "in": "#35c28a", "out": "#f0a53a"}
+    for (u, v), e in edges.items():
+        kind = e["kind"] if e["kind"] == "ev" else ("in" if u in ins else "out")
+        (x0, y0, z0), (x1, y1, z1) = pos[u], pos[v]
+        fig.add_trace(go.Scatter3d(x=[x0, x1], y=[y0, y1], z=[z0, z1], mode="lines",
+                                   line=dict(color=col[kind], width=6 if kind == "ev" else 3),
+                                   hoverinfo="text", showlegend=False,
+                                   text=f"{D['names'].get(u, u).title()} → {D['names'].get(v, v).title()}"
+                                        f"<br>{e['n']} transfer(s) · {_format_inr(e['amt'])['words']}"))
+        fig.add_trace(go.Cone(x=[x0 + (x1 - x0) * .72], y=[y0 + (y1 - y0) * .72], z=[z0 + (z1 - z0) * .72],
+                              u=[x1 - x0], v=[y1 - y0], w=[z1 - z0], sizemode="absolute", sizeref=.22, anchor="tip",
+                              colorscale=[[0, col[kind]], [1, col[kind]]], showscale=False, hoverinfo="skip"))
+
+    def node_trace(keys, color, size, label, show_text=True):
+        keys = [k for k in keys if k in pos]
+        if not keys:
+            return
+        fig.add_trace(go.Scatter3d(
+            x=[pos[k][0] for k in keys], y=[pos[k][1] for k in keys], z=[pos[k][2] for k in keys],
+            mode="markers+text", name=label,
+            marker=dict(size=size, color=color, line=dict(color="rgba(255,255,255,.85)", width=2), opacity=.97),
+            text=[D["names"].get(k, k).title()[:18] if show_text else "" for k in keys], textposition="top center",
+            textfont=dict(color="#dfe6f5", size=11),
+            hovertext=[f"<b>{D['names'].get(k, k).title()}</b><br>{label}" for k in keys], hoverinfo="text"))
+    node_trace(sorted(ins), "#35c28a", 7, "Money came from")
+    node_trace(sorted(core - {suspect}), "#4c7dff", 10, "In the network", show_text=len(core) <= 10)
+    node_trace(sorted(outs), "#f0a53a", 7, "Money went to")
+    node_trace([suspect], "#ff3b30", 22, "Main suspect")
+
+    ax = dict(visible=False, showbackground=False)
+    frames = [go.Frame(layout=dict(scene_camera=dict(eye=dict(x=1.6 * math.cos(a), y=1.6 * math.sin(a), z=.6))))
+              for a in [i * 2 * math.pi / 60 for i in range(61)]]
+    fig.frames = frames
+    fig.update_layout(
+        height=560, margin=dict(l=0, r=0, t=0, b=0), paper_bgcolor="#0b1330",
+        scene=dict(xaxis=ax, yaxis=ax, zaxis=ax, bgcolor="#0b1330", aspectmode="cube",
+                   camera=dict(eye=dict(x=1.35, y=-0.95, z=.6))),
+        legend=dict(orientation="h", y=.02, x=.02, font=dict(color="#dfe6f5", size=12), bgcolor="rgba(0,0,0,0)"),
+        font=dict(family="IBM Plex Sans, sans-serif"),
+        updatemenus=[dict(type="buttons", showactive=False, x=.98, y=.97, xanchor="right", yanchor="top",
+                          bgcolor="#1c2b5a", bordercolor="#3a4d86", font=dict(color="#ffffff", size=12),
+                          buttons=[dict(label="⟳  Rotate", method="animate",
+                                        args=[None, dict(frame=dict(duration=70, redraw=True), fromcurrent=True,
+                                                         transition=dict(duration=0), mode="immediate")]),
+                                   dict(label="❚❚  Pause", method="animate",
+                                        args=[[None], dict(frame=dict(duration=0, redraw=False), mode="immediate")])])])
+    return fig
+
+
+with tabs[2]:
+    pagetitle("Case file")
+    cf_ids = [x["case_id"] for x in cases]
+    cf_pick = st.selectbox("Case", cf_ids, index=0, key="cf_pick",
+                           format_func=lambda i: case_label(next(x for x in cases if x["case_id"] == i)))
+    cf = next(x for x in cases if x["case_id"] == cf_pick)
+    sus, why_sus = main_suspect(cf)
+    wc_cf = written_cases.get(cf["case_id"], {})
+    dec_cf = (ilog.get("items", {}).get(cf["case_id"], {}) if ilog else {}).get("decision", {})
+    lab_cf, amt_cf, note_cf = moved(cf["evidence_txn_ids"], cf["detectors_fired"], cf["total_evidence_amount"])
+    typ_cf = typology(cf["detectors_fired"])
+    ins_cf = sorted((p for p in cf["context_people"] if p["direction"] == "IN"), key=lambda p: -p["amount"])
+    outs_cf = sorted((p for p in cf["context_people"] if p["direction"] == "OUT"), key=lambda p: -p["amount"])
+    sus_p = next((p for p in cf["core_people"] if p["entity_key"] == sus), {"name": D["names"].get(sus, sus), "accounts": []})
+
+    st.markdown(f"""
+<div class="cf-head">
+  <div><div class="eyebrow-s">Case {cf['case_id']} · {cf['first_timestamp'][:16]} → {cf['last_timestamp'][:16]}</div>
+       <div class="dash-title">{typ_cf} · {amt_cf}{' cycled' if 'CIRCLE' in cf['detectors_fired'] else ''}</div>
+       <div class="dash-sub">{len(cf['core_people'])} people · {len(cf['evidence_txn_ids'])} evidence transfers ·
+       {cf['hours_spanned']:.1f} hours · {'crosses both banks' if cf['crosses_banks'] else 'one bank'}</div></div>
+  <div class="cf-status"><div class="k-l">AI recommends</div><div class="cf-rec">{dec_cf.get('decision', '—').replace('_', ' ')}</div>
+       <div class="k-s">Review {wc_cf.get('verification', {}).get('verdict', '—')} · confidence {wc_cf.get('final_confidence', '—')}</div></div>
+</div>
+<div class="cf-grid">
+  <div class="cf-card sus"><div class="k-l">Main suspect</div><div class="cf-name">{str(sus_p['name']).title()}</div>
+       <div class="k-s">{why_sus} · {len(sus_p.get('accounts', []))} account(s): {', '.join(sus_p.get('accounts', []))}</div></div>
+  <div class="cf-card in"><div class="k-l">Money came from</div>
+       {''.join(f"<div class='cf-row'><span>{p['name'].title()[:26]}</span><b>{inr(p['amount'])}</b></div>" for p in ins_cf[:3]) or "<div class='k-s'>No outside source: the money started inside the network</div>"}</div>
+  <div class="cf-card out"><div class="k-l">Money went to</div>
+       {''.join(f"<div class='cf-row'><span>{p['name'].title()[:26]}</span><b>{inr(p['amount'])}</b></div>" for p in outs_cf[:3]) or "<div class='k-s'>No outside destination: the money stayed inside the network</div>"}</div>
+</div>
+""", unsafe_allow_html=True)
+
+    st.markdown('<div class="chart-t">Money trail in 3D</div>', unsafe_allow_html=True)
+    st.caption("Drag to rotate · scroll to zoom · right-drag to move · press Rotate for a slow orbit. "
+               "Green = where the money came from, blue = the network, amber = where it went, red = main suspect.")
+    st.plotly_chart(money_flow_3d(cf, sus), width="stretch", key=f"cf3d_{cf['case_id']}",
+                    config={"displaylogo": False, "modeBarButtonsToRemove": ["toImage"]})
+
+    tcol, scol = st.columns([3, 2])
+    with tcol:
+        st.markdown('<div class="chart-t">Evidence transfers over time</div>', unsafe_allow_html=True)
+        evt = D["full"][D["full"]["txn_id"].isin(cf["evidence_txn_ids"])].sort_values("timestamp")
+        figt = go.Figure(go.Scatter(x=evt["timestamp"], y=evt["amount"] / 1e5,
+                                    mode="lines+markers" if len(evt) <= 12 else "markers",
+                                    line=dict(color="#1F4E8C", width=2),
+                                    marker=dict(size=8, color="#C8553D", line=dict(color="white", width=1)),
+                                    text=[f"{a} → {b}<br>{_format_inr(v)['digits']}" for a, b, v in
+                                          zip(evt["from_account"], evt["to_account"], evt["amount"])],
+                                    hovertemplate="%{x}<br>%{text}<extra></extra>"))
+        _fig_style(figt, 260)
+        figt.update_yaxes(title=None, ticksuffix=" L", gridcolor="#eef0f4")
+        figt.update_xaxes(gridcolor="#eef0f4")
+        st.plotly_chart(figt, width="stretch", config={"displayModeBar": False}, key=f"cft_{cf['case_id']}")
+    with scol:
+        st.markdown('<div class="chart-t">In one line</div>', unsafe_allow_html=True)
+        st.markdown(f"<div class='cf-sum'>{wc_cf.get('narrative', {}).get('summary', '')}</div>", unsafe_allow_html=True)
+        st.caption("Full report, evidence table and the approve button are in Case Queue.")
 
 # ------------------------------------------------------------- identity ---
-with tabs[2]:
-    pagetitle("Step 1 · Who is really behind these accounts?")
+with tabs[5]:
+    pagetitle("Identity · who is really behind these accounts?")
     helpbox("Pick a person. Left: the messy records banks hold. Right: the one real person we merged them into.")
     st.write("The same person shows up in several bank systems, spelled differently and with fields missing. "
              "Until those records are merged, a laundering circle looks like strangers paying each other.")
@@ -647,8 +988,8 @@ with tabs[2]:
                "Different PANs can never be merged; probable links are flagged and never chained.")
 
 # -------------------------------------------------------------- network ---
-with tabs[3]:
-    pagetitle("Step 2 · One ring, four points of view")
+with tabs[4]:
+    pagetitle("Cross-bank view · one ring, four points of view")
     helpbox("Choose a viewpoint below the table. Watch the ring appear or vanish depending on who is looking.")
     s = D["stats"]
     base = s["ALL"]["num_connections"]
@@ -720,8 +1061,8 @@ with tabs[3]:
         hide_index=True, width="stretch")
 
 # ------------------------------------------------------------ detectors ---
-with tabs[4]:
-    pagetitle("Step 3 · Four deterministic detectors")
+with tabs[6]:
+    pagetitle("Detection rules · deterministic, no AI")
     helpbox("Filter the findings, then pick one at the bottom to see the exact transactions that prove it.")
     st.write("No AI, no randomness. The same input always gives the same findings and each one lists "
              "the exact transactions that prove it.")
@@ -762,12 +1103,9 @@ with tabs[4]:
         b.dataframe(txn_table(f["txn_ids"]), hide_index=True, width="stretch", height=250)
 
 # ---------------------------------------------------------------- cases ---
-with tabs[5]:
-    pagetitle("Step 4 · One case per crime")
-    helpbox("Start with C001, the hero ring. Scroll down for the graph, evidence, the map and the officer decision.")
-    st.write(f"**{len(D['findings'])} findings became {len(cases)} cases** "
-             f"(+{len(D['review'])} watchlist review item). Overlapping findings are merged; each case keeps "
-             f"its evidence, background and one ring of context.")
+with tabs[1]:
+    pagetitle(f"Case queue · {len(cases)} cases awaiting an officer's decision")
+    helpbox("Pick a case below. Each case shows the money trail, the unusual relationships, the AI report and its review, then your decision.")
     st.dataframe(pd.DataFrame([{
         "Case": c["case_id"], "Queue priority": f"{c['priority_level']} ({c['priority_score']})",
         "Detectors": " + ".join(c["detectors_fired"]),
@@ -826,29 +1164,30 @@ with tabs[5]:
                     nd["label"] = ""
         st.plotly_chart(draw(nodes, [(u, v, col, w) for (u, v), (col, w) in agg.items()], 470),
                         width="stretch")
-        st.caption("Red arrows = evidence (proven claims) · pale = background · blue = context money in/out. "
-                   "Red dots are watchlisted, blue are core, grey are context (not accused, unless the hover says "
-                   "they are accused in another case).")
+        st.caption("Red = evidence transfers · blue = money in or out of the network · grey = context, not accused.")
     with pcol:
-        st.markdown("**Why this queue position** (order of work only; the evidence is below)")
-        for line in c["priority_reason"]:
-            st.write("• " + inr_text(line))
-        st.markdown("**Linked cases**")
-        if c.get("linked_cases"):
-            for l in c["linked_cases"]:
-                st.write(f"• {l['case_id']} via {l['via_person']} (money {l['direction']}, "
-                         f"{_format_inr(l['amount'])['digits']})")
-            st.caption("Different rings; money connects them. They are not merged.")
-        else:
-            st.caption("None. No context person here is accused in another case.")
-        st.markdown("**Findings merged into this case**")
+        st.markdown("**Why it was flagged**")
         for fid in c["finding_ids"]:
             f = next(x for x in D["findings"] if x["finding_id"] == fid)
-            st.write(f"• `{fid}` {f['detector']}: {inr_text(f['reason'])}")
-        if c["watchlist_signals"]:
-            st.markdown("**Watchlist signals (hints, not evidence)**")
-            for w in c["watchlist_signals"]:
-                st.write("• " + inr_text(w["reason"]))
+            st.write(f"• {f['detector'].title()}: {inr_text(f['reason'])}")
+        _qx = st.expander("Queue priority, linked cases and hints")
+        with _qx:
+            st.markdown("**Queue priority** (order of work only)")
+            for line in c["priority_reason"]:
+                _m = _re.match(r"^\+(\d+)\s+(.*)$", inr_text(line))
+                st.write("• " + (f"{_m.group(2)} (+{_m.group(1)})" if _m else inr_text(line)))
+            st.markdown("**Linked cases**")
+            if c.get("linked_cases"):
+                for l in c["linked_cases"]:
+                    st.write(f"• {l['case_id']} via {l['via_person']} (money {l['direction']}, "
+                             f"{_format_inr(l['amount'])['digits']})")
+                st.caption("Different rings; money connects them. They are not merged.")
+            else:
+                st.caption("None. No context person here is accused in another case.")
+            if c["watchlist_signals"]:
+                st.markdown("**Watchlist signals (hints, not evidence)**")
+                for w in c["watchlist_signals"]:
+                    st.write("• " + inr_text(w["reason"]))
 
     t1, t2, t3, t4 = st.tabs(["Core people (accused)", "Context (see notes)", "Evidence transactions",
                               "Background (supporting)"])
@@ -870,39 +1209,37 @@ with tabs[5]:
                    "never counted as evidence.")
         st.dataframe(txn_table(c["supporting_txn_ids"]), hide_index=True, width="stretch")
 
-    st.markdown("**Where this case sits on the full network**")
-    st.caption(f"Every dot is one of the {len(D['all_layout']):,} real people. Grey = uninvolved. "
-               "Red = accused (core), amber = context, lines = money in this case.")
-    lay = D["all_layout"]
-    xs, ys = zip(*lay.values())
-    core_keys = {p["entity_key"] for p in c["core_people"]}
-    fig = go.Figure()
-    fig.add_trace(go.Scattergl(x=xs, y=ys, mode="markers", marker=dict(size=4, color="#cdd6e3"), hoverinfo="skip"))
-    lx, ly = [], []
-    for t in c["evidence_txn_ids"] + c["context_txn_ids"]:
-        r = D["rec_by_id"][t]
-        if r.from_ent in lay and r.to_ent in lay and r.from_ent != r.to_ent:
-            lx += [lay[r.from_ent][0], lay[r.to_ent][0], None]
-            ly += [lay[r.from_ent][1], lay[r.to_ent][1], None]
-    fig.add_trace(go.Scatter(x=lx, y=ly, mode="lines", line=dict(color="rgba(192,57,43,.45)", width=1.5), hoverinfo="skip"))
-    order = [n for n in c["highlight_nodes"] if n in lay]
-    fig.add_trace(go.Scatter(
-        x=[lay[n][0] for n in order], y=[lay[n][1] for n in order], mode="markers+text",
-        text=[D["names"][n].title()[:14] if (n in core_keys and len(core_keys) <= 6) else "" for n in order],
-        textposition="top center",
-        marker=dict(size=[14 if n in core_keys else 10 for n in order],
-                    color=[RED if n in core_keys else AMBER for n in order], line=dict(width=1.5, color="white")),
-        hovertext=[D["names"][n] + (" · accused" if n in core_keys else " · context") for n in order],
-        hoverinfo="text"))
-    fig.update_layout(height=420, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
-                      xaxis=dict(visible=False), yaxis=dict(visible=False))
-    st.plotly_chart(fig, width="stretch")
+    with st.expander(f"Where this case sits among all {len(D['all_layout']):,} customers"):
+        st.caption("Grey = uninvolved · red = accused · amber = context · lines = money in this case.")
+        lay = D["all_layout"]
+        xs, ys = zip(*lay.values())
+        core_keys = {p["entity_key"] for p in c["core_people"]}
+        fig = go.Figure()
+        fig.add_trace(go.Scattergl(x=xs, y=ys, mode="markers", marker=dict(size=4, color="#cdd6e3"), hoverinfo="skip"))
+        lx, ly = [], []
+        for t in c["evidence_txn_ids"] + c["context_txn_ids"]:
+            r = D["rec_by_id"][t]
+            if r.from_ent in lay and r.to_ent in lay and r.from_ent != r.to_ent:
+                lx += [lay[r.from_ent][0], lay[r.to_ent][0], None]
+                ly += [lay[r.from_ent][1], lay[r.to_ent][1], None]
+        fig.add_trace(go.Scatter(x=lx, y=ly, mode="lines", line=dict(color="rgba(192,57,43,.45)", width=1.5), hoverinfo="skip"))
+        order = [n for n in c["highlight_nodes"] if n in lay]
+        fig.add_trace(go.Scatter(
+            x=[lay[n][0] for n in order], y=[lay[n][1] for n in order], mode="markers+text",
+            text=[D["names"][n].title()[:14] if (n in core_keys and len(core_keys) <= 6) else "" for n in order],
+            textposition="top center",
+            marker=dict(size=[14 if n in core_keys else 10 for n in order],
+                        color=[RED if n in core_keys else AMBER for n in order], line=dict(width=1.5, color="white")),
+            hovertext=[D["names"][n] + (" · accused" if n in core_keys else " · context") for n in order],
+            hoverinfo="text"))
+        fig.update_layout(height=420, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
+                          xaxis=dict(visible=False), yaxis=dict(visible=False))
+        st.plotly_chart(fig, width="stretch")
 
     rel = relationships.get("cases", {}).get(c["case_id"])
     if rel:
         st.markdown("### Unusual account relationships")
-        st.caption("Relationship Lens: how the accounts in this case relate to each other, compared with "
-                   "what is normal across the whole bank. Adds evidence only; it never creates a case.")
+        st.caption("How the accounts in this case relate to each other, compared with what is normal across the bank.")
         if rel["signals"]:
             rc = st.columns(len(rel["signals"]))
             for col, s in zip(rc, rel["signals"]):
@@ -913,12 +1250,6 @@ with tabs[5]:
                 st.write("• " + s["sentence"])
         else:
             st.caption("No unusual relationships above the bank baseline for this case.")
-        cg = relationships.get("control_group", {})
-        cs = relationships.get("case_summary", {})
-        if cg:
-            st.caption(f"Sanity check: the same five checks fire {cs.get('avg_signals_per_case')} times per case, "
-                       f"but only {cg.get('avg_signals_per_group')} times per group across {cg.get('groups')} "
-                       f"random groups of ordinary customers.")
 
     st.markdown("### AI investigator report")
     wc = written_cases.get(c["case_id"])
@@ -940,8 +1271,11 @@ with tabs[5]:
             st.markdown(f'<div class="narrative-box"><h5>{label}</h5><p>{n.get(key, "")}</p></div>',
                        unsafe_allow_html=True)
         ac1, ac2 = st.columns(2)
+        _dr = (ilog.get("items", {}).get(c["case_id"], {}) if ilog else {}).get("decision", {}).get("decision", "")
         ac1.markdown(f'<div class="narrative-box"><h5>Recommended action</h5>'
-                     f'<p>{n.get("recommended_action", "")}</p></div>', unsafe_allow_html=True)
+                     f'<p><b>{_dr.replace("_", " ") or n.get("recommended_action", "")}</b> (DRONA, lead investigator)'
+                     f'<br><span style="color:#6b7385">Writer\'s first suggestion: '
+                     f'{str(n.get("recommended_action", "")).replace("_", " ")}</span></p></div>', unsafe_allow_html=True)
         ac2.markdown(f'<div class="narrative-box"><h5>Investigator confidence</h5>'
                      f'<p><b>{conf_level}</b> — {conf_reason}</p></div>', unsafe_allow_html=True)
 
@@ -971,8 +1305,7 @@ with tabs[5]:
             st.caption(v["notes"])
 
     st.markdown("### Officer decision")
-    st.markdown('<div class="note">The system recommends; the officer decides. Nothing is filed automatically.</div>',
-                unsafe_allow_html=True)
+    st.caption("The system recommends; you decide. Nothing is filed automatically.")
     note = st.text_input("Note (optional)", key=f"note_{c['case_id']}")
     b = st.columns(4)
     for col, (lab, dec) in zip(b[:3], [("✅ Approve for STR drafting", "Approved"),
@@ -999,7 +1332,7 @@ with tabs[5]:
         st.success(f"Approved. The STR report for {c['case_id']} is ready: download it, open it, and print or save it as PDF. "
                    "The officer did not have to write a word.")
     else:
-        st.caption("📄 The STR report downloads as a draft. Approve the case to stamp it as approved by the officer.")
+        st.caption("Approve the case to stamp the STR report as officer-approved.")
     st.download_button("⬇ Raw case data (JSON)", json.dumps({k: v for k, v in c.items() if k != "layout"}, indent=2),
                        f"{c['case_id']}.json", key=f"json_{c['case_id']}")
 
@@ -1009,8 +1342,8 @@ with tabs[5]:
                 st.write(f"• `{w['finding_id']}` {w['reason']}")
 
 # ------------------------------------------------------------ scorecard ---
-with tabs[6]:
-    pagetitle("Scorecard: checked against the hidden answer key")
+with tabs[7]:
+    pagetitle("Accuracy · checked against the hidden answer key")
     st.caption("The answer key is used only here, never by any detection or case logic.")
     caught = sum(1 for v in per_ring.values() if v[2])
     fa = sum(per_detector.get(d, (0, 0, 0))[2] for d in det.STRUCTURAL)
@@ -1036,7 +1369,7 @@ with tabs[6]:
                "They never open a case on their own, so their misses cannot become false accusations.")
 
 st.markdown("""
-<div class="footer"><span><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal (prototype)</span>
-<span>Detection is deterministic · Every decision is made by a human officer · Nothing is filed automatically</span>
-<span>© Team Tech Coders (7-300) · IGNITRRON'26</span></div>
+<div class="footer"><span><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal</span>
+<span>Every decision is made by an officer · Nothing is filed automatically</span>
+<span>© 2026 Team Tech Coders</span></div>
 """, unsafe_allow_html=True)
