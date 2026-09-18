@@ -31,17 +31,39 @@ st.set_page_config(page_title="Chakravyuh", page_icon="🌀", layout="wide")
 
 st.markdown("""
 <style>
-.block-container {padding-top: 1.4rem; max-width: 1250px;}
-h1, h2, h3 {letter-spacing: -0.01em;}
-.card {background:#f2f5fa; border:1px solid #dbe3ef; border-radius:12px; padding:14px 16px;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+.stMarkdown, .stMarkdown p, h1, h2, h3, h4, label p, button p, [data-testid="stMetricLabel"] p, [data-testid="stMetricValue"] {font-family: 'Inter', system-ui, sans-serif;}
+.stApp {background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 45%, #f7f9fd 100%);}
+.block-container {padding-top: 1rem; max-width: 1280px;}
+h1, h2, h3, h4 {letter-spacing: -0.01em; color:#14213d;}
+.hero {background: linear-gradient(120deg, #14213d 0%, #1f4e8c 60%, #2e86c1 100%); color:#fff;
+       border-radius:18px; padding:22px 28px; margin-bottom:14px; box-shadow:0 8px 24px rgba(20,33,61,.18);}
+.hero h1 {color:#fff; margin:0; font-size:2rem;}
+.hero p {margin:4px 0 0 0; color:#dbe7f7; font-size:0.98rem;}
+.hero .tag {display:inline-block; background:rgba(255,255,255,.16); border-radius:999px; padding:2px 12px;
+            font-size:0.78rem; margin-top:10px; margin-right:6px;}
+.card {background:#fff; border:1px solid #e1e8f3; border-radius:14px; padding:14px 16px; height:100%;
+       box-shadow:0 2px 8px rgba(20,33,61,.06);}
 .card h4 {margin:0 0 4px 0; font-size:0.95rem; color:#1f4e8c;}
 .card p {margin:0; font-size:0.85rem; color:#3d4b5c;}
-.pill {display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.78rem; font-weight:600; color:#fff;}
+.pill {display:inline-block; padding:3px 12px; border-radius:999px; font-size:0.8rem; font-weight:600; color:#fff;}
 .HIGH {background:#c0392b;} .MEDIUM {background:#d68910;} .LOW {background:#5d6d7e;}
-.verdict-yes {background:#e8f6ef; border:1px solid #a9dfbf; border-radius:10px; padding:10px 14px;}
-.verdict-no {background:#fdecea; border:1px solid #f5b7b1; border-radius:10px; padding:10px 14px;}
+.verdict-yes {background:#e8f6ef; border:1px solid #a9dfbf; border-radius:12px; padding:12px 16px; font-size:1rem;}
+.verdict-no {background:#fdecea; border:1px solid #f5b7b1; border-radius:12px; padding:12px 16px; font-size:1rem;}
 .note {background:#fff8e6; border:1px solid #f3dc9c; border-radius:10px; padding:8px 12px; font-size:0.88rem;}
-[data-testid="stMetricValue"] {font-size:1.7rem;}
+.help {background:#eaf2fc; border-left:4px solid #1f4e8c; border-radius:8px; padding:10px 14px;
+       font-size:0.92rem; color:#23364f; margin-bottom:12px;}
+[data-testid="stMetric"] {background:#fff; border:1px solid #e1e8f3; border-radius:14px; padding:12px 16px;
+       box-shadow:0 2px 8px rgba(20,33,61,.06);}
+[data-testid="stMetricValue"] {font-size:1.6rem; color:#1f4e8c;}
+.stTabs [data-baseweb="tab-list"] {gap:6px; flex-wrap:wrap;}
+.stTabs [data-baseweb="tab"] {background:#fff; border:1px solid #dbe3ef; border-radius:999px; padding:6px 16px; height:auto;}
+.stTabs [aria-selected="true"] {background:#1f4e8c !important; color:#fff !important; border-color:#1f4e8c;}
+.stTabs [aria-selected="true"] p {color:#fff !important;}
+.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] {display:none;}
+[data-testid="stSidebar"] {background:#e9eff8;}
+[data-testid="stDataFrame"] {border:1px solid #e1e8f3; border-radius:10px;}
+@media (max-width: 800px) {.hero h1 {font-size:1.4rem;} .block-container {padding-left:.8rem; padding-right:.8rem;}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -140,6 +162,52 @@ def draw(nodes, edges, height=470, title=None):
     return fig
 
 
+def loop_figure(view, hero_tx, visible_ids):
+    """The six accounts drawn as the loop they form. Solid red = hop this viewpoint can see,
+    dashed grey = hop it cannot see. Nodes the viewpoint cannot identify are grey."""
+    import math
+    hops = hero_tx.sort_values("timestamp").to_dict("records")
+    n = len(hops)
+    pos = {}
+    for i, h in enumerate(hops):
+        ang = math.pi / 2 - 2 * math.pi * i / n
+        pos[h["from_account"]] = (math.cos(ang), math.sin(ang))
+    fig = go.Figure()
+    for i, h in enumerate(hops):
+        x0, y0 = pos[h["from_account"]]
+        x1, y1 = pos[h["to_account"]]
+        seen = h["txn_id"] in visible_ids
+        if seen:
+            fig.add_annotation(x=x0 + (x1 - x0) * 0.8, y=y0 + (y1 - y0) * 0.8, ax=x0 + (x1 - x0) * 0.2,
+                               ay=y0 + (y1 - y0) * 0.2, xref="x", yref="y", axref="x", ayref="y",
+                               showarrow=True, arrowhead=3, arrowsize=1.3, arrowwidth=3, arrowcolor=RED)
+        else:
+            fig.add_trace(go.Scatter(x=[x0 + (x1 - x0) * 0.2, x0 + (x1 - x0) * 0.8],
+                                     y=[y0 + (y1 - y0) * 0.2, y0 + (y1 - y0) * 0.8], mode="lines",
+                                     line=dict(color="#c5ccd6", width=2, dash="dot"), hoverinfo="skip"))
+        fig.add_annotation(x=(x0 + x1) / 2 * 1.0, y=(y0 + y1) / 2, text=f"<b>{i + 1}</b>", showarrow=False,
+                           font=dict(size=13, color=RED if seen else "#9aa5b1"), bgcolor="white", borderpad=2)
+    xs, ys, labels, colors, hovers = [], [], [], [], []
+    for acc, (x, y) in pos.items():
+        node = resolve_node(acc, view, D["a2e"], D["a2b"], D["attrs"])
+        bank = D["a2b"][acc].replace("BANK_", "Bank ")
+        if view == "CONSORTIUM":
+            lab, col, hov = node[4:10], TEAL, f"pseudonym {node}. No name, PAN or account number is shared"
+        elif node.startswith("EXT_"):
+            lab, col, hov = "Unknown\n(other bank)", GREY, f"{node}: identity invisible from this bank"
+        else:
+            lab = f"{D['names'][node].split(' ')[0].title()}\n{acc[-5:]} · {bank[-1]}"
+            col = BLUE if D["a2b"][acc] == "BANK_A" else AMBER
+            hov = f"{D['names'][node]} · {acc} · {bank}"
+        xs.append(x); ys.append(y); labels.append(lab); colors.append(col); hovers.append(hov)
+    fig.add_trace(go.Scatter(x=xs, y=ys, mode="markers+text", text=labels, textposition="top center",
+                             hovertext=hovers, hoverinfo="text", textfont=dict(size=11),
+                             marker=dict(size=34, color=colors, line=dict(width=2, color="white"))))
+    fig.update_layout(height=470, showlegend=False, margin=dict(l=10, r=10, t=10, b=10), plot_bgcolor="white",
+                      xaxis=dict(visible=False, range=[-1.6, 1.6]), yaxis=dict(visible=False, range=[-1.5, 1.5]))
+    return fig
+
+
 def case_label(c):
     return (f"{c['case_id']} · {c['priority_level']} {c['priority_score']} · "
             f"{'+'.join(d[:4] for d in c['detectors_fired'])} · {inr(c['total_evidence_amount'])}")
@@ -147,8 +215,17 @@ def case_label(c):
 
 # --------------------------------------------------------------- header ---
 
-st.title("🌀 CHAKRAVYUH")
-st.caption("Anti-money-laundering investigation system · Team Tech Coders (7-300) · IGNITRRON'26 · FC-02")
+st.markdown("""
+<div class="hero">
+  <h1>🌀 CHAKRAVYUH</h1>
+  <p>Catching money laundering by scoring networks, not single transactions.</p>
+  <span class="tag">Team Tech Coders (7-300)</span><span class="tag">IGNITRRON'26 · FC-02</span>
+  <span class="tag">Fintech &amp; Cyber</span>
+</div>
+""", unsafe_allow_html=True)
+
+def helpbox(text):
+    st.markdown(f'<div class="help">💡 {text}</div>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Officer decision log")
@@ -168,14 +245,15 @@ tabs = st.tabs(["Overview", "1 · Identity", "2 · Network & cross-bank", "3 · 
 # ------------------------------------------------------------- overview ---
 with tabs[0]:
     st.subheader("We score networks, not transactions")
+    helpbox("New here? Click the tabs in order: Identity, Network, Detectors, Cases, Scorecard.")
     st.write("Banks check one transaction at a time, so they cannot see money that is passed through "
              "many accounts to hide it. Chakravyuh joins the dots and hands the officer a finished, "
              "evidence-backed case instead of a pile of alerts.")
     c = st.columns(5)
     c[0].metric("Transactions", f"{len(D['tx']):,}")
-    c[1].metric("Accounts → real people", f"{len(D['a2e']):,} → {len(D['attrs']):,}")
+    c[1].metric("Accounts → people", f"{len(D['a2e']):,} → {len(D['attrs']):,}")
     c[2].metric("Detector findings", len(D["findings"]))
-    c[3].metric("Cases for the officer", len(cases))
+    c[3].metric("Cases", len(cases))
     c[4].metric("Rings caught", f"{sum(1 for v in per_ring.values() if v[2])} / {len(per_ring)}")
 
     st.markdown("#### The pipeline")
@@ -196,6 +274,7 @@ with tabs[0]:
 # ------------------------------------------------------------- identity ---
 with tabs[1]:
     st.subheader("Step 1 · Who is really behind these accounts?")
+    helpbox("Pick a person. Left: the messy records banks hold. Right: the one real person we merged them into.")
     st.write("The same person shows up in several bank systems, spelled differently and with fields missing. "
              "Until those records are merged, a laundering circle looks like strangers paying each other.")
     ents = D["entities"]
@@ -235,6 +314,7 @@ with tabs[1]:
 # -------------------------------------------------------------- network ---
 with tabs[2]:
     st.subheader("Step 2 · One ring, four points of view")
+    helpbox("Choose a viewpoint below the table. Watch the ring appear or vanish depending on who is looking.")
     s = D["stats"]
     base = s["ALL"]["num_connections"]
     pa, pb = 100 * s["BANK_A"]["num_connections"] / base, 100 * s["BANK_B"]["num_connections"] / base
@@ -274,7 +354,9 @@ with tabs[2]:
     edges = [(u, v, RED, 2) for u, v in G.edges()]
     left, right = st.columns([3, 2])
     with left:
-        st.plotly_chart(draw(nodes, edges, 430), width="stretch")
+        st.plotly_chart(loop_figure(view, hero_tx, set(visible["txn_id"])), width="stretch")
+        st.caption("Numbers show the order of the six hops. Solid red = this viewpoint can see the hop, "
+                   "dotted grey = it cannot. Blue = Bank A account, orange = Bank B account.")
     with right:
         best, total, ok, n_final, n_cand = hero[view]
         if ok:
@@ -295,6 +377,8 @@ with tabs[2]:
                           "proposes candidate loops; each bank then confirms only its own junctions with a "
                           "yes/no. No names, PANs, addresses, balances, KYC or account numbers cross.",
         }[view])
+    with st.expander("Show the same view as people (who pays whom)"):
+        st.plotly_chart(draw(nodes, edges, 380), width="stretch")
     st.markdown("**Hops visible in this view**")
     st.dataframe(txn_table(visible["txn_id"].tolist())[
         ["txn_id", "timestamp", "from_person", "to_person", "amount", "from_bank", "to_bank"]],
@@ -303,6 +387,7 @@ with tabs[2]:
 # ------------------------------------------------------------ detectors ---
 with tabs[3]:
     st.subheader("Step 3 · Four deterministic detectors")
+    helpbox("Filter the findings, then pick one at the bottom to see the exact transactions that prove it.")
     st.write("No AI, no randomness. The same input always gives the same findings and each one lists "
              "the exact transactions that prove it.")
     f_all = D["findings"]
@@ -343,6 +428,7 @@ with tabs[3]:
 # ---------------------------------------------------------------- cases ---
 with tabs[4]:
     st.subheader("Step 4 · One case per crime")
+    helpbox("Start with C001, the hero ring. Scroll down for the graph, evidence, the map and the officer decision.")
     st.write(f"**{len(D['findings'])} findings became {len(cases)} cases** "
              f"(+{len(D['review'])} watchlist review item). Overlapping findings are merged; each case keeps "
              f"its evidence, background and one ring of context.")
@@ -388,6 +474,10 @@ with tabs[4]:
             for t in ids:
                 r = rec[t]
                 agg[(r.from_ent, r.to_ent)] = (colr, w)
+        if len(nodes) > 12:
+            for nid, nd in nodes.items():
+                if nd["color"] != RED:
+                    nd["label"] = ""
         st.plotly_chart(draw(nodes, [(u, v, col, w) for (u, v), (col, w) in agg.items()], 470),
                         width="stretch")
         st.caption("Red arrows = evidence (proven claims) · pale = background · blue = context money in/out. "
@@ -425,16 +515,30 @@ with tabs[4]:
         st.dataframe(txn_table(c["supporting_txn_ids"]), hide_index=True, width="stretch")
 
     st.markdown("**Where this case sits on the full network**")
-    xs, ys = zip(*D["all_layout"].values())
-    hl = set(c["highlight_nodes"])
+    st.caption(f"Every dot is one of the {len(D['all_layout']):,} real people. Grey = uninvolved. "
+               "Red = accused (core), amber = context, lines = money in this case.")
+    lay = D["all_layout"]
+    xs, ys = zip(*lay.values())
+    core_keys = {p["entity_key"] for p in c["core_people"]}
     fig = go.Figure()
-    fig.add_trace(go.Scattergl(x=xs, y=ys, mode="markers", marker=dict(size=3, color="#d5dbe4"), hoverinfo="skip"))
-    hx = [D["all_layout"][n] for n in c["highlight_nodes"]]
-    fig.add_trace(go.Scatter(x=[p[0] for p in hx], y=[p[1] for p in hx], mode="markers",
-                             marker=dict(size=10, color=[RED if n in {p["entity_key"] for p in c["core_people"]} else AMBER
-                                                         for n in c["highlight_nodes"]], line=dict(width=1, color="white")),
-                             hovertext=[D["names"][n] for n in c["highlight_nodes"]], hoverinfo="text"))
-    fig.update_layout(height=340, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
+    fig.add_trace(go.Scattergl(x=xs, y=ys, mode="markers", marker=dict(size=4, color="#cdd6e3"), hoverinfo="skip"))
+    lx, ly = [], []
+    for t in c["evidence_txn_ids"] + c["context_txn_ids"]:
+        r = D["rec_by_id"][t]
+        if r.from_ent in lay and r.to_ent in lay and r.from_ent != r.to_ent:
+            lx += [lay[r.from_ent][0], lay[r.to_ent][0], None]
+            ly += [lay[r.from_ent][1], lay[r.to_ent][1], None]
+    fig.add_trace(go.Scatter(x=lx, y=ly, mode="lines", line=dict(color="rgba(192,57,43,.45)", width=1.5), hoverinfo="skip"))
+    order = [n for n in c["highlight_nodes"] if n in lay]
+    fig.add_trace(go.Scatter(
+        x=[lay[n][0] for n in order], y=[lay[n][1] for n in order], mode="markers+text",
+        text=[D["names"][n].title()[:14] if (n in core_keys and len(core_keys) <= 6) else "" for n in order],
+        textposition="top center",
+        marker=dict(size=[14 if n in core_keys else 10 for n in order],
+                    color=[RED if n in core_keys else AMBER for n in order], line=dict(width=1.5, color="white")),
+        hovertext=[D["names"][n] + (" · accused" if n in core_keys else " · context, not accused") for n in order],
+        hoverinfo="text"))
+    fig.update_layout(height=420, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
                       xaxis=dict(visible=False), yaxis=dict(visible=False))
     st.plotly_chart(fig, width="stretch")
 
