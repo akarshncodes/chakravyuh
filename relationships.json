@@ -1,0 +1,855 @@
+{
+  "about": "Relationship Lens - unusual account relationships inside each case, measured against the bank baseline",
+  "baseline": {
+    "fresh_account_rate": "1.7%",
+    "multi_account_owner_rate": "31.1%",
+    "first_contact_rate": "37.1%",
+    "shared_phone_person_rate": "1.6%",
+    "accounts": 2500,
+    "people": 1828,
+    "transactions": 80000
+  },
+  "thresholds": {
+    "fresh_days": 30,
+    "R1_multiple": 10,
+    "R2_multiple": 2,
+    "R3_multiple": 1.5,
+    "min_count": 2
+  },
+  "case_summary": {
+    "cases": 11,
+    "avg_signals_per_case": 2.73,
+    "cases_with_2plus_signals": 9,
+    "fire_rate_by_check": {
+      "R1": "45.5%",
+      "R2": "81.8%",
+      "R3": "72.7%",
+      "R4": "18.2%",
+      "R5": "54.5%"
+    }
+  },
+  "control_group": {
+    "groups": 220,
+    "avg_signals_per_group": 0.4,
+    "groups_with_2plus_signals": 8,
+    "share_with_2plus_signals": "3.6%",
+    "fire_rate_by_check": {
+      "R3": "17.7%",
+      "R4": "5.5%",
+      "R5": "16.4%"
+    }
+  },
+  "cases": {
+    "C001": {
+      "accounts_examined": 6,
+      "people_examined": 3,
+      "signals_fired": [
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "6 accounts, only 3 real people behind them",
+          "sentence": "The 6 accounts belong to only 3 people once identity records are resolved; 3 of them control 6 accounts between them (100.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "100.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00010",
+            "ACC00011",
+            "ACC00012",
+            "ACC00013",
+            "ACC00014",
+            "ACC00015"
+          ],
+          "people": [
+            "PERSON00008",
+            "PERSON00009",
+            "PERSON00010"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "6 of 6 transfers were first-ever contact",
+          "sentence": "Of the 6 transfers, 6 (100.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "100.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000010",
+            "TXN000011",
+            "TXN000012",
+            "TXN000013",
+            "TXN000014",
+            "TXN000015"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 1 hop(s), Bank B cannot see 1",
+          "sentence": "Bank A alone sees 5 of the 6 transfers and Bank B alone sees 5. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:1 B:1",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000012",
+            "TXN000010"
+          ]
+        }
+      ]
+    },
+    "C002": {
+      "accounts_examined": 6,
+      "people_examined": 3,
+      "signals_fired": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "signals": [
+        {
+          "code": "R1",
+          "name": "FRESH_ACCOUNTS",
+          "headline": "2 of 6 accounts are under 30 days old",
+          "sentence": "In this network, 2 of the 6 accounts in this network were opened less than 30 days ago (33.3%), against 1.7% across the whole bank.",
+          "case_value": "33.3%",
+          "bank_baseline": "1.7%",
+          "accounts": [
+            "ACC00114",
+            "ACC00115"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "6 accounts, only 3 real people behind them",
+          "sentence": "The 6 accounts belong to only 3 people once identity records are resolved; 3 of them control 6 accounts between them (100.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "100.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00112",
+            "ACC00113",
+            "ACC00114",
+            "ACC00115",
+            "ACC00116",
+            "ACC00117"
+          ],
+          "people": [
+            "PERSON00064",
+            "PERSON00065",
+            "PERSON00066"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "5 of 5 transfers were first-ever contact",
+          "sentence": "Of the 5 transfers, 5 (100.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "100.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000182",
+            "TXN000183",
+            "TXN000184",
+            "TXN000185",
+            "TXN000186"
+          ]
+        }
+      ]
+    },
+    "C003": {
+      "accounts_examined": 8,
+      "people_examined": 4,
+      "signals_fired": [
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "8 accounts, only 4 real people behind them",
+          "sentence": "The 8 accounts belong to only 4 people once identity records are resolved; 4 of them control 8 accounts between them (100.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "100.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00118",
+            "ACC00119",
+            "ACC00120",
+            "ACC00121",
+            "ACC00122",
+            "ACC00123",
+            "ACC00124",
+            "ACC00125"
+          ],
+          "people": [
+            "PERSON00067",
+            "PERSON00068",
+            "PERSON00069",
+            "PERSON00070"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "7 of 7 transfers were first-ever contact",
+          "sentence": "Of the 7 transfers, 7 (100.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "100.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000187",
+            "TXN000188",
+            "TXN000189",
+            "TXN000190",
+            "TXN000191",
+            "TXN000192",
+            "TXN000193"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 3 hop(s), Bank B cannot see 1",
+          "sentence": "Bank A alone sees 4 of the 7 transfers and Bank B alone sees 6. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:3 B:1",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000187",
+            "TXN000190",
+            "TXN000191",
+            "TXN000193"
+          ]
+        }
+      ]
+    },
+    "C004": {
+      "accounts_examined": 8,
+      "people_examined": 4,
+      "signals_fired": [
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "8 accounts, only 4 real people behind them",
+          "sentence": "The 8 accounts belong to only 4 people once identity records are resolved; 4 of them control 8 accounts between them (100.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "100.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00016",
+            "ACC00017",
+            "ACC00018",
+            "ACC00019",
+            "ACC00020",
+            "ACC00021",
+            "ACC00022",
+            "ACC00023"
+          ],
+          "people": [
+            "PERSON00011",
+            "PERSON00012",
+            "PERSON00013",
+            "PERSON00014"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "8 of 8 transfers were first-ever contact",
+          "sentence": "Of the 8 transfers, 8 (100.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "100.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000016",
+            "TXN000017",
+            "TXN000018",
+            "TXN000019",
+            "TXN000020",
+            "TXN000021",
+            "TXN000022",
+            "TXN000023"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 1 hop(s), Bank B cannot see 1",
+          "sentence": "Bank A alone sees 7 of the 8 transfers and Bank B alone sees 7. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:1 B:1",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000018",
+            "TXN000016"
+          ]
+        }
+      ]
+    },
+    "C005": {
+      "accounts_examined": 42,
+      "people_examined": 21,
+      "signals_fired": [
+        "R1",
+        "R2"
+      ],
+      "signals": [
+        {
+          "code": "R1",
+          "name": "FRESH_ACCOUNTS",
+          "headline": "13 of 42 accounts are under 30 days old",
+          "sentence": "In this network, 13 of the 42 accounts in this network were opened less than 30 days ago (31.0%), against 1.7% across the whole bank.",
+          "case_value": "31.0%",
+          "bank_baseline": "1.7%",
+          "accounts": [
+            "ACC00065",
+            "ACC00070",
+            "ACC00072",
+            "ACC00076",
+            "ACC00083",
+            "ACC00084",
+            "ACC00085",
+            "ACC00090",
+            "ACC00093",
+            "ACC00098",
+            "ACC00100",
+            "ACC00101",
+            "ACC00104"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "42 accounts, only 21 real people behind them",
+          "sentence": "The 42 accounts belong to only 21 people once identity records are resolved; 21 of them control 42 accounts between them (100.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "100.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00065",
+            "ACC00066",
+            "ACC00067",
+            "ACC00068",
+            "ACC00069",
+            "ACC00070",
+            "ACC00071",
+            "ACC00072",
+            "ACC00073",
+            "ACC00074",
+            "ACC00075",
+            "ACC00076",
+            "ACC00077",
+            "ACC00078",
+            "ACC00079",
+            "ACC00080",
+            "ACC00081",
+            "ACC00082",
+            "ACC00083",
+            "ACC00084",
+            "ACC00085",
+            "ACC00086",
+            "ACC00087",
+            "ACC00088",
+            "ACC00089",
+            "ACC00090",
+            "ACC00091",
+            "ACC00092",
+            "ACC00093",
+            "ACC00094",
+            "ACC00095",
+            "ACC00096",
+            "ACC00097",
+            "ACC00098",
+            "ACC00099",
+            "ACC00100",
+            "ACC00101",
+            "ACC00102",
+            "ACC00103",
+            "ACC00104",
+            "ACC00105",
+            "ACC00106"
+          ],
+          "people": [
+            "PERSON00040",
+            "PERSON00041",
+            "PERSON00042",
+            "PERSON00043",
+            "PERSON00044",
+            "PERSON00045",
+            "PERSON00046",
+            "PERSON00047",
+            "PERSON00048",
+            "PERSON00049",
+            "PERSON00050",
+            "PERSON00051",
+            "PERSON00052",
+            "PERSON00053",
+            "PERSON00054",
+            "PERSON00055",
+            "PERSON00056",
+            "PERSON00057",
+            "PERSON00058",
+            "PERSON00059",
+            "PERSON00060"
+          ],
+          "txn_ids": []
+        }
+      ]
+    },
+    "C006": {
+      "accounts_examined": 27,
+      "people_examined": 15,
+      "signals_fired": [
+        "R1",
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R1",
+          "name": "FRESH_ACCOUNTS",
+          "headline": "15 of 27 accounts are under 30 days old",
+          "sentence": "In this network, 15 of the 27 accounts in this network were opened less than 30 days ago (55.6%), against 1.7% across the whole bank.",
+          "case_value": "55.6%",
+          "bank_baseline": "1.7%",
+          "accounts": [
+            "ACC00040",
+            "ACC00041",
+            "ACC00044",
+            "ACC00045",
+            "ACC00046",
+            "ACC00047",
+            "ACC00050",
+            "ACC00051",
+            "ACC00055",
+            "ACC00056",
+            "ACC00058",
+            "ACC00059",
+            "ACC00060",
+            "ACC00061",
+            "ACC00063"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "27 accounts, only 15 real people behind them",
+          "sentence": "The 27 accounts belong to only 15 people once identity records are resolved; 12 of them control 24 accounts between them (80.0% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "80.0%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00038",
+            "ACC00039",
+            "ACC00040",
+            "ACC00041",
+            "ACC00042",
+            "ACC00043",
+            "ACC00044",
+            "ACC00045",
+            "ACC00047",
+            "ACC00048",
+            "ACC00050",
+            "ACC00051",
+            "ACC00053",
+            "ACC00054",
+            "ACC00055",
+            "ACC00056",
+            "ACC00057",
+            "ACC00058",
+            "ACC00059",
+            "ACC00060",
+            "ACC00061",
+            "ACC00062",
+            "ACC00063",
+            "ACC00064"
+          ],
+          "people": [
+            "PERSON00025",
+            "PERSON00026",
+            "PERSON00027",
+            "PERSON00028",
+            "PERSON00029",
+            "PERSON00030",
+            "PERSON00031",
+            "PERSON00033",
+            "PERSON00035",
+            "PERSON00037",
+            "PERSON00038",
+            "PERSON00039"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "29 of 50 transfers were first-ever contact",
+          "sentence": "Of the 50 transfers, 29 (58.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "58.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000050",
+            "TXN000086",
+            "TXN000068",
+            "TXN000062",
+            "TXN000051",
+            "TXN000063",
+            "TXN000092",
+            "TXN000087",
+            "TXN000058",
+            "TXN000069",
+            "TXN000072",
+            "TXN000080",
+            "TXN000059",
+            "TXN000081",
+            "TXN000093",
+            "TXN000073",
+            "TXN000070",
+            "TXN000071",
+            "TXN000054",
+            "TXN000064",
+            "TXN000056",
+            "TXN000052",
+            "TXN000055",
+            "TXN000053",
+            "TXN000048",
+            "TXN000057",
+            "TXN000074",
+            "TXN000091",
+            "TXN000075"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 13 hop(s), Bank B cannot see 12",
+          "sentence": "Bank A alone sees 37 of the 50 transfers and Bank B alone sees 38. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:13 B:12",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000050",
+            "TXN000092",
+            "TXN000080",
+            "TXN000066",
+            "TXN000054",
+            "TXN000056",
+            "TXN000084",
+            "TXN000078",
+            "TXN000052",
+            "TXN000048",
+            "TXN000088",
+            "TXN000090",
+            "TXN000060",
+            "TXN000063",
+            "TXN000087",
+            "TXN000069",
+            "TXN000077",
+            "TXN000059",
+            "TXN000073",
+            "TXN000071",
+            "TXN000065",
+            "TXN000083",
+            "TXN000095",
+            "TXN000097",
+            "TXN000075"
+          ]
+        }
+      ]
+    },
+    "C007": {
+      "accounts_examined": 14,
+      "people_examined": 10,
+      "signals_fired": [
+        "R1",
+        "R3",
+        "R4"
+      ],
+      "signals": [
+        {
+          "code": "R1",
+          "name": "FRESH_ACCOUNTS",
+          "headline": "8 of 14 accounts are under 30 days old",
+          "sentence": "In this network, 8 of the 14 accounts in this network were opened less than 30 days ago (57.1%), against 1.7% across the whole bank.",
+          "case_value": "57.1%",
+          "bank_baseline": "1.7%",
+          "accounts": [
+            "ACC00025",
+            "ACC00026",
+            "ACC00027",
+            "ACC00028",
+            "ACC00032",
+            "ACC00034",
+            "ACC00036",
+            "ACC00037"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "19 of 24 transfers were first-ever contact",
+          "sentence": "Of the 24 transfers, 19 (79.2%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "79.2%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000042",
+            "TXN000034",
+            "TXN000030",
+            "TXN000035",
+            "TXN000031",
+            "TXN000043",
+            "TXN000028",
+            "TXN000024",
+            "TXN000029",
+            "TXN000025",
+            "TXN000036",
+            "TXN000040",
+            "TXN000026",
+            "TXN000027",
+            "TXN000041",
+            "TXN000038",
+            "TXN000047",
+            "TXN000037",
+            "TXN000039"
+          ]
+        },
+        {
+          "code": "R4",
+          "name": "SHARED_PHONE",
+          "headline": "3 phone number(s) shared by different people",
+          "sentence": "In this network, 6 people are registered on 3 phone number(s) that also belong to another, different customer. Only 1.6% of customers bank-wide share a phone. A shared number across unrelated accounts is a common sign of one handler operating several mule accounts.",
+          "case_value": "3",
+          "bank_baseline": "1.6%",
+          "accounts": [],
+          "people": [
+            "PERSON00016",
+            "PERSON00017",
+            "PERSON00018",
+            "PERSON00021",
+            "PERSON00022",
+            "PERSON00023"
+          ],
+          "txn_ids": []
+        }
+      ]
+    },
+    "C008": {
+      "accounts_examined": 11,
+      "people_examined": 6,
+      "signals_fired": [
+        "R2"
+      ],
+      "signals": [
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "11 accounts, only 6 real people behind them",
+          "sentence": "The 11 accounts belong to only 6 people once identity records are resolved; 5 of them control 10 accounts between them (83.3% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "83.3%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00126",
+            "ACC00127",
+            "ACC00128",
+            "ACC00129",
+            "ACC00130",
+            "ACC00131",
+            "ACC00132",
+            "ACC00133",
+            "ACC00134",
+            "ACC00135"
+          ],
+          "people": [
+            "PERSON00071",
+            "PERSON00072",
+            "PERSON00073",
+            "PERSON00074",
+            "PERSON00075"
+          ],
+          "txn_ids": []
+        }
+      ]
+    },
+    "C009": {
+      "accounts_examined": 5,
+      "people_examined": 3,
+      "signals_fired": [
+        "R1",
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R1",
+          "name": "FRESH_ACCOUNTS",
+          "headline": "2 of 5 accounts are under 30 days old",
+          "sentence": "In this network, 2 of the 5 accounts in this network were opened less than 30 days ago (40.0%), against 1.7% across the whole bank.",
+          "case_value": "40.0%",
+          "bank_baseline": "1.7%",
+          "accounts": [
+            "ACC00107",
+            "ACC00110"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "5 accounts, only 3 real people behind them",
+          "sentence": "The 5 accounts belong to only 3 people once identity records are resolved; 2 of them control 4 accounts between them (66.7% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "66.7%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00107",
+            "ACC00108",
+            "ACC00109",
+            "ACC00110"
+          ],
+          "people": [
+            "PERSON00061",
+            "PERSON00062"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "3 of 4 transfers were first-ever contact",
+          "sentence": "Of the 4 transfers, 3 (75.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "75.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000178",
+            "TXN000179",
+            "TXN000181"
+          ]
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 1 hop(s), Bank B cannot see 1",
+          "sentence": "Bank A alone sees 3 of the 4 transfers and Bank B alone sees 3. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:1 B:1",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000178",
+            "TXN000180"
+          ]
+        }
+      ]
+    },
+    "C010": {
+      "accounts_examined": 4,
+      "people_examined": 3,
+      "signals_fired": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "signals": [
+        {
+          "code": "R3",
+          "name": "FIRST_CONTACT",
+          "headline": "4 of 4 transfers were first-ever contact",
+          "sentence": "Of the 4 transfers, 4 (100.0%) were the first time that sender had ever paid that receiver, against 37.1% of all transfers in the bank. The money moved between people with no history together.",
+          "case_value": "100.0%",
+          "bank_baseline": "37.1%",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000001",
+            "TXN000002",
+            "TXN000003",
+            "TXN000004"
+          ]
+        },
+        {
+          "code": "R4",
+          "name": "SHARED_PHONE",
+          "headline": "1 phone number(s) shared by different people",
+          "sentence": "In this network, 2 people are registered on 1 phone number(s) that also belong to another, different customer. Only 1.6% of customers bank-wide share a phone. A shared number across unrelated accounts is a common sign of one handler operating several mule accounts.",
+          "case_value": "1",
+          "bank_baseline": "1.6%",
+          "accounts": [],
+          "people": [
+            "PERSON00001",
+            "PERSON00002"
+          ],
+          "txn_ids": []
+        },
+        {
+          "code": "R5",
+          "name": "BANK_BLIND_SPOT",
+          "headline": "Bank A cannot see 1 hop(s), Bank B cannot see 1",
+          "sentence": "Bank A alone sees 3 of the 4 transfers and Bank B alone sees 3. Neither bank on its own can see the whole network; it only becomes visible in the consortium view, which shares salted hashes, never customer data.",
+          "case_value": "A:1 B:1",
+          "bank_baseline": "n/a",
+          "accounts": [],
+          "txn_ids": [
+            "TXN000003",
+            "TXN000001"
+          ]
+        }
+      ]
+    },
+    "C011": {
+      "accounts_examined": 11,
+      "people_examined": 6,
+      "signals_fired": [
+        "R2"
+      ],
+      "signals": [
+        {
+          "code": "R2",
+          "name": "HIDDEN_CONTROL",
+          "headline": "11 accounts, only 6 real people behind them",
+          "sentence": "The 11 accounts belong to only 6 people once identity records are resolved; 5 of them control 10 accounts between them (83.3% of the people here, against 31.1% bank-wide). To a bank looking account by account, these look like strangers.",
+          "case_value": "83.3%",
+          "bank_baseline": "31.1%",
+          "accounts": [
+            "ACC00138",
+            "ACC00139",
+            "ACC00140",
+            "ACC00141",
+            "ACC00142",
+            "ACC00143",
+            "ACC00144",
+            "ACC00145",
+            "ACC00146",
+            "ACC00147"
+          ],
+          "people": [
+            "PERSON00078",
+            "PERSON00079",
+            "PERSON00080",
+            "PERSON00081",
+            "PERSON00082"
+          ],
+          "txn_ids": []
+        }
+      ]
+    }
+  }
+}
