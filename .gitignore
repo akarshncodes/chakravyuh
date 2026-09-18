@@ -35,3 +35,6 @@ export_*.csv
 
 # Local Claude settings
 .claude/settings.local.json
+
+# DRONA resume file (temporary)
+investigation_log.partial.json

@@ -52,7 +52,8 @@ COMMANDER_MODEL = "gpt-4o"      # DRONA - SANJAYA and VIDURA keep agents.MODEL
 MAX_STEPS = 10                  # tool calls per item before we hand it to a human
 MIN_EVIDENCE_TOOLS = 2          # tools DRONA must use before it may decide
 MAX_WRITER_RUNS = 2             # first draft + one rewrite
-WORKERS = 4                     # items investigated in parallel
+WORKERS = int(os.environ.get("DRONA_WORKERS", "2"))   # items in parallel (lower if rate-limited)
+PARTIAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "investigation_log.partial.json")
 
 EVIDENCE_TOOLS = {"open_item", "check_relationships", "compare_bank_views",
                   "account_history", "expand_neighbourhood", "lookup_transaction"}
@@ -379,14 +380,17 @@ Your job on each item: decide what to look at, look at it with your tools, and m
 # =====================================================================
 
 def _chat(client, **kw):
-    for attempt in range(3):
+    for attempt in range(8):
         try:
             return client.chat.completions.create(**kw)
         except Exception as exc:  # noqa: BLE001
-            if attempt == 2:
+            if attempt == 7:
                 raise
-            print(f"    retry after error: {exc}")
-            time.sleep(2 + attempt * 3)
+            wait = min(2 + attempt * 5, 20)
+            if "rate" in str(exc).lower() or "429" in str(exc):
+                wait = max(wait, 15)
+            print(f"    retry {attempt + 1} in {wait}s after: {str(exc)[:160]}")
+            time.sleep(wait)
 
 
 def triage(client, world):
@@ -526,7 +530,7 @@ def investigate(client, world, item, triage_note, rank):
         entry["result"] = line
         entry["ms"] = int((time.time() - t0) * 1000)
         log["steps"].append(entry)
-        msgs.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(result, default=str)[:6000]})
+        msgs.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(result, default=str)[:3500]})
         if log["decision"]:
             break
 
@@ -548,12 +552,32 @@ def main():
           f"({sum(i['kind'] == 'CASE' for i in world.items.values())} cases, "
           f"{sum(i['kind'] != 'CASE' for i in world.items.values())} weak signals)")
     t0 = time.time()
-    order = triage(client, world)
+    # Resume: if an earlier run crashed part-way (e.g. rate limits), keep the
+    # triage and every item already finished, and only work what is left.
+    partial = {}
+    if os.path.exists(PARTIAL_PATH) and "--fresh" not in sys.argv:
+        with open(PARTIAL_PATH, encoding="utf-8") as f:
+            partial = json.load(f)
+        print(f"  resuming: {len(partial.get('items', {}))} item(s) already done")
+    order = partial.get("triage") or triage(client, world)
     print("  triage:", " > ".join(o["item"] for o in order))
+    done = dict(partial.get("items", {}))
+    import threading
+    lock = threading.Lock()
 
+    def work(r, o):
+        if o["item"] in done:
+            return done[o["item"]]
+        lg = investigate(client, world, world.items[o["item"]], o["reason"], r)
+        with lock:
+            done[o["item"]] = lg
+            with open(PARTIAL_PATH, "w", encoding="utf-8") as f:
+                json.dump({"triage": order, "items": done}, f, default=str)
+        return lg
+
+    print(f"  working with {WORKERS} parallel worker(s)")
     with ThreadPoolExecutor(WORKERS) as ex:
-        futs = [ex.submit(investigate, client, world, world.items[o["item"]], o["reason"], r)
-                for r, o in enumerate(order, 1)]
+        futs = [ex.submit(work, r, o) for r, o in enumerate(order, 1)]
         logs = [f.result() for f in futs]
 
     # the cases SANJAYA wrote under DRONA's command become the case files
@@ -594,6 +618,8 @@ def main():
     out = {"meta": meta, "triage": order, "items": {lg["item"]: lg for lg in logs}}
     with open(LOG_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2, default=str)
+    if os.path.exists(PARTIAL_PATH):
+        os.remove(PARTIAL_PATH)
     print(json.dumps(meta, indent=2))
     print(f"-> {LOG_PATH}\n-> {agents.OUTPUT_PATH}")
 
