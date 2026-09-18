@@ -193,6 +193,17 @@ table.q td.rec {font-weight:600; color:#101a3a;}
 .stButton > button[kind="primary"], [data-testid="stDownloadButton"] > button[kind="primary"] {background:#172a74; border-color:#172a74; color:#fff;}
 [data-testid="stCaptionContainer"] p {color:#5a6275 !important;}
 .stTabs .stTabs [role="tablist"] {background:#fff; border:1px solid #e1e5ee;}
+.sb-h {font-weight:700; font-size:1.05rem; color:#101a3a; padding:4px 0 10px; border-bottom:2px solid #172a74; margin-bottom:12px;}
+.sb-stats {display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px;}
+.sb-stats div {background:#fff; border:1px solid #d6dcea; border-radius:9px; padding:8px 6px; text-align:center;}
+.sb-stats b {display:block; font-size:1.2rem; color:#101a3a;} .sb-stats span {font-size:.72rem; color:#5a6275;}
+.sb-item {background:#fff; border:1px solid #d6dcea; border-left:4px solid #9aa7bf; border-radius:9px; padding:9px 12px; margin-bottom:8px;
+          box-shadow:0 1px 2px rgba(16,26,58,.05);}
+.sb-item.ok {border-left-color:#1f9d57;} .sb-item.wait {border-left-color:#d68910;} .sb-item.no {border-left-color:#c0392b;}
+.sb-top {display:flex; justify-content:space-between; align-items:baseline;}
+.sb-case {font-family:'IBM Plex Mono',monospace; font-weight:600; color:#101a3a;} .sb-time {font-size:.75rem; color:#6b7385;}
+.sb-dec {font-weight:600; font-size:.88rem; color:#1c2b4a; margin-top:2px;} .sb-note {font-size:.8rem; color:#4a5468; margin-top:3px;}
+.sb-empty {background:#fff; border:1.5px dashed #c3cbe0; border-radius:10px; padding:14px; font-size:.86rem; color:#4a5468; line-height:1.5;}
 @media (max-width: 1000px) {.kpis {grid-template-columns:repeat(3,1fr);} .flow {flex-wrap:wrap;}}
 @media (max-width: 800px) {.masthead .badge {display:none;} .masthead .hi {font-size:1.3rem;} .band:after,.band:before {display:none;}}
 </style>
@@ -426,16 +437,24 @@ def helpbox(text):
     return None      # guidance lives in the page titles; kept as a no-op so call sites stay simple
 
 with st.sidebar:
-    st.header("Officer decision log")
-    st.markdown('<div class="note">Nothing is ever filed automatically. '
-                'A human reviews every case.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sb-h">Officer decision log</div>', unsafe_allow_html=True)
     log = st.session_state.setdefault("log", [])
+    _ico = {"Approved": ("✔", "ok"), "More evidence": ("?", "wait"), "Dismissed": ("✕", "no")}
     if log:
-        st.dataframe(pd.DataFrame(log), hide_index=True, width="stretch")
+        _n = {k: sum(1 for e in log if e["Decision"] == k) for k in _ico}
+        st.markdown(f'<div class="sb-stats"><div><b>{_n["Approved"]}</b><span>approved</span></div>'
+                    f'<div><b>{_n["More evidence"]}</b><span>on hold</span></div>'
+                    f'<div><b>{_n["Dismissed"]}</b><span>dismissed</span></div></div>', unsafe_allow_html=True)
+        st.markdown("".join(
+            f'<div class="sb-item {_ico.get(e["Decision"], ("•", ""))[1]}"><div class="sb-top"><span class="sb-case">{e["Case"]}</span>'
+            f'<span class="sb-time">{e["Time"]}</span></div><div class="sb-dec">{_ico.get(e["Decision"], ("•", ""))[0]} {e["Decision"]}</div>'
+            + (f'<div class="sb-note">{e["Note"]}</div>' if e.get("Note") else "") + "</div>"
+            for e in reversed(log)), unsafe_allow_html=True)
         st.download_button("Download log (CSV)", pd.DataFrame(log).to_csv(index=False),
                            "officer_decisions.csv", width="stretch")
     else:
-        st.caption("No decisions yet. Open a case in the Cases tab.")
+        st.markdown('<div class="sb-empty">No decisions yet.<br>Open a case in <b>Case Queue</b> and choose '
+                    'Approve, Request more evidence or Dismiss.</div>', unsafe_allow_html=True)
 
 tabs = st.tabs(["Dashboard", "Case Queue", "Case File", "AI War Room", "Cross-Bank View", "Identity",
                 "Detection Rules", "Accuracy"])
@@ -1332,7 +1351,6 @@ with tabs[1]:
             st.caption(v["notes"])
 
     st.markdown("### Officer decision")
-    st.caption("The system recommends; you decide. Nothing is filed automatically.")
     note = st.text_input("Note (optional)", key=f"note_{c['case_id']}")
     b = st.columns(4)
     for col, (lab, dec) in zip(b[:3], [("✅ Approve for STR drafting", "Approved"),
@@ -1397,6 +1415,6 @@ with tabs[7]:
 
 st.markdown("""
 <div class="footer"><span><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal</span>
-<span>Every decision is made by an officer · Nothing is filed automatically</span>
+<span>Secure consortium screening · Bank A · Bank B</span>
 <span>© 2026 Team Tech Coders</span></div>
 """, unsafe_allow_html=True)
