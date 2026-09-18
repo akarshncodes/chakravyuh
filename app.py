@@ -32,39 +32,78 @@ st.set_page_config(page_title="Chakravyuh", page_icon="🌀", layout="wide")
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-.stMarkdown, .stMarkdown p, h1, h2, h3, h4, label p, button p, [data-testid="stMetricLabel"] p, [data-testid="stMetricValue"] {font-family: 'Inter', system-ui, sans-serif;}
-.stApp {background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 45%, #f7f9fd 100%);}
-.block-container {padding-top: 1rem; max-width: 1280px;}
-h1, h2, h3, h4 {letter-spacing: -0.01em; color:#14213d;}
-.hero {background: linear-gradient(120deg, #14213d 0%, #1f4e8c 60%, #2e86c1 100%); color:#fff;
-       border-radius:18px; padding:22px 28px; margin-bottom:14px; box-shadow:0 8px 24px rgba(20,33,61,.18);}
-.hero h1 {color:#fff; margin:0; font-size:2rem;}
-.hero p {margin:4px 0 0 0; color:#dbe7f7; font-size:0.98rem;}
-.hero .tag {display:inline-block; background:rgba(255,255,255,.16); border-radius:999px; padding:2px 12px;
-            font-size:0.78rem; margin-top:10px; margin-right:6px;}
-.card {background:#fff; border:1px solid #e1e8f3; border-radius:14px; padding:14px 16px; height:100%;
-       box-shadow:0 2px 8px rgba(20,33,61,.06);}
-.card h4 {margin:0 0 4px 0; font-size:0.95rem; color:#1f4e8c;}
-.card p {margin:0; font-size:0.85rem; color:#3d4b5c;}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@600;700&display=swap');
+.stMarkdown, .stMarkdown p, h1, h2, h3, h4, label p, button p, [data-testid="stMetricLabel"] p,
+[data-testid="stMetricValue"] {font-family: 'Poppins', system-ui, sans-serif;}
+.stApp {background:#ffffff;}
+header[data-testid="stHeader"] {background:transparent;}
+.block-container {padding-top:0 !important; max-width:1240px;}
+:root {--navy:#172a74; --navy2:#0f1d55; --saffron:#ff9933; --green:#138808; --sky:#e8eefb; --line:#d9e0f0;}
+
+/* top utility strip + tricolour line (in the style of Indian government portals) */
+.util {display:flex; justify-content:space-between; font-size:0.72rem; color:#3b4763; padding:6px 4px;
+       border-bottom:1px solid var(--line);}
+.tricolor {height:5px; background:linear-gradient(90deg,#ff9933 0 33.3%,#ffffff 33.3% 66.6%,#138808 66.6% 100%);
+           border-bottom:1px solid var(--line);}
+.masthead {display:flex; align-items:center; gap:18px; padding:14px 4px 12px 4px;}
+.logo {width:62px; height:62px; border-radius:50%; background:radial-gradient(circle at 30% 30%,#2e86c1,#172a74);
+       display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff;
+       box-shadow:0 0 0 3px #fff, 0 0 0 5px var(--saffron);}
+.masthead .hi {font-family:'Noto Sans Devanagari',sans-serif; font-size:1.7rem; color:var(--navy); line-height:1.1; font-weight:700;}
+.masthead .en {font-size:1.05rem; color:#2a3552; font-weight:500;}
+.masthead .en b {color:var(--navy);}
+.masthead .badge {margin-left:auto; text-align:right; font-size:0.72rem; color:#3b4763;}
+.masthead .badge span {display:inline-block; border:1px solid var(--line); border-radius:6px; padding:3px 9px; margin-left:4px; background:#f7f9fe;}
+
+/* navigation bar = the tabs */
+.stTabs [role="tablist"] {background:var(--navy); gap:0; padding:0 8px; border-radius:0; flex-wrap:wrap;}
+.stTabs [role="tab"] {background:transparent; color:#fff; height:auto; padding:13px 18px; border-radius:0; border:none;}
+.stTabs [role="tab"] p {color:#e6ecff !important; font-weight:500; font-size:0.93rem;}
+.stTabs [role="tab"]:hover {background:rgba(255,255,255,.10);}
+.stTabs [aria-selected="true"] {background:var(--navy2) !important; box-shadow:inset 0 -4px 0 var(--saffron);}
+.stTabs [aria-selected="true"] p {color:#fff !important; font-weight:600;}
+.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] {display:none;}
+.stTabs .stTabs [role="tablist"] {background:var(--sky); border:1px solid var(--line); border-radius:8px;}
+.stTabs .stTabs [role="tab"] p {color:var(--navy) !important;}
+.stTabs .stTabs [aria-selected="true"] {background:#fff !important; box-shadow:inset 0 -3px 0 var(--navy);}
+
+.crumb {background:#f3f5fa; border-bottom:1px solid var(--line); padding:8px 14px; font-size:0.82rem; color:#3b4763; margin-bottom:6px;}
+.crumb b {color:var(--green); font-weight:600;}
+.ptitle {text-align:center; color:var(--navy); font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+         font-size:1.25rem; border-top:2px solid var(--line); border-bottom:2px solid var(--line);
+         padding:12px 8px; margin:18px 0 14px 0; background:linear-gradient(90deg,#fff,#f4f7fd,#fff);}
+
+/* hero band (bank-site style) */
+.band {background:linear-gradient(110deg,#0f1d55 0%,#1f4e8c 55%,#3d7fc4 100%); color:#fff; border-radius:10px;
+       padding:26px 30px; margin:10px 0 16px 0; position:relative; overflow:hidden;}
+.band:after {content:""; position:absolute; right:-40px; top:-30px; width:220px; height:220px; background:#c0392b;
+             opacity:.85; transform:rotate(35deg); border-radius:24px;}
+.band:before {content:""; position:absolute; right:110px; top:-60px; width:120px; height:300px; background:#ffffff22; transform:rotate(35deg);}
+.band h2 {color:#fff; margin:0 0 6px 0; position:relative; z-index:1;}
+.band p {color:#dbe7f7; margin:0; max-width:640px; position:relative; z-index:1;}
+
+.card {background:#fff; border:1px solid var(--line); border-top:4px solid var(--navy); border-radius:8px; padding:14px 16px;
+       height:100%; box-shadow:0 2px 8px rgba(23,42,116,.07);}
+.card h4 {margin:0 0 4px 0; font-size:0.95rem; color:var(--navy);}
+.card p {margin:0; font-size:0.84rem; color:#3d4b5c;}
 .pill {display:inline-block; padding:3px 12px; border-radius:999px; font-size:0.8rem; font-weight:600; color:#fff;}
 .HIGH {background:#c0392b;} .MEDIUM {background:#d68910;} .LOW {background:#5d6d7e;}
-.verdict-yes {background:#e8f6ef; border:1px solid #a9dfbf; border-radius:12px; padding:12px 16px; font-size:1rem;}
-.verdict-no {background:#fdecea; border:1px solid #f5b7b1; border-radius:12px; padding:12px 16px; font-size:1rem;}
-.note {background:#fff8e6; border:1px solid #f3dc9c; border-radius:10px; padding:8px 12px; font-size:0.88rem;}
-.help {background:#eaf2fc; border-left:4px solid #1f4e8c; border-radius:8px; padding:10px 14px;
-       font-size:0.92rem; color:#23364f; margin-bottom:12px;}
-[data-testid="stMetric"] {background:#fff; border:1px solid #e1e8f3; border-radius:14px; padding:12px 16px;
-       box-shadow:0 2px 8px rgba(20,33,61,.06);}
-[data-testid="stMetricValue"] {font-size:1.6rem; color:#1f4e8c;}
-.stTabs [data-baseweb="tab-list"] {gap:6px; flex-wrap:wrap;}
-.stTabs [data-baseweb="tab"] {background:#fff; border:1px solid #dbe3ef; border-radius:999px; padding:6px 16px; height:auto;}
-.stTabs [aria-selected="true"] {background:#1f4e8c !important; color:#fff !important; border-color:#1f4e8c;}
-.stTabs [aria-selected="true"] p {color:#fff !important;}
-.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] {display:none;}
-[data-testid="stSidebar"] {background:#e9eff8;}
-[data-testid="stDataFrame"] {border:1px solid #e1e8f3; border-radius:10px;}
-@media (max-width: 800px) {.hero h1 {font-size:1.4rem;} .block-container {padding-left:.8rem; padding-right:.8rem;}}
+.verdict-yes {background:#e8f6ef; border:1px solid #a9dfbf; border-left:5px solid var(--green); border-radius:8px; padding:12px 16px;}
+.verdict-no {background:#fdecea; border:1px solid #f5b7b1; border-left:5px solid #c0392b; border-radius:8px; padding:12px 16px;}
+.note {background:#fff8e6; border:1px solid #f3dc9c; border-radius:8px; padding:8px 12px; font-size:0.86rem;}
+.help {background:#eef3ff; border-left:4px solid var(--navy); border-radius:6px; padding:10px 14px;
+       font-size:0.9rem; color:#23364f; margin-bottom:12px;}
+[data-testid="stMetric"] {background:#fff; border:1px solid var(--line); border-left:5px solid var(--navy); border-radius:8px;
+       padding:10px 14px; box-shadow:0 2px 8px rgba(23,42,116,.06);}
+[data-testid="stMetricValue"] {font-size:1.3rem; color:var(--navy);}
+[data-testid="stMetricLabel"] p {white-space:normal !important; font-size:0.8rem;}
+[data-testid="stMetricValue"] div {white-space:normal !important;}
+[data-testid="stSidebar"] {background:#f3f5fa; border-right:1px solid var(--line);}
+[data-testid="stDataFrame"] {border:1px solid var(--line); border-radius:6px;}
+.footer {background:var(--navy2); color:#c9d4f2; border-top:5px solid var(--saffron); padding:18px 24px; margin-top:26px;
+         font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+.footer b {color:#fff;}
+@media (max-width: 800px) {.masthead .badge {display:none;} .masthead .hi {font-size:1.3rem;} .band:after,.band:before {display:none;}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -218,13 +257,20 @@ def case_label(c):
 # --------------------------------------------------------------- header ---
 
 st.markdown("""
-<div class="hero">
-  <h1>🌀 CHAKRAVYUH</h1>
-  <p>Catching money laundering by scoring networks, not single transactions.</p>
-  <span class="tag">Team Tech Coders (7-300)</span><span class="tag">IGNITRRON'26 · FC-02</span>
-  <span class="tag">Fintech &amp; Cyber</span>
+<div class="util"><span>Prototype demonstration · Not an official government or bank website</span>
+<span>IGNITRRON'26 · Project J.A.R.V.I.S. · Problem FC-02</span></div>
+<div class="tricolor"></div>
+<div class="masthead">
+  <div class="logo">🌀</div>
+  <div><div class="hi">चक्रव्यूह</div>
+       <div class="en"><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal</div></div>
+  <div class="badge"><span>Team Tech Coders (7-300)</span><span>Fintech &amp; Cyber</span></div>
 </div>
 """, unsafe_allow_html=True)
+
+def pagetitle(text):
+    st.markdown(f'<div class="ptitle">{text}</div>', unsafe_allow_html=True)
+
 
 def helpbox(text):
     st.markdown(f'<div class="help">💡 {text}</div>', unsafe_allow_html=True)
@@ -246,14 +292,17 @@ tabs = st.tabs(["Overview", "1 · Identity", "2 · Network & cross-bank", "3 · 
 
 # ------------------------------------------------------------- overview ---
 with tabs[0]:
-    st.subheader("We score networks, not transactions")
+    st.markdown('<div class="band"><h2>Detect. Connect. Confirm.</h2><p>Banks see one transaction at a time. '
+                'Chakravyuh joins accounts into real people, people into networks, and networks into '
+                'evidence-backed cases for the investigating officer.</p></div>', unsafe_allow_html=True)
+    pagetitle("We score networks, not transactions")
     helpbox("New here? Click the tabs in order: Identity, Network, Detectors, Cases, Scorecard.")
     st.write("Banks check one transaction at a time, so they cannot see money that is passed through "
              "many accounts to hide it. Chakravyuh joins the dots and hands the officer a finished, "
              "evidence-backed case instead of a pile of alerts.")
     c = st.columns(5)
     c[0].metric("Transactions", f"{len(D['tx']):,}")
-    c[1].metric("Accounts → people", f"{len(D['a2e']):,} → {len(D['attrs']):,}")
+    c[1].metric("Real people (from 2,500 accounts)", f"{len(D['attrs']):,}")
     c[2].metric("Detector findings", len(D["findings"]))
     c[3].metric("Cases", len(cases))
     c[4].metric("Rings caught", f"{sum(1 for v in per_ring.values() if v[2])} / {len(per_ring)}")
@@ -275,7 +324,7 @@ with tabs[0]:
 
 # ------------------------------------------------------------- identity ---
 with tabs[1]:
-    st.subheader("Step 1 · Who is really behind these accounts?")
+    pagetitle("Step 1 · Who is really behind these accounts?")
     helpbox("Pick a person. Left: the messy records banks hold. Right: the one real person we merged them into.")
     st.write("The same person shows up in several bank systems, spelled differently and with fields missing. "
              "Until those records are merged, a laundering circle looks like strangers paying each other.")
@@ -315,7 +364,7 @@ with tabs[1]:
 
 # -------------------------------------------------------------- network ---
 with tabs[2]:
-    st.subheader("Step 2 · One ring, four points of view")
+    pagetitle("Step 2 · One ring, four points of view")
     helpbox("Choose a viewpoint below the table. Watch the ring appear or vanish depending on who is looking.")
     s = D["stats"]
     base = s["ALL"]["num_connections"]
@@ -388,7 +437,7 @@ with tabs[2]:
 
 # ------------------------------------------------------------ detectors ---
 with tabs[3]:
-    st.subheader("Step 3 · Four deterministic detectors")
+    pagetitle("Step 3 · Four deterministic detectors")
     helpbox("Filter the findings, then pick one at the bottom to see the exact transactions that prove it.")
     st.write("No AI, no randomness. The same input always gives the same findings and each one lists "
              "the exact transactions that prove it.")
@@ -429,7 +478,7 @@ with tabs[3]:
 
 # ---------------------------------------------------------------- cases ---
 with tabs[4]:
-    st.subheader("Step 4 · One case per crime")
+    pagetitle("Step 4 · One case per crime")
     helpbox("Start with C001, the hero ring. Scroll down for the graph, evidence, the map and the officer decision.")
     st.write(f"**{len(D['findings'])} findings became {len(cases)} cases** "
              f"(+{len(D['review'])} watchlist review item). Overlapping findings are merged; each case keeps "
@@ -580,7 +629,7 @@ with tabs[4]:
 
 # ------------------------------------------------------------ scorecard ---
 with tabs[5]:
-    st.subheader("Scorecard: checked against the hidden answer key")
+    pagetitle("Scorecard: checked against the hidden answer key")
     st.caption("The answer key is used only here, never by any detection or case logic.")
     caught = sum(1 for v in per_ring.values() if v[2])
     fa = sum(per_detector[d][2] for d in det.STRUCTURAL)
@@ -602,5 +651,8 @@ with tabs[5]:
     st.dataframe(pd.DataFrame([{"Detector": d, "Findings": v[0], "True positives": v[1], "False alarms": v[2]}
                                for d, v in per_detector.items()]), hide_index=True, width="stretch")
 
-st.divider()
-st.caption("Chakravyuh · Team Tech Coders (7-300) · Detection is deterministic; humans make every decision.")
+st.markdown("""
+<div class="footer"><span><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal (prototype)</span>
+<span>Detection is deterministic · Every decision is made by a human officer · Nothing is filed automatically</span>
+<span>© Team Tech Coders (7-300) · IGNITRRON'26</span></div>
+""", unsafe_allow_html=True)
