@@ -7,7 +7,7 @@
 > Banks check one transaction at a time, so a laundering ring made of normal-looking transfers stays invisible.
 > **CHAKRAVYUH scores the network, not the transaction, and hands the officer a finished, fact-checked case instead of an alert.**
 
-| 11 of 12 | 0 | 244 / 244 | 11 / 11 | 0 |
+| 11 of 12 | 0 | 246 / 246 | 11 / 11 | 0 |
 | :---: | :---: | :---: | :---: | :---: |
 | hidden laundering rings caught | false-positive cases | AI-written facts verified against raw data | reports passed independent review | live API calls needed for the demo |
 
@@ -72,7 +72,7 @@ Each stage reads the previous stage's files and writes its own, so any stage can
 | Detection → cases | 42 findings → 11 cases · 11 of 12 rings · 0 false positives |
 | Cross-bank | Hero ring (₹2.4 crore, 6 accounts, 3 hours) invisible to each bank alone, visible in the consortium |
 | Relationships | 2.73 unusual-relationship signals per case vs 0.4 for random customer groups |
-| AI investigation | 11/11 PASS · 244/244 facts verified · confidence 9 HIGH, 2 MEDIUM |
+| AI investigation | 11/11 PASS · 246/246 facts verified · confidence 9 HIGH, 2 MEDIUM |
 
 ## 5. Development History
 
