@@ -2,92 +2,74 @@
   "C001": {
     "case_id": "C001",
     "narrative": {
-      "summary": "Rs 2.4 crore was cycled through six accounts, generating Rs 140.95 crore in total transaction volume, with 95.4% of the principal returning to the originating account. The transactions involved multiple accounts and banks within a short time frame.",
-      "what_happened": "On 2026-08-30 at 00:48:56, Rs 24,00,000 was transferred from ACC00010 to ACC00011. At 01:35:56, Rs 23,83,70,91.92 was sent from ACC00011 to ACC00012. At 02:06:56, Rs 23,69,36,23.23 moved from ACC00012 to ACC00013. At 02:40:56, Rs 23,35,80,52.61 was transferred from ACC00013 to ACC00014. At 03:20:56, Rs 23,16,63,44.02 was sent from ACC00014 to ACC00015. Finally, at 03:46:56, Rs 22,89,23,88.3 returned from ACC00015 to ACC00010.",
-      "typology": "This case matches the circular transfer typology as the funds cycled back to the originating account, indicating a closed loop.",
-      "why_suspicious": "The transactions exhibit a closed loop with 95.4% of the principal returning to the originating account within a span of approximately 3 hours, indicating potential layering without a legitimate economic purpose.",
+      "summary": "This case involves a circular transaction pattern with significant volume. Rs 2.4 crore was cycled through 6 accounts, generating Rs 14.09 crore in total transaction volume, with 95.4% of the principal returning to the originating account.",
+      "what_happened": "On 2026-08-30, the transactions occurred as follows: TXN000010 transferred Rs 2,40,00,000 from ACC00010 to ACC00011 at 00:48:56. TXN000011 moved Rs 2,38,37,091.92 from ACC00011 to ACC00012 at 01:35:56. TXN000012 sent Rs 2,36,93,623.23 from ACC00012 to ACC00013 at 02:06:56. TXN000013 transferred Rs 2,33,58,052.61 from ACC00013 to ACC00014 at 02:40:56. TXN000014 moved Rs 2,31,66,344.02 from ACC00014 to ACC00015 at 03:20:56. Finally, TXN000015 sent Rs 2,28,92,388.30 from ACC00015 back to ACC00010 at 03:46:56.",
+      "typology": "circular transfer / round-tripping due to the repeated movement of funds among accounts with a high return percentage.",
+      "why_suspicious": "The transactions exhibit a closed loop with a high value returned to the originating account, indicating potential money laundering activity.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "One core person, P. Malik, is watchlisted, which raises concerns about the legitimacy of the transactions."
+        "reason": "P. Malik is watchlisted, which raises concerns about the legitimacy of the transactions."
       }
     },
     "fact_check": {
-      "checked": 15,
-      "passed": 13,
-      "failures": [
-        "Amount Rs 2,400,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 1,409,500,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)"
-      ]
+      "checked": 21,
+      "passed": 21,
+      "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "LOW",
-      "innocent_explanation": "Not evaluated - the narrative failed automated fact-checking against the raw evidence twice and was rejected before adversarial review.",
+      "verdict": "PASS",
+      "confidence": "MEDIUM",
+      "innocent_explanation": "The transactions could be part of legitimate business operations involving multiple accounts. However, the evidence of a circular transaction pattern with 95.4% of the principal returning to the originating account rules this out as it suggests a deliberate attempt to obscure the source of funds.",
       "weaknesses": [
-        "Amount Rs 2,400,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 1,409,500,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)"
+        "High transaction volume and circular nature may be seen as typical for certain legitimate business practices, but the context of the watchlisted individual raises red flags."
       ],
-      "notes": "Rejected automatically: the investigator narrative still referenced facts absent from the evidence packet after one regeneration attempt."
+      "notes": "The circular transaction pattern, combined with the involvement of a watchlisted individual, creates a reasonable suspicion of potential money laundering activity. The evidence supports the need for a Suspicious Transaction Report."
     },
-    "final_confidence": "LOW",
+    "final_confidence": "MEDIUM",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:11:07Z"
+    "generated_at": "2026-09-18T19:41:35Z"
   },
   "C002": {
     "case_id": "C002",
     "narrative": {
-      "summary": "Rs 1.81 crore was cycled through five accounts, generating Rs 89.14 lakh in total transaction volume, with 100% of the principal returning to the originating account. The transactions occurred within a compressed timeframe of less than one hour.",
-      "what_happened": "On 2026-09-11 at 18:29:28, Rs 1,81,01,199.06 was transferred from ACC00112 (Suresh Kaur & Sons) to ACC00113 (Anita Sandhu) via RTGS. At 18:39:28, Rs 1,79,09,923.69 was sent from ACC00113 to ACC00114 via IMPS. At 18:48:28, Rs 1,78,77,701.31 was moved from ACC00114 to ACC00115 (Kapoor Rekha) via IMPS. At 18:57:28, Rs 1,77,52,289.21 was transferred from ACC00115 to ACC00116 (Suresh Kaur & Sons) via IMPS. Finally, at 19:07:28, Rs 1,74,95,444.64 was sent from ACC00116 to ACC00117 (Kapoor Rekha) via IMPS.",
-      "typology": "This case involves circular transfer due to the money looping back to the originating account, indicating a closed system of transactions.",
-      "why_suspicious": "The transactions exhibit a closed loop with 100% of the principal returning to the originating account within a short time frame of 38 minutes, suggesting potential layering without any clear economic purpose. Additionally, one of the core entities, Kapoor Rekha, is watchlisted, which raises further concerns.",
+      "summary": "This case involves a circular transaction pattern with a total volume of Rs 89.14 lakh. Rs 18.1 lakh was cycled through 6 accounts, generating Rs 89.14 lakh in total transaction volume, with 96.6% of the principal returning to the originating account.",
+      "what_happened": "On 2026-09-11 at 18:29:28, Rs 18,10,199.06 was transferred from ACC00112 to ACC00113 via RTGS. At 18:39:28, Rs 17,90,923.69 was sent from ACC00113 to ACC00114 using IMPS. Then, at 18:48:28, Rs 17,87,701.31 moved from ACC00114 to ACC00115 through IMPS. Following that, at 18:57:28, Rs 17,75,289.21 was transferred from ACC00115 to ACC00116 via IMPS. Finally, at 19:07:28, Rs 17,49,544.64 was sent from ACC00116 to ACC00117 using IMPS.",
+      "typology": "circular transfer / round-tripping due to the money cycling through multiple accounts and returning to the originating account.",
+      "why_suspicious": "The transactions exhibit a closed loop with a significant percentage of the principal returning, all occurring within a compressed time frame of less than an hour, indicating potential layering without a clear economic purpose.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "There is an unverified link associated with one of the context entities, Swati Pandey & Sons."
+        "reason": "One individual, Swati Pandey & Sons, has an unverified link."
       }
     },
     "fact_check": {
       "checked": 14,
-      "passed": 8,
-      "failures": [
-        "Amount Rs 17,495,445 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,752,289 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,877,701 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,909,924 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 18,100,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 18,101,199 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)"
-      ]
+      "passed": 14,
+      "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "LOW",
-      "innocent_explanation": "Not evaluated - the narrative failed automated fact-checking against the raw evidence twice and was rejected before adversarial review.",
-      "weaknesses": [
-        "Amount Rs 17,495,445 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,752,289 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,877,701 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 17,909,924 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 18,100,000 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)",
-        "Amount Rs 18,101,199 matches neither the case total, the cycled principal, the total volume, nor any case transaction amount (within 1%)"
-      ],
-      "notes": "Rejected automatically: the investigator narrative still referenced facts absent from the evidence packet after one regeneration attempt."
+      "verdict": "PASS",
+      "confidence": "MEDIUM",
+      "innocent_explanation": "The transactions could represent legitimate business operations among closely related entities, but the evidence shows a clear circular pattern with significant amounts returning to the originating account, which is unusual for standard business practices.",
+      "weaknesses": [],
+      "notes": "The circular transaction pattern, combined with the rapid succession of transfers and high return percentage, strongly suggests potential layering or money laundering activities. The presence of a watchlisted individual adds to the suspicion, warranting a report to FIU-IND. Confidence reduced: this case depends on an identity link that was merged on probable rather than confirmed evidence."
     },
-    "final_confidence": "LOW",
+    "final_confidence": "MEDIUM",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:11:24Z"
+    "generated_at": "2026-09-18T19:41:42Z"
   },
   "C003": {
     "case_id": "C003",
     "narrative": {
-      "summary": "Rs 11.85 lakh was cycled through six accounts, generating Rs 81.38 lakh in total transaction volume, with 100% of the principal returning to the originating account. The transactions occurred within a short time span of 53 minutes.",
-      "what_happened": "On 2026-08-29 at 10:29:05, Rs 11,85,003.97 was transferred from ACC00118 (Gopal Kapoor) to ACC00119 (Swati Sengupta). At 10:38:05, Rs 11,76,205.56 moved from ACC00119 to ACC00120 (Gopal Kapoor). At 10:42:05, Rs 11,71,763.28 was sent from ACC00120 to ACC00121 (Kiran Tiwari & Sons). At 10:46:05, Rs 11,69,881.12 transferred from ACC00121 to ACC00122 (Desai Sandeep). At 10:52:05, Rs 11,62,685.26 moved from ACC00122 to ACC00123 (Desai Sandeep). At 10:57:05, Rs 11,43,887.71 was sent from ACC00123 to ACC00124 (Swati Sengupta). Finally, at 11:01:05, Rs 11,28,610.98 transferred from ACC00124 to ACC00125 (Kiran Tiwari & Sons).",
-      "typology": "This matches circular transfer due to the money looping back to the originating accounts, indicating a closed loop.",
-      "why_suspicious": "The transactions exhibit a closed loop with 100% of the principal returning to the originating account, occurring within a compressed timeframe of 53 minutes, suggesting no legitimate economic purpose.",
+      "summary": "This case involves a circular transaction pattern with a total volume of Rs 81.38 lakh. Rs 11.85 lakh was cycled through 8 accounts, generating Rs 81.38 lakh in total transaction volume, with 95.2% of the principal returning to the originating account.",
+      "what_happened": "On 2026-08-29 at 10:29:05, Rs 11,85,003.97 was transferred from ACC00118 to ACC00119. At 10:38:05, Rs 11,76,205.56 moved from ACC00119 to ACC00120. At 10:42:05, Rs 11,71,763.28 was sent from ACC00120 to ACC00121. At 10:46:05, Rs 11,69,881.12 transferred from ACC00121 to ACC00122. At 10:52:05, Rs 11,62,685.26 was moved from ACC00122 to ACC00123. At 10:57:05, Rs 11,43,887.71 was sent from ACC00123 to ACC00124. Finally, at 11:01:05, Rs 11,28,610.98 was transferred from ACC00124 to ACC00125.",
+      "typology": "circular transfer / round-tripping due to the repeated movement of funds among multiple accounts with a high return percentage.",
+      "why_suspicious": "The transactions form a closed loop with a significant percentage of the principal returning to the originating account, indicating potential layering without a clear economic purpose.",
       "recommended_action": "FILE_STR",
       "confidence": {
-        "level": "HIGH",
-        "reason": "All core individuals have verified links and no suspicious connections."
+        "level": "MEDIUM",
+        "reason": "One core person, Desai Sandeep, is watchlisted."
       }
     },
     "fact_check": {
@@ -96,30 +78,29 @@
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
+      "verdict": "PASS",
       "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent a legitimate supplier settlement cycle among related companies, where funds are transferred for operational purposes and then returned, possibly due to invoicing or payroll adjustments. This explanation survives scrutiny as there is no evidence indicating that the funds were intended for illicit purposes, and the core individuals are not watchlisted.",
+      "innocent_explanation": "The transactions could represent legitimate business operations among related parties. However, the evidence shows a circular pattern with 95.2% of the principal returning to the originating account, which is highly unusual for standard business transactions.",
       "weaknesses": [
-        "The compressed timeframe of 53 minutes raises questions about the legitimacy of the transactions, as it suggests a lack of genuine economic activity.",
-        "The circular nature of the transactions could be interpreted as an attempt to obscure the true source of funds, even if the individuals involved are not watchlisted."
+        "The presence of a watchlisted individual (Desai Sandeep) may raise concerns, but does not alone confirm illicit activity."
       ],
-      "notes": "While the analyst presents a strong case based on the closed loop of transactions, the innocent explanation of legitimate business operations cannot be dismissed. The evidence does not conclusively rule out this possibility, and the lack of suspicious connections among core individuals weakens the case for filing."
+      "notes": "The circular transaction pattern and high return percentage suggest potential layering without a clear economic purpose, warranting a Suspicious Transaction Report."
     },
     "final_confidence": "MEDIUM",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:11:35Z"
+    "generated_at": "2026-09-18T19:41:49Z"
   },
   "C004": {
     "case_id": "C004",
     "narrative": {
-      "summary": "Rs 6.43 lakh was cycled through eight accounts, generating Rs 48.95 lakh in total transaction volume, with 100% of the principal returning to the originating account. The transactions occurred within a compressed timeframe of 21 hours.",
-      "what_happened": "On 2026-08-31 at 11:07:47, Rs 6,42,625.30 was transferred from ACC00016 to ACC00017 via NEFT. At 12:07:47, Rs 6,26,948.73 moved from ACC00017 to ACC00018 through RTGS. At 13:07:47, Rs 6,21,022.04 was sent from ACC00018 to ACC00019 using NEFT. At 16:07:47, Rs 6,16,376.11 transferred from ACC00019 to ACC00020 via IMPS. At 19:07:47, Rs 6,12,832.68 moved from ACC00020 to ACC00021 through RTGS. At 23:07:47, Rs 5,98,965.66 was sent from ACC00021 to ACC00022 via NEFT. On 2026-09-01 at 04:07:47, Rs 5,91,425.22 transferred from ACC00022 to ACC00023 using IMPS. Finally, at 08:07:47, Rs 5,85,159.37 was sent from ACC00023 back to ACC00016 via RTGS.",
-      "typology": "This case matches the circular transfer typology as the money cycled back to the originating account, indicating a closed loop.",
-      "why_suspicious": "The transactions exhibit a closed loop with 100% of the principal returning to the originating account, occurring within a compressed timeframe of 21 hours, suggesting potential layering without an apparent economic purpose.",
+      "summary": "This case involves a circular transaction pattern with significant volume. Rs 6.43 lakh was cycled through 8 accounts, generating Rs 48.95 lakh in total transaction volume, with 91.1% of the principal returning to the originating account.",
+      "what_happened": "The transactions occurred as follows: On 2026-08-31 at 11:07:47, Rs 6,42,625.30 was transferred from ACC00016 to ACC00017 via NEFT. At 12:07:47, Rs 6,26,948.73 moved from ACC00017 to ACC00018 through RTGS. At 13:07:47, Rs 6,21,022.04 was sent from ACC00018 to ACC00019 using NEFT. At 16:07:47, Rs 6,16,376.11 transferred from ACC00019 to ACC00020 via IMPS. At 19:07:47, Rs 6,12,832.68 moved from ACC00020 to ACC00021 through RTGS. At 23:07:47, Rs 5,98,965.66 was sent from ACC00021 to ACC00022 using NEFT. On 2026-09-01 at 04:07:47, Rs 5,91,425.22 transferred from ACC00022 to ACC00023 via IMPS. Finally, at 08:07:47, Rs 5,85,159.37 was sent from ACC00023 back to ACC00016 through RTGS.",
+      "typology": "circular transfer / round-tripping due to the money looping back to its origin.",
+      "why_suspicious": "The transactions demonstrate a closed loop with a high percentage of value returned to the originating account, indicating potential money laundering activity.",
       "recommended_action": "FILE_STR",
       "confidence": {
-        "level": "HIGH",
-        "reason": "All core individuals involved have verified links and no unverified connections."
+        "level": "MEDIUM",
+        "reason": "One core person is watchlisted, but no unverified links were found."
       }
     },
     "fact_check": {
@@ -128,30 +109,27 @@
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent a legitimate supplier settlement cycle where payments are made between related companies for goods or services rendered, with funds being cycled back to manage cash flow. This explanation survives scrutiny as there is no direct evidence indicating illicit intent or lack of economic purpose.",
-      "weaknesses": [
-        "The analyst assumes that the closed loop indicates layering without considering legitimate business practices that could explain the transactions.",
-        "The compressed timeframe is presented as suspicious without acknowledging that businesses often operate on tight schedules for cash management."
-      ],
-      "notes": "The evidence does not convincingly rule out legitimate business activities, and the analyst's reasoning appears to overstate the implications of the transaction patterns without sufficient context."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could represent legitimate business operations involving multiple accounts for operational efficiency. However, the evidence shows a circular transaction pattern with 91.1% of the principal returning to the originating account, which is highly unusual for standard business practices.",
+      "weaknesses": [],
+      "notes": "The circular transaction pattern, combined with the significant volume and the high return percentage to the originating account, strongly indicates potential money laundering activity. The presence of a watchlisted individual further supports the need for a Suspicious Transaction Report."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:11:45Z"
+    "generated_at": "2026-09-18T19:41:58Z"
   },
   "C005": {
     "case_id": "C005",
     "narrative": {
-      "summary": "Rs 88,691.7 was cycled through multiple accounts, generating Rs 45,77,543.5 in total transaction volume. The transactions occurred over a short time span, indicating potential rapid layering.",
-      "what_happened": "On 15th September 2026, the first transaction (TXN000134) occurred at 22:16:18, where Rs 88,691.7 was transferred from ACC00065 to ACC00084. This was followed by several transactions from ACC00065 to various accounts including ACC00072 (TXN000110), ACC00090 (TXN000146), and ACC00092 (TXN000150) among others, with amounts ranging from Rs 51,748.24 to Rs 78,285.38. The last transaction (TXN002552) occurred on 16th September 2026 at 01:23:28, transferring Rs 43,812.99 from ACC00065 to ACC00101.",
-      "typology": "This matches the rapid layering typology due to the high volume of transactions occurring in a short time frame without a clear economic purpose.",
-      "why_suspicious": "The transactions exhibit rapid movement of funds with no apparent legitimate business rationale, and the total volume is significantly higher than the principal amount cycled, indicating potential money laundering activities.",
+      "summary": "A total of Rs 45,77,543.50 was transferred through multiple accounts over a short period, indicating potential suspicious activity. The transactions involved various core individuals, including one watchlisted entity.",
+      "what_happened": "The transactions began on 2026-09-15 at 22:16:18 with TXN000134, where Rs 88,691.70 was transferred from ACC00065 to ACC00084. This was followed by multiple transactions, including Rs 51,748.24 from ACC00065 to ACC00072 (TXN000110), Rs 80,155.17 from ACC00065 to ACC00090 (TXN000146), and many others, culminating on 2026-09-16 at 01:23:28 with TXN002552, where Rs 43,812.99 was transferred from ACC00065 to ACC00101.",
+      "typology": "This case matches the rapid layering method due to the high volume of transactions occurring in a short time frame without a clear economic purpose.",
+      "why_suspicious": "The transactions exhibit a closed loop with a significant volume of funds moving between accounts in a compressed time frame, raising concerns about their legitimacy. Additionally, one of the core individuals involved, Mary Bose & Sons, is watchlisted.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "One account involved belongs to a watchlisted entity, which raises concerns."
+        "reason": "There is a watchlisted entity involved, which lowers the confidence in the legitimacy of the transactions."
       }
     },
     "fact_check": {
@@ -160,158 +138,145 @@
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent legitimate business operations, such as payroll distributions or supplier payments, where funds are moved between accounts for operational purposes. The rapid movement of funds may be a result of a legitimate settlement cycle among related companies, which is common in business practices. This explanation survives scrutiny as there is no direct evidence of illegitimate intent or activity beyond the observed transaction patterns.",
-      "weaknesses": [
-        "The analyst's conclusion relies heavily on the interpretation of rapid layering without considering the possibility of legitimate business practices. The presence of a watchlisted entity does raise concerns, but it does not automatically imply wrongdoing by all involved parties."
-      ],
-      "notes": "The evidence does not convincingly demonstrate illicit activity, and the transactions could be explained by legitimate business operations. The analyst's reasoning does not adequately address potential innocent explanations."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could be legitimate business transactions among multiple parties; however, the evidence of rapid layering and the involvement of a watchlisted entity rules this out as a consistent explanation.",
+      "weaknesses": [],
+      "notes": "The pattern of transactions is highly unusual, characterized by rapid movement of large sums between multiple accounts, particularly involving a watchlisted entity. This warrants filing a Suspicious Transaction Report."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:11:53Z"
+    "generated_at": "2026-09-18T19:42:04Z"
   },
   "C006": {
     "case_id": "C006",
     "narrative": {
-      "summary": "Rs 84,550.49 was cycled through multiple accounts, generating Rs 28,79,870.97 in total transaction volume. The transactions occurred within a compressed time frame of approximately 3.42 hours.",
-      "what_happened": "On 2026-08-29, at 01:29:20, Rs 67,554.67 was transferred from ACC00038 to ACC00040. Subsequently, Rs 29,139.93 was sent from ACC00038 to ACC00058 at 01:36:20. At 01:47:20, Rs 52,298.58 moved from ACC00038 to ACC00049. Following this, Rs 71,128.21 was transferred from ACC00038 to ACC00046 at 01:52:20. The transactions continued with Rs 66,150.67 from ACC00040 to ACC00064 at 02:00:20, and Rs 70,020.01 from ACC00046 to ACC00064 at 02:04:20. The cycle continued with multiple transactions, culminating in Rs 84,550.49 being transferred from ACC00038 to ACC00060 at 04:10:20.",
-      "typology": "This case matches a mule network typology as the funds were rapidly transferred between multiple accounts without a clear economic purpose.",
-      "why_suspicious": "The transactions exhibit a closed loop with significant value returning to the originating accounts, occurring within a compressed time frame, indicating potential layering and structuring activities.",
-      "recommended_action": "FILE_STR",
+      "summary": "A total of Rs 28,79,870.97 was transacted across multiple accounts in a short time frame. The transactions involved several core individuals, including one with an unverified link.",
+      "what_happened": "The transactions began on 2026-08-29 at 01:29:20 with TXN000050, where Rs 67,554.67 was transferred from ACC00038 to ACC00040. This was followed by TXN000086 at 01:36:20, transferring Rs 29,139.93 from ACC00038 to ACC00058. The activity continued with TXN000068 at 01:47:20 for Rs 52,298.58 from ACC00038 to ACC00049, and TXN000062 at 01:52:20 for Rs 71,128.21 from ACC00038 to ACC00046. Additional transactions included TXN000051 at 02:00:20 for Rs 66,150.67 from ACC00040 to ACC00064, and TXN000063 at 02:04:20 for Rs 70,020.01 from ACC00046 to ACC00064. The last transaction occurred at 04:54:20 with TXN000075, transferring Rs 28,438.55 from ACC00052 to ACC00064, culminating in a total volume of Rs 28,79,870.97.",
+      "typology": "This case matches the rapid layering method due to the high volume of transactions occurring in a compressed time frame without a clear economic purpose.",
+      "why_suspicious": "The transactions demonstrate a closed loop with significant value returned, occurring within a short time span, indicating potential money laundering activity. Additionally, one individual, Rohit Varghese, has an unverified link, which lowers the confidence in the legitimacy of these transactions.",
+      "recommended_action": "ESCALATE",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "There is one individual, Rohit Varghese, with an unverified link, which lowers overall confidence."
+        "reason": "One individual involved has an unverified link."
       }
     },
     "fact_check": {
-      "checked": 16,
-      "passed": 16,
+      "checked": 23,
+      "passed": 23,
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "LOW",
-      "innocent_explanation": "The transactions could represent legitimate business activities such as payroll distribution or supplier payments, where funds are cycled through various accounts for operational purposes. This explanation survives scrutiny as there is no direct evidence indicating illicit intent or activity, and the accounts involved are not all linked to watchlisted individuals.",
-      "weaknesses": [
-        "The analyst's conclusion relies heavily on the rapid transaction cycle and the amount cycled, which could be coincidental rather than indicative of illicit activity.",
-        "The presence of a watchlisted individual does not directly implicate all transactions or accounts involved, and the analyst does not sufficiently address the legitimate business context.",
-        "The narrative does not provide a clear economic purpose for the transactions, but this alone does not rule out legitimate business operations."
-      ],
-      "notes": "The case lacks sufficient evidence to support filing, as the transactions could be explained by legitimate business practices. The analyst's reasoning does not convincingly demonstrate illicit intent, and the presence of a watchlisted individual does not implicate all parties involved. Confidence reduced: this case depends on an identity link that was merged on probable rather than confirmed evidence."
+      "verdict": "PASS",
+      "confidence": "MEDIUM",
+      "innocent_explanation": "The transactions could be part of legitimate business operations among the core individuals; however, the evidence shows a rapid succession of high-value transactions without a clear economic purpose, which is inconsistent with normal business practices.",
+      "weaknesses": [],
+      "notes": "The pattern of transactions is highly unusual, with significant amounts being transferred in a short time frame, suggesting potential money laundering. The presence of an individual with an unverified link further supports the need for reporting. Confidence reduced: this case depends on an identity link that was merged on probable rather than confirmed evidence."
     },
-    "final_confidence": "LOW",
+    "final_confidence": "MEDIUM",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:12:11Z"
+    "generated_at": "2026-09-18T19:42:13Z"
   },
   "C007": {
     "case_id": "C007",
     "narrative": {
-      "summary": "Rs 89,118.68 was cycled through multiple accounts, generating Rs 15,36,116.09 in total transaction volume. The transactions occurred within a compressed timeframe of approximately 2.58 hours.",
-      "what_happened": "On 2026-08-24, at 12:38:13, Rs 89,118.68 was transferred from ACC00024 to ACC00034 via UPI. Subsequently, at 12:45:13, Rs 62,780.98 was sent from ACC00024 to ACC00030. At 13:04:13, Rs 71,609.07 was moved from ACC00024 to ACC00028. At 13:15:13, Rs 61,416.09 was transferred from ACC00030 to ACC00037. At 13:17:13, Rs 70,241.69 was sent from ACC00028 to ACC00037. At 13:22:13, Rs 88,118.53 was moved from ACC00034 to ACC00037. At 13:25:13, Rs 52,994.91 was transferred from ACC00024 to ACC00027. At 13:29:13, Rs 60,642.64 was sent from ACC00024 to ACC00025. At 13:47:13, Rs 51,873.85 was moved from ACC00027 to ACC00037. At 13:53:13, Rs 75,243.45 was transferred from ACC00024 to ACC00029. At 13:59:13, Rs 60,101.05 was sent from ACC00025 to ACC00037. At 14:02:13, Rs 73,854.30 was moved from ACC00029 to ACC00037. At 14:03:13, Rs 43,834.86 was transferred from ACC00024 to ACC00031. At 14:06:13, Rs 43,235.25 was sent from ACC00024 to ACC00036. At 14:09:13, Rs 71,127.28 was moved from ACC00024 to ACC00033. At 14:17:13, Rs 79,847.74 was transferred from ACC00024 to ACC00026. At 14:27:13, Rs 59,668.85 was sent from ACC00024 to ACC00035. At 14:34:13, Rs 77,776.75 was moved from ACC00026 to ACC00037. At 14:37:13, Rs 69,235.30 was transferred from ACC00033 to ACC00037. At 14:44:13, Rs 65,753.48 was sent from ACC00024 to ACC00032. At 14:45:13, Rs 42,147.45 was moved from ACC00036 to ACC00037. At 14:48:13, Rs 42,938.82 was transferred from ACC00031 to ACC00037. Finally, at 14:55:13, Rs 58,311.99 was sent from ACC00035 to ACC00037. The last transaction occurred at 15:13:13.",
-      "typology": "This case matches the mule network typology as funds are rapidly transferred between multiple accounts without a clear economic purpose.",
-      "why_suspicious": "The transactions exhibit a closed loop with significant amounts being transferred back to ACC00037, indicating potential layering. Additionally, the rapid succession of transactions within a short timeframe raises concerns about the legitimacy of the funds.",
+      "summary": "A total of Rs 15,36,116.09 was transferred through multiple accounts in a short time frame. The transactions involve several core individuals, including one watchlisted person, N. Brar.",
+      "what_happened": "The first transaction occurred on 2026-08-24 at 12:38:13 from ACC00024 to ACC00034 for Rs 89,118.68. This was followed by Rs 62,780.98 from ACC00024 to ACC00030 at 12:45:13, Rs 71,609.07 from ACC00024 to ACC00028 at 13:04:13, and Rs 61,416.09 from ACC00030 to ACC00037 at 13:15:13. Further transactions included Rs 70,241.69 from ACC00028 to ACC00037 at 13:17:13, Rs 88,118.53 from ACC00034 to ACC00037 at 13:22:13, and Rs 52,994.91 from ACC00024 to ACC00027 at 13:25:13. Additional transfers included Rs 60,642.64 from ACC00024 to ACC00025 at 13:29:13, Rs 51,873.85 from ACC00027 to ACC00037 at 13:47:13, Rs 75,243.45 from ACC00024 to ACC00029 at 13:53:13, and Rs 60,101.05 from ACC00025 to ACC00037 at 13:59:13. The transactions continued with Rs 73,854.30 from ACC00029 to ACC00037 at 14:02:13, Rs 43,834.86 from ACC00024 to ACC00031 at 14:03:13, Rs 43,235.25 from ACC00024 to ACC00036 at 14:06:13, Rs 71,127.28 from ACC00024 to ACC00033 at 14:09:13, Rs 79,847.74 from ACC00024 to ACC00026 at 14:17:13, Rs 59,668.85 from ACC00024 to ACC00035 at 14:27:13, Rs 77,776.75 from ACC00026 to ACC00037 at 14:34:13, Rs 69,235.30 from ACC00033 to ACC00037 at 14:37:13, Rs 65,753.48 from ACC00024 to ACC00032 at 14:44:13, Rs 42,147.45 from ACC00036 to ACC00037 at 14:45:13, Rs 42,938.82 from ACC00031 to ACC00037 at 14:48:13, Rs 58,311.99 from ACC00035 to ACC00037 at 14:55:13, and finally Rs 64,243.08 from ACC00032 to ACC00037 at 15:13:13.",
+      "typology": "This case matches the rapid layering method due to the high volume of transactions occurring in a short time frame without a clear economic purpose.",
+      "why_suspicious": "The transactions span a short period of 2.58 hours, with Rs 15,36,116.09 moved across multiple accounts, indicating a closed loop with no clear economic purpose. Additionally, one of the individuals involved, N. Brar, is watchlisted.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "One individual, N. Brar, is watchlisted, which may indicate potential risk."
+        "reason": "One individual involved is watchlisted, which raises concerns."
       }
     },
     "fact_check": {
-      "checked": 39,
-      "passed": 39,
+      "checked": 40,
+      "passed": 40,
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent legitimate business operations, such as payroll distribution or supplier payments, where funds are cycled through various accounts for operational efficiency. This explanation survives scrutiny as there is no direct evidence of illicit intent or activity, and the amounts and timing could align with normal business practices.",
-      "weaknesses": [
-        "The analyst assumes a closed loop indicates illicit activity without considering legitimate business practices that could result in similar transaction patterns.",
-        "The reliance on the watchlisted individual, N. Brar, as a basis for suspicion lacks direct evidence linking them to the transactions in question."
-      ],
-      "notes": "The analyst's reasoning appears to overemphasize the suspicious nature of the transaction pattern without adequately addressing potential legitimate explanations. Further investigation into the nature of the transactions and the relationships between the entities involved is warranted before proceeding."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could be part of legitimate business operations involving multiple accounts. However, the evidence rules this out as the transactions are concentrated within a very short time frame (2.58 hours) and involve a high total volume (Rs 15,36,116.09) with no clear economic purpose.",
+      "weaknesses": [],
+      "notes": "The pattern of transactions is highly unusual, especially given the rapid movement of funds among multiple accounts without a clear business rationale. The involvement of a watchlisted individual further supports the need for filing a Suspicious Transaction Report."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:12:26Z"
+    "generated_at": "2026-09-18T19:42:23Z"
   },
   "C008": {
     "case_id": "C008",
     "narrative": {
-      "summary": "Rs 9,94,487.68 was cycled through multiple accounts, generating Rs 2.57 crore in total transaction volume. The transactions involved cash transfers primarily to a single account over a span of 21 days.",
-      "what_happened": "On 2026-08-18, Rs 9,80,264.80 was transferred from ACC00126 to ACC00136. Later that day, Rs 9,56,084.07 was transferred from ACC00130 to ACC00136. On 2026-08-20, Rs 9,61,547.84 was transferred from ACC00127 to ACC00136, followed by Rs 9,16,439.14 from ACC00128 to ACC00136. On 2026-08-21, Rs 9,62,270.25 was transferred from ACC00131 to ACC00136. On 2026-08-22, Rs 9,67,633.79 was transferred from ACC00134 to ACC00136, and Rs 9,04,979.62 from ACC00131 to ACC00136. The same day, Rs 9,38,813.04 was transferred from ACC00132 to ACC00136, and Rs 9,59,145.90 from ACC00128 to ACC00136. On 2026-08-23, Rs 9,93,643.05 was transferred from ACC00129 to ACC00136. On 2026-08-25, Rs 9,65,029.29 was transferred from ACC00127 to ACC00136. On 2026-08-26, Rs 9,30,070.25 was transferred from ACC00135 to ACC00136. On 2026-08-27, Rs 9,16,685.75 was transferred from ACC00130 to ACC00136. On 2026-08-28, Rs 9,52,794.01 was transferred from ACC00127 to ACC00136, and Rs 9,88,377.23 from ACC00132 to ACC00136. On 2026-08-29, Rs 9,43,047.44 was transferred from ACC00128 to ACC00136, and Rs 9,23,221.86 from ACC00132 to ACC00136. On 2026-08-30, Rs 9,04,014.97 was transferred from ACC00130 to ACC00136. On 2026-09-01, Rs 9,94,487.68 was transferred from ACC00132 to ACC00136, followed by Rs 9,05,653.28 from ACC00130 to ACC00136, and Rs 9,91,743.40 from ACC00133 to ACC00136. On 2026-09-03, Rs 9,34,098.37 was transferred from ACC00132 to ACC00136, and Rs 9,44,733.58 from ACC00130 to ACC00136. On 2026-09-03, Rs 9,93,762.17 was transferred from ACC00132 to ACC00136. On 2026-09-05, Rs 9,66,845.12 was transferred from ACC00126 to ACC00136. On 2026-09-07, Rs 9,94,472.45 was transferred from ACC00132 to ACC00136. Finally, on 2026-09-08, Rs 9,00,183.42 was transferred from ACC00131 to ACC00136.",
-      "typology": "This case matches the mule network typology due to the rapid movement of funds between multiple accounts, all directing to a single account (ACC00136) without a clear economic purpose.",
-      "why_suspicious": "The transactions exhibit a closed loop with a significant amount of cash being transferred to a single account (ACC00136) from various accounts, indicating potential layering and lack of legitimate economic rationale.",
+      "summary": "A total of Rs 2,56,90,041.77 was transferred through multiple accounts over a span of 502.13 hours. The transactions involved cash transfers to a single account, raising concerns about their legitimacy.",
+      "what_happened": "The first transaction occurred on 2026-08-18 at 17:24:25, where Rs 9,80,264.80 was transferred from ACC00126 to ACC00136. This was followed by Rs 9,56,084.07 from ACC00130 to ACC00136 on 2026-08-18 at 22:00:49. Subsequent transactions included Rs 9,61,547.84 from ACC00127 to ACC00136 on 2026-08-20 at 15:37:10, Rs 9,16,439.14 from ACC00128 to ACC00136 on 2026-08-20 at 22:40:47, and Rs 9,62,270.25 from ACC00131 to ACC00136 on 2026-08-21 at 13:18:30. Additional transfers continued, with the last transaction being Rs 9,00,183.42 from ACC00131 to ACC00136 on 2026-09-08 at 15:32:00.",
+      "typology": "This case matches the circular transfer typology due to the repeated cash transfers to a single account without a clear economic purpose.",
+      "why_suspicious": "The transactions show a closed loop with cash being transferred to a single account, indicating potential money laundering activity. Additionally, the presence of a watchlisted entity, Irfan Gill & Sons, raises further concerns.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "There is an unverified link to a watchlisted entity, Irfan Gill & Sons, which lowers the confidence in the legitimacy of the transactions."
+        "reason": "There is a watchlisted entity involved, which lowers the confidence in the legitimacy of the transactions."
       }
     },
     "fact_check": {
-      "checked": 55,
-      "passed": 55,
+      "checked": 17,
+      "passed": 17,
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent legitimate business operations, such as payroll distribution or supplier payments, where multiple accounts are used for cash flow management. The cycling of funds could be part of a legitimate settlement cycle among related companies. This explanation survives scrutiny as there is no definitive evidence of illegitimate intent or economic purpose provided in the evidence packet.",
-      "weaknesses": [
-        "The analyst's conclusion relies heavily on the assumption of illegitimate intent without concrete evidence of wrongdoing. The lack of context regarding the nature of the transactions and the relationships between the entities involved weakens the case.",
-        "The assertion that the transactions indicate layering lacks supporting evidence that demonstrates an intent to conceal illicit activity."
-      ],
-      "notes": "The evidence does not convincingly demonstrate that the transactions are illegitimate, and the innocent explanations remain plausible. The case should not be filed without stronger evidence of wrongdoing."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could be legitimate business operations involving cash transfers to a central account for operational purposes. However, the evidence shows that all transactions are cash transfers to a single account without any clear economic purpose, which is atypical for legitimate business operations.",
+      "weaknesses": [],
+      "notes": "The pattern of cash transfers to a single account, especially involving a watchlisted entity, is highly suspicious and warrants filing a Suspicious Transaction Report."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:12:41Z"
+    "generated_at": "2026-09-18T19:42:31Z"
   },
   "C009": {
     "case_id": "C009",
     "narrative": {
-      "summary": "Rs 6.76 lakh was cycled through four accounts, generating Rs 26.62 lakh in total transaction volume. The transactions occurred within a short time frame, indicating potential rapid layering.",
-      "what_happened": "On 2026-08-22 at 16:16:43, Rs 6,76,229.95 was transferred from ACC00107 (Ajay Mehta & Sons) to ACC00108 (Sunita Jain). At 16:29:43, Rs 6,72,891.57 was sent from ACC00108 to ACC00109 (Ajay Mehta & Sons). At 16:37:43, Rs 6,61,701.09 moved from ACC00109 to ACC00110 (Sunita Jain). Finally, at 16:55:43, Rs 6,51,670.15 was transferred from ACC00110 to ACC00111 (Padma Malhotra).",
-      "typology": "This case matches rapid layering due to the quick succession of transactions and movement of funds between accounts with no clear economic purpose.",
-      "why_suspicious": "The transactions occurred within 39 minutes, with significant amounts transferred between accounts linked to a watchlisted individual, Sunita Jain, indicating potential money laundering activity.",
+      "summary": "A total of Rs 26,62,492.76 was transferred through four transactions involving multiple accounts. The transactions occurred within a short time frame, indicating a potentially suspicious pattern.",
+      "what_happened": "On 2026-08-22 at 16:16:43, Rs 6,76,229.95 was transferred from ACC00107 (Ajay Mehta & Sons) to ACC00108 (SUNITA JAIN) via IMPS. At 16:29:43, Rs 6,72,891.57 was sent from ACC00108 to ACC00109 (Ajay Mehta & Sons) through IMPS. Then, at 16:37:43, Rs 6,61,701.09 was moved from ACC00109 to ACC00110 (SUNITA JAIN) using RTGS. Finally, at 16:55:43, Rs 6,51,670.15 was transferred from ACC00110 to ACC00111 (PADMA MALHOTRA) via IMPS.",
+      "typology": "This case matches the circular transfer typology due to the rapid movement of funds between accounts with no clear economic purpose.",
+      "why_suspicious": "The transactions occurred within a compressed time frame of less than an hour, with significant amounts being transferred between accounts linked to a watchlisted individual, SUNITA JAIN. This raises concerns about the legitimacy of the transactions.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "One core person is watchlisted, raising concerns about the legitimacy of the transactions."
+        "reason": "One core person is watchlisted, but there are no unverified links."
       }
     },
     "fact_check": {
-      "checked": 12,
-      "passed": 12,
+      "checked": 11,
+      "passed": 11,
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
+      "verdict": "PASS",
       "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent legitimate business operations, such as payroll distribution or supplier payments, particularly given the involvement of multiple entities that may have a legitimate business relationship. The timing could be coincidental, reflecting a normal settlement cycle rather than illicit activity.",
+      "innocent_explanation": "The transactions could be legitimate business transactions between related parties; however, the evidence shows a rapid sequence of large transfers between accounts associated with a watchlisted individual, which is unusual and lacks a clear economic purpose.",
       "weaknesses": [
-        "The analyst assumes that the rapid succession of transactions indicates layering without considering legitimate business practices that could explain the timing and amounts.",
-        "The evidence does not provide clear links to illicit activity beyond the watchlisted status of one individual, which alone does not establish wrongdoing."
+        "The transactions involve multiple accounts and a watchlisted individual, which could be interpreted as legitimate business activity if further context were provided."
       ],
-      "notes": "The case lacks definitive evidence of wrongdoing, and the transactions could be interpreted as part of normal business operations. The analyst's conclusions about layering are not sufficiently supported by the evidence provided."
+      "notes": "The pattern of transactions is highly unusual, especially given the involvement of a watchlisted individual and the rapid movement of significant funds. This warrants a report to the FIU-IND."
     },
     "final_confidence": "MEDIUM",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:12:49Z"
+    "generated_at": "2026-09-18T19:42:37Z"
   },
   "C010": {
     "case_id": "C010",
     "narrative": {
-      "summary": "Rs 6.19 lakh was cycled through four accounts, generating Rs 24.1 lakh in total transaction volume, with 100% of the principal returning to the originating account. The transactions occurred within a 12-hour period, indicating a rapid movement of funds.",
-      "what_happened": "On 2026-08-28 at 13:26:18, Rs 6,19,926.45 was transferred from ACC00001 to ACC00002 via NEFT. At 16:26:18, Rs 6,09,350.45 moved from ACC00002 to ACC00003. Then, at 21:26:18, Rs 5,98,277.24 was sent from ACC00003 to ACC00004. Finally, on 2026-08-29 at 01:26:18, Rs 5,82,548.64 returned from ACC00004 to ACC00001.",
-      "typology": "circular transfer / round-tripping, as the funds returned to the originating account after being transferred through multiple accounts.",
-      "why_suspicious": "The transactions form a closed loop with the entire principal amount returning to the originating account, and they occurred within a compressed timeframe of 12 hours, suggesting potential layering without an apparent economic purpose.",
+      "summary": "This case involves a circular transaction pattern with a total volume of Rs 24.1 lakh. Rs 6.2 lakh was cycled through 4 accounts, generating Rs 24.1 lakh in total transaction volume, with 94.0% of the principal returning to the originating account.",
+      "what_happened": "On 2026-08-28 at 13:26:18, Rs 6,19,926.45 was transferred from ACC00001 to ACC00002 via NEFT. Later that day at 16:26:18, Rs 6,09,350.45 was sent from ACC00002 to ACC00003. At 21:26:18, Rs 5,98,277.24 moved from ACC00003 to ACC00004. Finally, on 2026-08-29 at 01:26:18, Rs 5,82,548.64 was transferred back from ACC00004 to ACC00001.",
+      "typology": "circular transfer and why: The transactions exhibit a closed loop where funds are cycled through multiple accounts before returning to the origin.",
+      "why_suspicious": "The transactions demonstrate a closed loop, with a significant percentage of the principal amount returning to the originating account within a short time frame, indicating potential layering without a clear economic purpose.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "One individual involved is watchlisted, which raises concerns about the legitimacy of the transactions."
+        "reason": "One of the core individuals involved is watchlisted."
       }
     },
     "fact_check": {
@@ -320,49 +285,43 @@
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent a legitimate supplier settlement cycle where funds are temporarily moved between accounts for operational purposes, such as payroll distribution or inter-company transfers. This explanation survives scrutiny as there is no evidence of illicit intent or economic purpose being clearly established in the narrative.",
-      "weaknesses": [
-        "The analyst's conclusion of potential layering lacks direct evidence of illicit activity beyond the presence of a watchlisted individual, which does not automatically imply wrongdoing.",
-        "The rapid movement of funds could be interpreted as operational efficiency rather than suspicious activity."
-      ],
-      "notes": "The evidence does not convincingly support the assertion of illicit activity, and the presence of a watchlisted individual alone is insufficient to justify filing. A more thorough investigation into the nature of the transactions is warranted."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could represent legitimate business operations involving multiple accounts for cash flow management. However, the evidence shows a circular pattern with 94% of the principal amount returning to the originating account within a short time frame, which is unusual for typical business transactions.",
+      "weaknesses": [],
+      "notes": "The circular transaction pattern, combined with the high return percentage and the involvement of a watchlisted individual, strongly supports the need for a Suspicious Transaction Report. The evidence clearly indicates a lack of legitimate economic purpose for these transactions."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:12:57Z"
+    "generated_at": "2026-09-18T19:42:47Z"
   },
   "C011": {
     "case_id": "C011",
     "narrative": {
-      "summary": "Rs 49,200.80 was cycled through multiple accounts, generating Rs 16,59,660.17 in total transaction volume. The transactions occurred over a span of 652.97 hours with significant activity involving a watchlisted entity.",
-      "what_happened": "On 2026-08-19, a transaction of Rs 46,565.28 occurred from ACC00140 to ACC00147. On the same day, Rs 47,585.93 was transferred from ACC00145 to ACC00147. On 2026-08-21, Rs 47,285.92 was sent from ACC00137 to ACC00147, followed by Rs 45,135.40 from ACC00138 to ACC00147. Another Rs 48,671.21 was transferred from ACC00142 to ACC00147 on the same day. On 2026-08-22, Rs 48,385.27 was sent from ACC00137 to ACC00147, and Rs 48,450.89 from ACC00138 to ACC00147. Rs 49,013.21 was transferred from ACC00137 to ACC00147 later that day. On 2026-08-23, Rs 48,421.23 was sent from ACC00142 to ACC00147. On 2026-08-26, Rs 45,513.77 was transferred from ACC00141 to ACC00147, followed by Rs 47,958.89 from ACC00146 to ACC00147. On 2026-08-28, Rs 46,742.29 was sent from ACC00138 to ACC00147. On 2026-08-29, Rs 48,472.77 was transferred from ACC00139 to ACC00147, and Rs 48,755.68 from ACC00144 to ACC00147. On 2026-08-30, Rs 48,374.86 was sent from ACC00140 to ACC00147, followed by Rs 47,464.65 from ACC00138 to ACC00147. Rs 47,336.38 was transferred from ACC00146 to ACC00147. On 2026-09-01, Rs 46,478.31 was sent from ACC00142 to ACC00147. On 2026-09-02, Rs 45,829.34 was transferred from ACC00146 to ACC00147. On 2026-09-03, Rs 45,404.29 was sent from ACC00143 to ACC00147, and Rs 46,264.19 from ACC00138 to ACC00147. On 2026-09-04, Rs 47,006.51 was transferred from ACC00145 to ACC00147. On 2026-09-05, Rs 47,143.48 was sent from ACC00138 to ACC00147. On 2026-09-06, Rs 48,081.59 was transferred from ACC00140 to ACC00147, followed by Rs 47,453.79 from ACC00145 to ACC00147. On 2026-09-07, Rs 48,791.50 was sent from ACC00144 to ACC00147. On 2026-09-08, Rs 46,037.13 was transferred from ACC00139 to ACC00147. On 2026-09-09, Rs 48,367.92 was sent from ACC00142 to ACC00147. On 2026-09-11, Rs 49,200.80 was transferred from ACC00141 to ACC00147, followed by Rs 46,420.67 from ACC00146 to ACC00147. On 2026-09-12, Rs 48,801.60 was sent from ACC00146 to ACC00147, and Rs 49,005.63 from ACC00143 to ACC00147. On 2026-09-13, Rs 45,433.39 was transferred from ACC00146 to ACC00147. On 2026-09-14, Rs 48,794.73 was sent from ACC00145 to ACC00147. Finally, on 2026-09-15, Rs 45,011.67 was transferred from ACC00142 to ACC00147.",
-      "typology": "This case matches the mule network typology due to the rapid movement of funds between multiple accounts without a clear economic purpose.",
-      "why_suspicious": "The transactions involve a watchlisted entity, Geeta Verma & Sons, and the money moved through multiple accounts with no apparent legitimate business purpose, indicating potential layering and concealment of illicit funds.",
+      "summary": "A total of Rs 16,59,660.17 was transacted across multiple accounts, indicating potential suspicious activity. The transactions occurred over a span of 652.97 hours with significant cash movements.",
+      "what_happened": "The transactions began on 2026-08-19 with TXN000245, where Rs 46,565.28 was transferred from ACC00140 to ACC00147. This was followed by TXN000255 on the same day, transferring Rs 47,585.93 from ACC00145 to ACC00147. On 2026-08-21, TXN000242 moved Rs 47,285.92 from ACC00137 to ACC00147, and TXN000246 transferred Rs 45,135.40 from ACC00138 to ACC00147. Further transactions continued with amounts such as Rs 48,671.21 from ACC00142 to ACC00147 on the same day, and Rs 48,385.27 from ACC00137 to ACC00147 on 2026-08-22. The pattern continued with multiple transactions until the last recorded transaction TXN000238 on 2026-09-15, where Rs 45,011.67 was transferred from ACC00142 to ACC00147.",
+      "typology": "This case matches the circular transfer typology due to the repetitive nature of cash movements between accounts without a clear economic purpose.",
+      "why_suspicious": "The transactions exhibit a closed loop with significant cash movements, indicating potential layering without a legitimate economic rationale. The total volume of Rs 16,59,660.17 suggests a high level of activity that may be indicative of money laundering.",
       "recommended_action": "FILE_STR",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "The presence of a watchlisted entity raises concerns, but all links are verified."
+        "reason": "One entity, Geeta Verma & Sons, is watchlisted, which raises concerns about the legitimacy of the transactions."
       }
     },
     "fact_check": {
-      "checked": 69,
-      "passed": 69,
+      "checked": 23,
+      "passed": 23,
       "failures": []
     },
     "verification": {
-      "verdict": "REJECT",
-      "confidence": "MEDIUM",
-      "innocent_explanation": "The transactions could represent legitimate business operations, such as payroll distribution or supplier payments, where funds are cycled through accounts for operational efficiency. This explanation survives scrutiny as there is no direct evidence of illicit intent or activity beyond the presence of a watchlisted entity, which alone does not imply wrongdoing.",
-      "weaknesses": [
-        "The analyst's conclusion relies heavily on the presence of a watchlisted entity without establishing a direct link to illicit activity.",
-        "The narrative suggests layering and concealment without providing concrete evidence of such actions beyond the transaction patterns."
-      ],
-      "notes": "While the transaction patterns are notable, the evidence does not definitively indicate illicit activity, and the presence of a watchlisted entity alone is insufficient for filing. Further investigation into the nature of these transactions is warranted."
+      "verdict": "PASS",
+      "confidence": "HIGH",
+      "innocent_explanation": "The transactions could be legitimate business operations among the accounts involved. However, the evidence shows a clear pattern of circular cash transfers with no identifiable economic purpose, which rules out this explanation.",
+      "weaknesses": [],
+      "notes": "The pattern of transactions indicates a high volume of cash movements between accounts, particularly involving a watchlisted entity, which raises significant concerns about potential money laundering activities. The repetitive nature of the transactions further supports the need for filing a Suspicious Transaction Report."
     },
-    "final_confidence": "MEDIUM",
+    "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
-    "generated_at": "2026-09-18T19:13:14Z"
+    "generated_at": "2026-09-18T19:42:56Z"
   }
 }
