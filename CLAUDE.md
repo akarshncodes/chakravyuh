@@ -26,7 +26,7 @@ repo and a working live deployment are both mandatory.
 | 5 | Case builder — seed, trace, expand, prune | `case_builder.py` | ✅ done |
 | 6 | Investigator agent (LLM) — writes the case | — | pending |
 | 7 | Verifier agent (LLM) — adversarial check | — | pending |
-| 8 | Streamlit dashboard + human approval | `app.py` | pending |
+| 8 | Streamlit dashboard + human approval | `app.py` | ✅ done |
 
 ## Rules that must not be broken
 

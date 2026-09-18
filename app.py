@@ -15,6 +15,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import detectors as det
+from case_builder import score_cases
 from graph_builder import filter_transactions, load_data, resolve_node
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -114,11 +115,12 @@ def get_scoring():
     exact = {r.txn_id: r for r in D["recs"]}
     hero = det.hero_check(D["tx_sorted"], D["a2e"], D["a2b"], D["attrs"], exact)
     disc = det.discovery_only_score(D["recs"], D["attrs"], det.load_account_ages())
-    return per_detector, per_ring, hero, disc
+    case_score = score_cases(D["cases"], D["findings"], D["recs"], D["a2e"])  # scoring only
+    return per_detector, per_ring, hero, disc, case_score["precision"]
 
 
 D = get_data()
-per_detector, per_ring, hero, disc = get_scoring()
+per_detector, per_ring, hero, disc, precision = get_scoring()
 cases = D["cases"]
 
 
@@ -194,9 +196,9 @@ def loop_figure(view, hero_tx, visible_ids):
         if view == "CONSORTIUM":
             lab, col, hov = node[4:10], TEAL, f"pseudonym {node}. No name, PAN or account number is shared"
         elif node.startswith("EXT_"):
-            lab, col, hov = "Unknown\n(other bank)", GREY, f"{node}: identity invisible from this bank"
+            lab, col, hov = "Unknown<br>(other bank)", GREY, f"{node}: identity invisible from this bank"
         else:
-            lab = f"{D['names'][node].split(' ')[0].title()}\n{acc[-5:]} · {bank[-1]}"
+            lab = f"{D['names'][node].split(' ')[0].title()}<br>{acc[-5:]} · {bank[-1]}"
             col = BLUE if D["a2b"][acc] == "BANK_A" else AMBER
             hov = f"{D['names'][node]} · {acc} · {bank}"
         xs.append(x); ys.append(y); labels.append(lab); colors.append(col); hovers.append(hov)
@@ -339,7 +341,7 @@ with tabs[2]:
         if view == "CONSORTIUM":
             return n, f"{n[:8]}…", "hashed pseudonym: no name, PAN or account number shared", TEAL
         if n.startswith("EXT_"):
-            return n, "Unknown\naccount", f"{n}: account at the other bank, identity invisible", GREY
+            return n, "Unknown<br>account", f"{n}: account at the other bank, identity invisible", GREY
         return n, D["names"][n], f"{D['names'][n]} ({n}), a customer this bank can resolve", BLUE
 
     info = {}
@@ -440,9 +442,11 @@ with tabs[4]:
         "Both banks": "yes" if c["crosses_banks"] else "no"} for c in cases]),
         hide_index=True, width="stretch")
 
-    c = next(x for x in cases if x["case_id"] == st.selectbox(
-        "Open a case", [x["case_id"] for x in cases],
-        format_func=lambda i: case_label(next(x for x in cases if x["case_id"] == i))))
+    case_ids = [x["case_id"] for x in cases]
+    picked = st.selectbox("Open a case", case_ids, key="case_pick",
+                          format_func=lambda i: case_label(
+                              next(x for x in cases if x["case_id"] == i)))
+    c = next(x for x in cases if x["case_id"] == picked)
     st.markdown(f"## {c['case_id']} &nbsp;<span class='pill {c['priority_level']}'>{c['priority_level']} · "
                 f"{c['priority_score']}</span>", unsafe_allow_html=True)
     k = st.columns(5)
@@ -572,7 +576,7 @@ with tabs[5]:
     m[0].metric("Rings caught", f"{caught} of {len(per_ring)}")
     m[1].metric("False alarms (4 detectors)", fa)
     m[2].metric("Discovery only, nobody known", f"{disc[0]} of {disc[1]}", f"{disc[2]} false alarms")
-    m[3].metric("Cases → accused precision", "78 / 78", "100%")
+    m[3].metric("Accused precision", f"{precision[0]} / {precision[1]}", f"{precision[0] / precision[1] * 100:.0f}% of core people are ring members")
     st.write("**Discovery only** re-runs every detector with nobody on the watchlist, answering "
              "“you only caught them because you knew who they were.”")
     st.dataframe(pd.DataFrame([{
