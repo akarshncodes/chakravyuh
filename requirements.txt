@@ -4,3 +4,4 @@ pandas
 openai
 python-dotenv
 scipy
+plotly
