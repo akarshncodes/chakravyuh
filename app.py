@@ -88,6 +88,11 @@ header[data-testid="stHeader"] {background:transparent;}
 .card p {margin:0; font-size:0.84rem; color:#3d4b5c;}
 .pill {display:inline-block; padding:3px 12px; border-radius:999px; font-size:0.8rem; font-weight:600; color:#fff;}
 .HIGH {background:#c0392b;} .MEDIUM {background:#d68910;} .LOW {background:#5d6d7e;}
+.PASS {background:var(--green);} .REVISE {background:#d68910;} .REJECT {background:#c0392b;} .NOT_VERIFIED {background:#5d6d7e;}
+.narrative-box {background:#fff; border:1px solid var(--line); border-left:5px solid var(--navy); border-radius:8px;
+       padding:14px 18px; margin-bottom:10px;}
+.narrative-box h5 {margin:0 0 4px 0; color:var(--navy); font-size:0.85rem; text-transform:uppercase; letter-spacing:.04em;}
+.narrative-box p {margin:0; font-size:0.92rem; color:#23364f; white-space:pre-wrap;}
 .verdict-yes {background:#e8f6ef; border:1px solid #a9dfbf; border-left:5px solid var(--green); border-radius:8px; padding:12px 16px;}
 .verdict-no {background:#fdecea; border:1px solid #f5b7b1; border-left:5px solid #c0392b; border-radius:8px; padding:12px 16px;}
 .note {background:#fff8e6; border:1px solid #f3dc9c; border-radius:8px; padding:8px 12px; font-size:0.86rem;}
@@ -158,8 +163,19 @@ def get_scoring():
     return per_detector, per_ring, hero, disc, case_score["precision"]
 
 
+@st.cache_data(show_spinner=False)
+def get_written_cases():
+    """Stage 6/7 output (agents.py). Additive: absent file means no panel shown."""
+    path = os.path.join(HERE, "cases_written.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path) as fh:
+        return json.load(fh)
+
+
 D = get_data()
 per_detector, per_ring, hero, disc, precision = get_scoring()
+written_cases = get_written_cases()
 cases = D["cases"]
 
 
@@ -606,6 +622,52 @@ with tabs[4]:
     fig.update_layout(height=420, margin=dict(l=0, r=0, t=0, b=0), showlegend=False, plot_bgcolor="white",
                       xaxis=dict(visible=False), yaxis=dict(visible=False))
     st.plotly_chart(fig, width="stretch")
+
+    st.markdown("### AI investigator report")
+    wc = written_cases.get(c["case_id"])
+    if wc is None:
+        st.info("Run `python agents.py` to generate the AI investigator report and verifier "
+                "review for this case.")
+    else:
+        n = wc.get("narrative", {})
+        conf = n.get("confidence", {})
+        conf_level = conf.get("level", "") if isinstance(conf, dict) else conf
+        conf_reason = conf.get("reason", "") if isinstance(conf, dict) else ""
+        st.caption(f"Model: {wc.get('model', '?')} · generated {wc.get('generated_at', '?')}")
+        for label, key in [("Summary", "summary"), ("What happened", "what_happened"),
+                           ("Typology", "typology"), ("Why suspicious", "why_suspicious")]:
+            st.markdown(f'<div class="narrative-box"><h5>{label}</h5><p>{n.get(key, "")}</p></div>',
+                       unsafe_allow_html=True)
+        ac1, ac2 = st.columns(2)
+        ac1.markdown(f'<div class="narrative-box"><h5>Recommended action</h5>'
+                     f'<p>{n.get("recommended_action", "")}</p></div>', unsafe_allow_html=True)
+        ac2.markdown(f'<div class="narrative-box"><h5>Investigator confidence</h5>'
+                     f'<p><b>{conf_level}</b> — {conf_reason}</p></div>', unsafe_allow_html=True)
+
+        st.markdown("### Verifier review")
+        v = wc.get("verification", {})
+        fc = wc.get("fact_check", {"checked": 0, "passed": 0, "failures": []})
+        verdict = v.get("verdict", "NOT_VERIFIED")
+        final_conf = wc.get("final_confidence", "LOW")
+        vcol, fcol, ccol = st.columns(3)
+        vcol.markdown(f"**Verdict**<br><span class='pill {verdict}'>{verdict}</span>",
+                     unsafe_allow_html=True)
+        fcol.markdown(f"**Facts checked**<br>{fc['passed']} of {fc['checked']} confirmed "
+                     f"against raw data", unsafe_allow_html=True)
+        ccol.markdown(f"**Final confidence**<br><span class='pill {final_conf}'>{final_conf}</span>",
+                     unsafe_allow_html=True)
+        st.markdown(f'<div class="narrative-box"><h5>Innocent explanation considered</h5>'
+                    f'<p>{v.get("innocent_explanation", "")}</p></div>', unsafe_allow_html=True)
+        if v.get("weaknesses"):
+            st.markdown("**Weaknesses a regulator or court would attack**")
+            for w in v["weaknesses"]:
+                st.write("• " + w)
+        if fc.get("failures"):
+            with st.expander(f"Fact-check failures ({len(fc['failures'])})"):
+                for fail in fc["failures"]:
+                    st.write("• " + fail)
+        if v.get("notes"):
+            st.caption(v["notes"])
 
     st.markdown("### Officer decision")
     st.markdown('<div class="note">The system recommends; the officer decides. Nothing is filed automatically.</div>',
