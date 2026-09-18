@@ -65,7 +65,7 @@ We didn't want AI bolted on at the end, and we didn't want AI doing detection ei
 
 The guardrails are in code, not in the prompt. DRONA has no tool that can create a finding or a case. Every ID and every rupee amount in his decision is checked against what his tools actually showed him, and anything else is rejected. He has to look at evidence at least twice before deciding, and he can't recommend filing a report VIDURA rejected. The officer makes the final call.
 
-In our run DRONA worked **13 items** (11 cases, 1 watchlist hint, and 1 lead he'd never have seen from the detectors alone — a person accused nowhere whose money reaches two separate rings) using **98 tool calls he chose himself**. VIDURA passed **11 of 11** reports and **293 of 293** facts matched the raw data. Every step is saved to `investigation_log.json` and can be replayed in the War Room tab.
+In our run DRONA worked **13 items** (11 cases, 1 watchlist hint, and 1 lead he'd never have seen from the detectors alone — a person accused nowhere whose money reaches two separate rings) using **97 tool calls he chose himself**. He recommended filing on all 11 cases and **held back on both weak signals** (MONITOR, with reasons). VIDURA passed **11 of 11** reports and **255 of 255** facts matched the raw data. The guardrail fired once for real: DRONA wrote "Rs 6.19 lakh" for a ₹6,19,926 transfer (the correct short form is ₹6.2 lakh), code rejected it, and he rewrote the reason. Every step is saved to `investigation_log.json` and can be replayed in the War Room tab.
 
 ## 4. Features
 
@@ -93,12 +93,18 @@ In our run DRONA worked **13 items** (11 cases, 1 watchlist hint, and 1 lead he'
 | False-positive cases | **0** — every case contains a real ring |
 | Cases found without using the watchlist | 11 of 11 |
 | Relationship signals per case vs. random customer groups | 2.73 vs 0.4 |
-| DRONA: items investigated / tool calls he chose | 13 / 98 |
+| DRONA: items investigated / tool calls he chose | 13 / 97 |
+| DRONA recommendations | 11 FILE_STR · 2 MONITOR (the two weak signals) |
+| Figures DRONA got wrong and code blocked | 1 (then corrected) |
 | Verifier verdicts (VIDURA) | 11 / 11 PASS |
-| Fact checks (claims verified against raw data) | 293 / 293 passed |
-| Final confidence | 6 HIGH, 5 MEDIUM |
+| Fact checks (claims verified against raw data) | 255 / 255 passed |
+| Final confidence | 9 HIGH, 2 MEDIUM |
 
 ## 6. Architecture
+
+![CHAKRAVYUH architecture](docs/architecture.png)
+
+The same flow in text:
 
 ```
  1. Bank data            transactions + identity records from 3 source systems
