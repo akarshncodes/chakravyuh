@@ -13,7 +13,7 @@ import csv
 import datetime
 import os
 import random
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 # =====================================================================
 # SETTINGS (constants)
@@ -663,49 +663,127 @@ def main():
                 add_normal_txn(peer_acc, actor, amt, random.choice(["UPI", "IMPS"]), ts)
 
     # ---- 7. Customer identity records across three source systems ----
+    #
+    # One pass per ACCOUNT, not per owner. A bank issues its own KYC
+    # paperwork whenever an account is opened, so a second or third account
+    # held by the same person leaves its own separate trail too - looping
+    # per owner let all of an owner's records pile onto just one of their
+    # accounts, leaving the others with zero identity evidence: unrealistic
+    # (no bank opens an account with no KYC on file) and unresolvable
+    # downstream (nothing to match on). Looping per account guarantees every
+    # account_id gets at least one linked customer_records row.
     owned_accounts_by_entity = defaultdict(list)
     for a in accounts:
         owned_accounts_by_entity[a["owner_entity"]].append(a["account_id"])
 
     ring_principal_ids = {eid for (_, eid) in ring_principals}
+    # Each ring principal's bonus WATCHLIST row lands on their first (lowest)
+    # ring account - deterministic, and unchanged from the original design.
+    principal_watchlist_account = {
+        eid: owned_accounts_by_entity[eid][0] for eid in ring_principal_ids
+    }
 
-    for e in entities:
-        eid = e["entity_id"]
-        owned = owned_accounts_by_entity.get(eid)
-        if not owned:
-            continue
-        num_records = random.randint(1, 3)
-        variants = generate_name_variants(e["first"], e["last"], num_records)
+    # Only two non-watchlist systems exist, so "1-3 records, each in a
+    # different source system" tops out at 2 ordinary records per account;
+    # a ring principal's designated account gets a 3rd, on WATCHLIST.
+    ORDINARY_SOURCE_SYSTEMS = ["RETAIL_CBS", "CORPORATE_BANKING"]
+
+    def draw_field(value, blank_rate):
+        return value if random.random() > blank_rate else ""
+
+    for acct in accounts:
+        aid = acct["account_id"]
+        eid = acct["owner_entity"]
+        e = entity_by_id[eid]
+
+        # Criminals give poor KYC: ring accounts run with a higher blank
+        # rate than ordinary ones, but every account still gets >=1 record.
+        blank_rate = 0.40 if aid in ring_account_ids else 0.25
+
+        is_watchlist_account = principal_watchlist_account.get(eid) == aid
+        num_records = random.randint(1, 2)
+        variants = generate_name_variants(e["first"], e["last"],
+                                           num_records + (1 if is_watchlist_account else 0))
+        systems = ORDINARY_SOURCE_SYSTEMS[:] if num_records == 2 else [random.choice(ORDINARY_SOURCE_SYSTEMS)]
+
+        account_records = []
         for i in range(num_records):
-            src = random.choice(["RETAIL_CBS", "CORPORATE_BANKING"])
-            phone = e["phone"] if random.random() > 0.25 else ""
-            pan = e["pan"] if random.random() > 0.25 else ""
-            address = e["address"] if random.random() > 0.25 else ""
-            linked = owned[i % len(owned)]
-            customer_records.append({
+            account_records.append({
                 "record_id": next_record_id(),
-                "source_system": src,
-                "name_as_written": variants[i % len(variants)],
-                "phone": phone,
-                "pan": pan,
-                "address": address,
-                "linked_account": linked,
+                "source_system": systems[i],
+                "name_as_written": variants[i],
+                "phone": draw_field(e["phone"], blank_rate),
+                "pan": draw_field(e["pan"], blank_rate),
+                "address": draw_field(e["address"], blank_rate),
+                "linked_account": aid,
                 "true_entity_id": eid,
             })
-        if eid in ring_principal_ids:
-            phone = e["phone"] if random.random() > 0.25 else ""
-            pan = e["pan"] if random.random() > 0.25 else ""
-            address = e["address"] if random.random() > 0.25 else ""
-            customer_records.append({
+
+        if is_watchlist_account:
+            account_records.append({
                 "record_id": next_record_id(),
                 "source_system": "WATCHLIST",
-                "name_as_written": random.choice(variants),
-                "phone": phone,
-                "pan": pan,
-                "address": address,
-                "linked_account": owned[0],
+                "name_as_written": variants[-1],
+                "phone": draw_field(e["phone"], blank_rate),
+                "pan": draw_field(e["pan"], blank_rate),
+                "address": draw_field(e["address"], blank_rate),
+                "linked_account": aid,
                 "true_entity_id": eid,
             })
+
+        # Guarantee 1: no record may have phone, pan AND address all blank -
+        # a KYC record with zero identifying fields does not exist in real
+        # banking. If the random draw above produced one, restore a single
+        # field (chosen at random) rather than re-drawing the whole record,
+        # so the ~25%/40% blank rate elsewhere is barely disturbed.
+        for rec in account_records:
+            if not rec["phone"] and not rec["pan"] and not rec["address"]:
+                field = random.choice(["phone", "pan", "address"])
+                rec[field] = e[field]
+
+        # Guarantee 2: every account needs at least one record with a STRONG
+        # identifier (non-blank phone or PAN) - address alone is too weak to
+        # anchor a match. If none of this account's records qualify, promote
+        # one field (phone or pan) on one record rather than touching all of
+        # them, again keeping the disturbance to the blank rate minimal.
+        if not any(rec["phone"] or rec["pan"] for rec in account_records):
+            rec = random.choice(account_records)
+            field = random.choice(["phone", "pan"])
+            rec[field] = e[field]
+
+        customer_records.extend(account_records)
+
+    # ---- Self-check: identity coverage guarantees ----
+    records_per_account = Counter(r["linked_account"] for r in customer_records)
+    missing = [a["account_id"] for a in accounts if records_per_account[a["account_id"]] == 0]
+    assert not missing, f"{len(missing)} accounts have zero customer_records rows: {missing[:10]}"
+    per_account_counts = [records_per_account[a["account_id"]] for a in accounts]
+    print(f"Self-check: every account has >= 1 customer record "
+          f"(min={min(per_account_counts)}, max={max(per_account_counts)}, "
+          f"avg={sum(per_account_counts) / len(per_account_counts):.2f})")
+
+    all_blank_records = [r for r in customer_records
+                          if not r["phone"] and not r["pan"] and not r["address"]]
+    assert not all_blank_records, (
+        f"{len(all_blank_records)} customer_records rows have phone, pan AND "
+        f"address all blank: {[r['record_id'] for r in all_blank_records[:10]]}"
+    )
+    print(f"Self-check: no customer record has phone/pan/address all blank "
+          f"(0 of {len(customer_records)} violate this)")
+
+    strong_records_per_account = Counter(
+        r["linked_account"] for r in customer_records if r["phone"] or r["pan"]
+    )
+    accounts_without_strong_id = [
+        a["account_id"] for a in accounts if strong_records_per_account[a["account_id"]] == 0
+    ]
+    assert not accounts_without_strong_id, (
+        f"{len(accounts_without_strong_id)} accounts have no record with a "
+        f"non-blank phone or pan: {accounts_without_strong_id[:10]}"
+    )
+    print(f"Self-check: every account has >= 1 record with a strong identifier "
+          f"(non-blank phone or pan) - {len(accounts) - len(accounts_without_strong_id)} "
+          f"of {len(accounts)} accounts confirmed")
 
     # ---- 8. Write CSVs ----
     def write_csv(filename, fieldnames, rows):
