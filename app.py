@@ -887,7 +887,7 @@ with tabs[5]:
     st.markdown("### AI investigator report")
     wc = written_cases.get(c["case_id"])
     if wc is None:
-        st.info("Run `python agents.py` to generate the AI investigator report and verifier "
+        st.info("Run `python orchestrator.py` to generate the AI investigator report and verifier "
                 "review for this case.")
     else:
         n = wc.get("narrative", {})
