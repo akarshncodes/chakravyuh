@@ -1,15 +1,18 @@
 """
 CHAKRAVYUH - Stage 4: detection swarm.
 
-Four deterministic detectors, each hunting one laundering shape. No AI, no
+Seven deterministic detectors, each hunting one laundering shape. No AI, no
 machine learning, no randomness: the same input always gives the same
 findings, and every finding names the exact transactions that prove it, so a
 regulator can re-check it by hand with a calculator and the CSV.
 
-    CIRCLE     money that leaves a person and comes back to them
-    SPRAY      mule fan-out / fan-in
-    SPEED      money that never rests (hop after hop within the hour)
-    THRESHOLD  structuring just under the Indian reporting limits
+    CIRCLE                money that leaves a person and comes back to them
+    SPRAY                 mule fan-out / fan-in
+    SPEED                 money that never rests (hop after hop within the hour)
+    THRESHOLD             structuring just under the Indian reporting limits
+    DORMANT_REACTIVATION  an aged, near-silent account suddenly moving large sums
+    PASS_THROUGH          one account repeatedly forwarding money on within minutes
+    ROUND_CLUSTERING      clustered, suspiciously round amounts (payroll excluded)
 
 Plus one aggregated WATCHLIST_SIGNAL finding per watchlisted person, listing
 weak signals that are too soft to be a laundering claim on their own.
@@ -123,6 +126,64 @@ SIGNAL_NEW_ACCOUNT_DAYS = 30
 # A person's habits are set in their first fortnight of history; a channel
 # they never used before suddenly appearing is a change in behaviour.
 SIGNAL_BASELINE_DAYS = 15
+
+# DORMANT_REACTIVATION --------------------------------------------------
+# Criminals buy or take over aged accounts precisely because age looks
+# trustworthy: an established KYC record and a transaction history nobody
+# questions. The tell is not the age itself but what happens after months of
+# near-silence - a sudden burst of activity, in both value and frequency, is
+# the account being put to work for the first time since it changed hands.
+DORMANT_MIN_AGE_DAYS = 365
+# The whole dataset only spans 30 days, so "long quiet period" has to be read
+# against that window: half of it with zero activity is a real silence, not
+# an unlucky sampling gap for a normal account (which trades with a handful
+# of repeating partners roughly once a day on average).
+DORMANT_MIN_GAP_DAYS = 15
+# At most a token transaction or two is tolerated before the gap - an account
+# with a busy history that merely had one quiet fortnight is not "almost no
+# activity", it is a normal account having a slow month.
+DORMANT_MAX_PRE_BURST_TXNS = 2
+# The reactivation itself must be a burst, not business resuming at a normal
+# pace: everything counted must land within two days of the first
+# transaction after the silence.
+DORMANT_BURST_WINDOW_HOURS = 48
+# Frequency jump (several transactions, not one transfer that could be a
+# single legitimate withdrawal) and value jump (a real sum, not the account
+# merely being used again) are both required, together.
+DORMANT_MIN_BURST_TXNS = 4
+DORMANT_MIN_BURST_TXNS_WATCHLIST = 3
+DORMANT_MIN_BURST_AMOUNT = 500_000.0
+DORMANT_MIN_BURST_AMOUNT_WATCHLIST = 200_000.0
+
+# PASS_THROUGH -----------------------------------------------------------
+# The mule fingerprint, read off ONE account's own ledger rather than off a
+# fan-out/fan-in shape (SPRAY) or a multi-account relay (SPEED): the account
+# holds money only long enough to move it on, over and over, no matter who
+# the counterparties are each time.
+PASS_THROUGH_WINDOW_MINUTES = 30
+PASS_THROUGH_MIN_RETENTION = 0.85
+PASS_THROUGH_MAX_RETENTION = 1.00
+# A single instance of same-day forwarding is completely ordinary (paying a
+# bill the moment salary lands, forwarding a shared purchase). The pattern
+# only means something once it repeats.
+PASS_THROUGH_MIN_PAIRS = 4
+PASS_THROUGH_MIN_PAIRS_WATCHLIST = 3
+
+# ROUND_CLUSTERING ---------------------------------------------------------
+# Genuine transaction amounts carry paise: rent, invoices, shopping baskets.
+# A round figure (an exact multiple of Rs 50,000, which also catches every
+# multiple of Rs 1,00,000) is a number someone chose, not a bill someone
+# priced.
+ROUND_MULTIPLE = 50_000.0
+ROUND_MIN_CLUSTER = 3
+ROUND_MIN_CLUSTER_WATCHLIST = 2
+ROUND_WINDOW_DAYS = 7
+# Payroll carve-out: an employer paying round salaries to many DIFFERENT
+# people, roughly one payment per person, is business as usual, not
+# structuring - excluded explicitly rather than left to coincidentally miss
+# the threshold.
+ROUND_PAYROLL_MIN_RECEIVERS = 5
+ROUND_PAYROLL_SPREAD_RATIO = 0.80
 
 BAND_ORDER = [label for _, label in AMOUNT_BAND_EDGES] + ["50L_PLUS"]
 BAND_INDEX = {label: i for i, label in enumerate(BAND_ORDER)}
@@ -599,6 +660,224 @@ def detect_watchlist_signals(recs, watch, names, account_age):
 
 
 # ---------------------------------------------------------------------------
+# DETECTOR 5 - DORMANT REACTIVATION
+# ---------------------------------------------------------------------------
+
+def detect_dormant_reactivation(recs, watch, names, account_age):
+    """An account open a long time (>= DORMANT_MIN_AGE_DAYS) that sits almost
+    silent - at most a token transaction or two - for a stretch of at least
+    DORMANT_MIN_GAP_DAYS, then processes several transactions totalling a
+    large sum within DORMANT_BURST_WINDOW_HOURS. Both directions count: it is
+    the ACCOUNT being reactivated, whichever way the money first moves.
+    Earliest qualifying gap per account is reported; account age and channel
+    history are unaffected by which person is on the other end."""
+    touching = defaultdict(list)
+    for r in recs:
+        touching[r.from_acc].append(r)
+        touching[r.to_acc].append(r)
+
+    gap_threshold = DORMANT_MIN_GAP_DAYS * DAY
+    burst_window = DORMANT_BURST_WINDOW_HOURS * HOUR
+    findings = []
+
+    for acc in sorted(touching):
+        age = account_age.get(acc)
+        if age is None or age < DORMANT_MIN_AGE_DAYS:
+            continue
+        txns = sorted(touching[acc], key=lambda r: (r.ts, r.txn_id))
+        if len(txns) < DORMANT_MIN_BURST_TXNS_WATCHLIST:
+            continue
+        ts_list = [r.ts for r in txns]
+
+        for k in range(1, len(txns)):
+            if k > DORMANT_MAX_PRE_BURST_TXNS:
+                break  # too much prior activity for any later gap to qualify either
+            gap = txns[k].ts - txns[k - 1].ts
+            if gap < gap_threshold:
+                continue
+
+            hi = bisect.bisect_right(ts_list, txns[k].ts + burst_window)
+            burst = txns[k:hi]
+            people = {r.from_ent for r in burst} | {r.to_ent for r in burst}
+            on_watch = any(p in watch for p in people)
+            min_txns = DORMANT_MIN_BURST_TXNS_WATCHLIST if on_watch else DORMANT_MIN_BURST_TXNS
+            min_amount = DORMANT_MIN_BURST_AMOUNT_WATCHLIST if on_watch else DORMANT_MIN_BURST_AMOUNT
+            if len(burst) < min_txns:
+                continue
+            total_amt = sum(r.amount for r in burst)
+            if total_amt < min_amount:
+                continue
+
+            owner_ent = burst[0].from_ent if burst[0].from_acc == acc else burst[0].to_ent
+            evidence = {
+                "account": acc,
+                "person": owner_ent,
+                "account_age_days": int(age),
+                "quiet_days": round(gap / DAY, 2),
+                "quiet_period_end": txns[k - 1].ts_str,
+                "reactivation_start": txns[k].ts_str,
+                "reactivation_txns": len(burst),
+                "reactivation_amount": round(total_amt, 2),
+                "reactivation_window_hours": round((burst[-1].ts - burst[0].ts) / HOUR, 2),
+                "min_txns_required": min_txns,
+                "min_amount_required": min_amount,
+            }
+            f = make_finding("DORMANT_REACTIVATION", burst, watch, evidence, names)
+            f["reason"] = (f"Account {acc} ({person_label(owner_ent, names)}), open "
+                           f"{evidence['account_age_days']} days, was silent for "
+                           f"{evidence['quiet_days']} days then processed {evidence['reactivation_txns']} "
+                           f"transactions totalling {money(evidence['reactivation_amount'])} within "
+                           f"{evidence['reactivation_window_hours']} hours.")
+            findings.append(f)
+            break  # one reactivation event per account: the earliest qualifying gap
+    return findings
+
+
+# ---------------------------------------------------------------------------
+# DETECTOR 6 - PASS-THROUGH ACCOUNT
+# ---------------------------------------------------------------------------
+
+def detect_pass_through(recs, watch, names):
+    """The mule fingerprint read off ONE account: money in, (almost) the same
+    money straight back out, within minutes - repeatedly. Distinct from SPEED
+    (a chain of the SAME money across several DIFFERENT accounts) and from
+    SPRAY (many DIFFERENT accounts each doing this once, for one shared
+    source and collector): this is one account doing it over and over,
+    regardless of who is on the other end each time. Each incoming leg is
+    matched to at most one outgoing leg (earliest qualifying, greedy) so a
+    single outgoing transfer cannot be reused to inflate the count."""
+    incoming_by_acc = defaultdict(list)
+    for r in recs:
+        incoming_by_acc[r.to_acc].append(r)
+    outgoing_by_acc, out_ts_by_acc = index_outgoing(recs)
+
+    window = PASS_THROUGH_WINDOW_MINUTES * 60
+    findings = []
+
+    for acc in sorted(incoming_by_acc):
+        outs_idx = outgoing_by_acc.get(acc)
+        if not outs_idx:
+            continue
+        ins = sorted(incoming_by_acc[acc], key=lambda r: (r.ts, r.txn_id))
+        out_ts = out_ts_by_acc[acc]
+        used_out = set()
+        pairs = []
+        for r_in in ins:
+            lo = bisect.bisect_right(out_ts, r_in.ts)
+            hi = bisect.bisect_right(out_ts, r_in.ts + window)
+            for j in outs_idx[lo:hi]:
+                if j in used_out:
+                    continue
+                r_out = recs[j]
+                if (PASS_THROUGH_MIN_RETENTION * r_in.amount - EPS
+                        <= r_out.amount <= PASS_THROUGH_MAX_RETENTION * r_in.amount + EPS):
+                    used_out.add(j)
+                    pairs.append((r_in, r_out))
+                    break
+
+        if not pairs:
+            continue
+        people = set()
+        for r_in, r_out in pairs:
+            people.update((r_in.from_ent, r_in.to_ent, r_out.from_ent, r_out.to_ent))
+        required = PASS_THROUGH_MIN_PAIRS_WATCHLIST if any(p in watch for p in people) else PASS_THROUGH_MIN_PAIRS
+        if len(pairs) < required:
+            continue
+
+        used = []
+        for r_in, r_out in pairs:
+            used += [r_in, r_out]
+        retentions = [r_out.amount / r_in.amount * 100 for r_in, r_out in pairs]
+        delays = [(r_out.ts - r_in.ts) / 60 for r_in, r_out in pairs]
+        evidence = {
+            "account": acc,
+            "pass_through_pairs": len(pairs),
+            "avg_retention_pct": round(sum(retentions) / len(retentions), 2),
+            "min_retention_pct": round(min(retentions), 2),
+            "max_retention_pct": round(max(retentions), 2),
+            "avg_delay_minutes": round(sum(delays) / len(delays), 1),
+            "max_delay_minutes": round(max(delays), 1),
+            "min_pairs_required": required,
+        }
+        f = make_finding("PASS_THROUGH", used, watch, evidence, names)
+        f["reason"] = (f"Account {acc} received and forwarded money on "
+                       f"{evidence['pass_through_pairs']} separate occasions, each within "
+                       f"{PASS_THROUGH_WINDOW_MINUTES} minutes, keeping "
+                       f"{evidence['min_retention_pct']}-{evidence['max_retention_pct']}% "
+                       f"(avg {evidence['avg_retention_pct']}%) of the incoming amount each time.")
+        findings.append(f)
+    return findings
+
+
+# ---------------------------------------------------------------------------
+# DETECTOR 7 - ROUND AMOUNT CLUSTERING
+# ---------------------------------------------------------------------------
+
+def detect_round_clustering(recs, watch, names):
+    """Amounts that are exact multiples of ROUND_MULTIPLE, clustered: several
+    from or to the same person inside a short window. Genuine payments carry
+    paise; round figures repeated are a number someone chose, not a bill
+    someone priced. Payroll is carved out explicitly: a cluster that is
+    mostly one round payment per DIFFERENT counterparty, wide enough to be a
+    salary run, is skipped rather than left to coincidentally miss the bar."""
+    round_txns = [r for r in recs if r.amount > 0 and abs(r.amount % ROUND_MULTIPLE) < EPS]
+    by_person = defaultdict(list)
+    for r in round_txns:
+        by_person[r.from_ent].append(r)
+        if r.to_ent != r.from_ent:
+            by_person[r.to_ent].append(r)
+
+    window = ROUND_WINDOW_DAYS * DAY
+    findings = []
+    seen = set()
+
+    for ent in sorted(by_person):
+        txns = sorted(by_person[ent], key=lambda r: (r.ts, r.txn_id))
+        ts_list = [r.ts for r in txns]
+        if len(txns) < ROUND_MIN_CLUSTER_WATCHLIST:
+            continue
+
+        best = None
+        for a in range(len(txns)):
+            hi = bisect.bisect_right(ts_list, txns[a].ts + window)
+            win = txns[a:hi]
+            counterparties = {(r.to_ent if r.from_ent == ent else r.from_ent) for r in win}
+            on_watch = ent in watch or any(p in watch for p in counterparties)
+            required = ROUND_MIN_CLUSTER_WATCHLIST if on_watch else ROUND_MIN_CLUSTER
+            if len(win) < required:
+                continue
+            if (len(counterparties) >= ROUND_PAYROLL_MIN_RECEIVERS
+                    and len(counterparties) / len(win) >= ROUND_PAYROLL_SPREAD_RATIO):
+                continue  # payroll-shaped: many different people, ~one payment each
+            if best is None or len(win) > len(best):
+                best = win
+
+        if not best:
+            continue
+        key = frozenset(r.txn_id for r in best)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        counterparties = sorted({(r.to_ent if r.from_ent == ent else r.from_ent) for r in best})
+        evidence = {
+            "person": ent,
+            "cluster_size": len(best),
+            "window_days": ROUND_WINDOW_DAYS,
+            "distinct_counterparties": len(counterparties),
+            "round_unit": ROUND_MULTIPLE,
+            "amounts": [r.amount for r in best],
+        }
+        f = make_finding("ROUND_CLUSTERING", best, watch, evidence, names)
+        f["reason"] = (f"{person_label(ent, names)} was party to {evidence['cluster_size']} round "
+                       f"transactions (exact multiples of {money(ROUND_MULTIPLE)}) within "
+                       f"{ROUND_WINDOW_DAYS} days, involving {evidence['distinct_counterparties']} "
+                       f"distinct counterpart{'y' if evidence['distinct_counterparties'] == 1 else 'ies'}.")
+        findings.append(f)
+    return findings
+
+
+# ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
 
@@ -611,6 +890,9 @@ def run_detectors(recs, entity_attrs, account_age):
     findings += detect_spray(recs, watch, names)
     findings += detect_speed(recs, watch, names)
     findings += detect_threshold(recs, watch, names)
+    findings += detect_dormant_reactivation(recs, watch, names, account_age)
+    findings += detect_pass_through(recs, watch, names)
+    findings += detect_round_clustering(recs, watch, names)
     findings += detect_watchlist_signals(recs, watch, names, account_age)
 
     findings.sort(key=lambda f: (-f["total_amount"], f["detector"], f["txn_ids"][0]))
@@ -703,8 +985,9 @@ def circle_txn_sets(tx_sorted, view, account_to_entity, account_to_bank, entity_
 # SCORING - the ONLY code allowed to read ground_truth.csv
 # ---------------------------------------------------------------------------
 
-DETECTORS = ["CIRCLE", "SPRAY", "SPEED", "THRESHOLD", "WATCHLIST_SIGNAL"]
-STRUCTURAL = DETECTORS[:4]
+DETECTORS = ["CIRCLE", "SPRAY", "SPEED", "THRESHOLD", "DORMANT_REACTIVATION",
+             "PASS_THROUGH", "ROUND_CLUSTERING", "WATCHLIST_SIGNAL"]
+STRUCTURAL = [d for d in DETECTORS if d != "WATCHLIST_SIGNAL"]
 
 
 def load_ground_truth():
@@ -775,7 +1058,9 @@ def print_report(findings, per_detector, per_ring, hero, discovery, t_detect, t_
     print("CHAKRAVYUH - Stage 4: detection swarm")
     print("=" * 78)
     print(f"Circle {counts['CIRCLE']}, Spray {counts['SPRAY']}, Speed {counts['SPEED']}, "
-          f"Threshold {counts['THRESHOLD']}, Watchlist {counts['WATCHLIST_SIGNAL']}")
+          f"Threshold {counts['THRESHOLD']}, Dormant {counts['DORMANT_REACTIVATION']}, "
+          f"PassThrough {counts['PASS_THROUGH']}, RoundCluster {counts['ROUND_CLUSTERING']}, "
+          f"Watchlist {counts['WATCHLIST_SIGNAL']}")
     lanes = {l: sum(1 for f in findings if f["lane"] == l) for l in ("DISCOVERY", "WATCHLIST")}
     print(f"Lanes: DISCOVERY {lanes['DISCOVERY']}, WATCHLIST {lanes['WATCHLIST']}  "
           f"(total {len(findings)} findings -> detections.json)")
