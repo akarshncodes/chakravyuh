@@ -15,6 +15,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import detectors as det
+from str_report import build_str_html
 from case_builder import score_cases
 from graph_builder import filter_transactions, load_data, resolve_node
 
@@ -164,6 +165,26 @@ def get_scoring():
 
 
 @st.cache_data(show_spinner=False)
+def get_relationships():
+    """Relationship Lens output (relationships.py). Absent file = panel hidden."""
+    path = os.path.join(HERE, "relationships.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path) as fh:
+        return json.load(fh)
+
+
+@st.cache_data(show_spinner=False)
+def get_investigation_log():
+    """DRONA's cached investigation (orchestrator.py). Absent file = setup hint."""
+    path = os.path.join(HERE, "investigation_log.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path) as fh:
+        return json.load(fh)
+
+
+@st.cache_data(show_spinner=False)
 def get_written_cases():
     """Stage 6/7 output (agents.py). Additive: absent file means no panel shown."""
     path = os.path.join(HERE, "cases_written.json")
@@ -176,6 +197,8 @@ def get_written_cases():
 D = get_data()
 per_detector, per_ring, hero, disc, precision = get_scoring()
 written_cases = get_written_cases()
+relationships = get_relationships()
+ilog = get_investigation_log()
 cases = D["cases"]
 
 
@@ -303,16 +326,122 @@ with st.sidebar:
     else:
         st.caption("No decisions yet. Open a case in the Cases tab.")
 
-tabs = st.tabs(["Overview", "1 · Identity", "2 · Network & cross-bank", "3 · Detectors",
+tabs = st.tabs(["⚔️ War Room", "Overview", "1 · Identity", "2 · Network & cross-bank", "3 · Detectors",
                 "4 · Cases", "Scorecard"])
 
-# ------------------------------------------------------------- overview ---
+# ------------------------------------------------------------ war room ---
+TOOL_LOOK = {
+    "open_item": ("📂", "Opens the file"), "check_relationships": ("🕸️", "Relationship Lens"),
+    "compare_bank_views": ("🏦", "Compares bank views"), "account_history": ("🧾", "Pulls account history"),
+    "expand_neighbourhood": ("🔭", "Widens the net"), "lookup_transaction": ("🔎", "Checks a transaction"),
+    "send_to_sanjaya": ("📜", "Hands the case to SANJAYA → VIDURA"), "record_decision": ("⚖️", "Recommendation"),
+}
+DEC_COLOR = {"FILE_STR": "#c0392b", "ESCALATE": "#d68910", "ESCALATE_AS_LEAD": "#d68910",
+             "MONITOR": "#1f4e8c", "CLOSE_RECOMMENDED": "#138d75"}
+
+
+def step_html(s):
+    icon, label = TOOL_LOOK.get(s["tool"], ("•", s["tool"]))
+    arg = " ".join(str(v) for k, v in s.get("args", {}).items() if k in ("account_id", "person_id", "txn_id"))
+    bad = s["result"].startswith("rejected by code")
+    border = "#c0392b" if bad else ("#172a74" if s["tool"] in ("send_to_sanjaya", "record_decision") else "#d9e0f0")
+    return (f'<div style="border-left:4px solid {border};background:#f7f9fe;padding:8px 12px;margin:6px 0;'
+            f'border-radius:6px"><div style="font-size:.78rem;color:#3b4763">Step {s["n"]} · {icon} <b>{label}</b> '
+            f'<code>{arg}</code></div><div style="font-style:italic;color:#172a74">“{s["why"]}”</div>'
+            f'<div style="font-size:.9rem;margin-top:2px">{"🛑 " if bad else "→ "}{s["result"]}</div></div>')
+
+
 with tabs[0]:
+    st.markdown('<div class="band"><h2>The War Room</h2><p>Three AI agents, one chain of command. '
+                'The detectors find the patterns. DRONA decides where to look, SANJAYA writes the case, '
+                'VIDURA argues the innocent side. A human officer makes the call.</p></div>', unsafe_allow_html=True)
+    a = st.columns(3)
+    for col, (nm, role, line) in zip(a, [
+        ("🏹 DRONA", "Lead investigator · gpt-4o", "Designed the chakravyuh in the Mahabharata. Here he triages the queue, "
+         "chooses which evidence to pull, commissions reports, sends weak ones back and recommends a decision."),
+        ("📜 SANJAYA", "Case writer", "Narrated the war to a king who could not see it. Here he turns proven evidence "
+         "into a report an officer can read in a minute."),
+        ("⚖️ VIDURA", "Sceptical reviewer", "The truth-teller of the court. Here he looks for the innocent explanation first. "
+         "Every number is checked by code before he even reads it.")]):
+        col.markdown(f'<div class="card"><h4>{nm}</h4><p><b>{role}</b></p><p>{line}</p></div>', unsafe_allow_html=True)
+
+    if not ilog:
+        st.info("DRONA has not run yet. Run `python orchestrator.py` (needs OPENAI_API_KEY in .env).")
+    else:
+        m = ilog["meta"]
+        k = st.columns(6)
+        k[0].metric("Items investigated", m["items"], f"{m['cases']} cases + {m['weak_signals']} weak signals", delta_color="off")
+        k[1].metric("Tool calls DRONA chose", m["tool_calls"], f"{m['evidence_tool_calls']} evidence lookups", delta_color="off")
+        k[2].metric("Reports passed by VIDURA", f"{m['vidura_pass']} / {m['cases']}", f"{m['rewrites']} sent back for rewrite", delta_color="off")
+        k[3].metric("Facts confirmed by code", f"{m['facts_confirmed']} / {m['facts_checked']}")
+        k[4].metric("Invented citations blocked", m["blocked_citations"], "rejected before any officer saw them", delta_color="off")
+        k[5].metric("Filed automatically", 0, "every decision goes to a human", delta_color="off")
+
+        st.markdown("#### DRONA's triage")
+        st.caption("DRONA ordered the queue himself and wrote down why. The final column is his recommendation, not a filing.")
+        st.dataframe(pd.DataFrame([{
+            "#": i, "Item": t["item"], "Type": ilog["items"][t["item"]]["kind"].replace("_", " ").title(),
+            "Why this position": t["reason"],
+            "Tool calls": len(ilog["items"][t["item"]]["steps"]),
+            "DRONA recommends": ilog["items"][t["item"]]["decision"]["decision"].replace("_", " ")}
+            for i, t in enumerate(ilog["triage"], 1)]), hide_index=True, width="stretch")
+
+        st.markdown("#### Watch DRONA investigate")
+        order = [t["item"] for t in ilog["triage"]]
+        cc = st.columns([3, 1, 1])
+        pick = cc[0].selectbox("Item", order, key="war_pick",
+                               format_func=lambda i: f"{i} · {ilog['items'][i]['kind'].replace('_', ' ').title()} · "
+                                                     f"{ilog['items'][i]['decision']['decision'].replace('_', ' ')}")
+        speed = cc[1].select_slider("Speed", ["slow", "normal", "fast"], value="normal", key="war_speed")
+        replay = cc[2].button("▶ Replay investigation", type="primary", width="stretch")
+        lg = ilog["items"][pick]
+        st.caption(f"Triage #{lg['triage_rank']}: {lg['triage_reason']}")
+        box = st.container()
+        if replay:
+            import time as _t
+            delay = {"slow": 1.4, "normal": 0.8, "fast": 0.3}[speed]
+            ph = box.empty()
+            shown = ""
+            for s in lg["steps"]:
+                shown += step_html(s)
+                ph.markdown(shown + '<div style="color:#9aa5b1;font-size:.8rem">DRONA is thinking…</div>',
+                            unsafe_allow_html=True)
+                _t.sleep(delay)
+            ph.markdown(shown, unsafe_allow_html=True)
+        else:
+            box.markdown("".join(step_html(s) for s in lg["steps"]), unsafe_allow_html=True)
+
+        d = lg["decision"]
+        col = DEC_COLOR.get(d["decision"], "#172a74")
+        links = f"<br><small>Investigate together with: {', '.join(d['link_with_cases'])}</small>" if d.get("link_with_cases") else ""
+        st.markdown(f'<div style="border:2px solid {col};border-radius:10px;padding:12px 16px;margin-top:10px">'
+                    f'<div style="font-size:.75rem;color:#3b4763">DRONA\'S RECOMMENDATION TO THE OFFICER</div>'
+                    f'<div style="font-size:1.4rem;font-weight:700;color:{col}">{d["decision"].replace("_", " ")}</div>'
+                    f'<div>{d["reason"]}</div><div style="font-size:.8rem;color:#3b4763;margin-top:4px">'
+                    f'Cites: {", ".join(d["evidence_ids"][:12]) or "—"}</div>{links}</div>', unsafe_allow_html=True)
+        if lg["writer_runs"]:
+            with st.expander(f"What DRONA told SANJAYA ({len(lg['writer_runs'])} brief(s)) and what VIDURA said"):
+                for i, r in enumerate(lg["writer_runs"], 1):
+                    st.markdown(f"**Brief {i}:** {r['commander_notes']}")
+                    st.markdown(f"**VIDURA:** {r['verification'].get('verdict')} · "
+                                f"facts {r['fact_check']['passed']}/{r['fact_check']['checked']} · "
+                                f"confidence {r['final_confidence']}")
+        if lg["blocked"]:
+            st.caption(f"🛑 DRONA tried to cite {sum(len(b.get('invalid_ids', [])) + len(b.get('invalid_amounts', [])) for b in lg['blocked'])} "
+                       f"ID(s) or amount(s) that no tool had shown him. Code rejected them and he had to try again.")
+        st.markdown('<div class="note">Guardrails are code, not promises: DRONA has no tool that can create a finding '
+                    'or a case, cannot cite an ID his tools did not show him, must look at evidence before deciding, '
+                    'and cannot recommend filing a report VIDURA rejected.</div>', unsafe_allow_html=True)
+        st.caption(f"Recorded {m['generated_at']} · DRONA {m['commander_model']} · SANJAYA/VIDURA {m['writer_model']} · "
+                   f"replayed from investigation_log.json, no live API call.")
+
+# ------------------------------------------------------------- overview ---
+with tabs[1]:
     st.markdown('<div class="band"><h2>Detect. Connect. Confirm.</h2><p>Banks see one transaction at a time. '
                 'Chakravyuh joins accounts into real people, people into networks, and networks into '
                 'evidence-backed cases for the investigating officer.</p></div>', unsafe_allow_html=True)
     pagetitle("We score networks, not transactions")
-    helpbox("New here? Click the tabs in order: Identity, Network, Detectors, Cases, Scorecard.")
+    helpbox("New here? Start in the War Room, then Identity, Network, Detectors, Cases, Scorecard.")
     st.write("Banks check one transaction at a time, so they cannot see money that is passed through "
              "many accounts to hide it. Chakravyuh joins the dots and hands the officer a finished, "
              "evidence-backed case instead of a pile of alerts.")
@@ -339,7 +468,7 @@ with tabs[0]:
                 "Cases (C001) → Scorecard.")
 
 # ------------------------------------------------------------- identity ---
-with tabs[1]:
+with tabs[2]:
     pagetitle("Step 1 · Who is really behind these accounts?")
     helpbox("Pick a person. Left: the messy records banks hold. Right: the one real person we merged them into.")
     st.write("The same person shows up in several bank systems, spelled differently and with fields missing. "
@@ -379,7 +508,7 @@ with tabs[1]:
                "Different PANs can never be merged; probable links are flagged and never chained.")
 
 # -------------------------------------------------------------- network ---
-with tabs[2]:
+with tabs[3]:
     pagetitle("Step 2 · One ring, four points of view")
     helpbox("Choose a viewpoint below the table. Watch the ring appear or vanish depending on who is looking.")
     s = D["stats"]
@@ -452,7 +581,7 @@ with tabs[2]:
         hide_index=True, width="stretch")
 
 # ------------------------------------------------------------ detectors ---
-with tabs[3]:
+with tabs[4]:
     pagetitle("Step 3 · Four deterministic detectors")
     helpbox("Filter the findings, then pick one at the bottom to see the exact transactions that prove it.")
     st.write("No AI, no randomness. The same input always gives the same findings and each one lists "
@@ -493,15 +622,16 @@ with tabs[3]:
         b.dataframe(txn_table(f["txn_ids"]), hide_index=True, width="stretch", height=250)
 
 # ---------------------------------------------------------------- cases ---
-with tabs[4]:
+with tabs[5]:
     pagetitle("Step 4 · One case per crime")
     helpbox("Start with C001, the hero ring. Scroll down for the graph, evidence, the map and the officer decision.")
     st.write(f"**{len(D['findings'])} findings became {len(cases)} cases** "
              f"(+{len(D['review'])} watchlist review item). Overlapping findings are merged; each case keeps "
              f"its evidence, background and one ring of context.")
     st.dataframe(pd.DataFrame([{
-        "Case": c["case_id"], "Priority": f"{c['priority_level']} ({c['priority_score']})",
-        "Lane": c["lane"], "Detectors": " + ".join(c["detectors_fired"]),
+        "Case": c["case_id"], "Queue priority": f"{c['priority_level']} ({c['priority_score']})",
+        "Detectors": " + ".join(c["detectors_fired"]),
+        "Relationship flags": " ".join(relationships.get("cases", {}).get(c["case_id"], {}).get("signals_fired", [])),
         "Core people": len(c["core_people"]), "Context": len(c["context_people"]),
         "Evidence amount": inr(c["total_evidence_amount"]), "Hours": c["hours_spanned"],
         "Both banks": "yes" if c["crosses_banks"] else "no",
@@ -555,7 +685,7 @@ with tabs[4]:
                    "Red dots are watchlisted, blue are core, grey are context (not accused, unless the hover says "
                    "they are accused in another case).")
     with pcol:
-        st.markdown("**Why this priority**")
+        st.markdown("**Why this queue position** (order of work only; the evidence is below)")
         for line in c["priority_reason"]:
             st.write("• " + line)
         st.markdown("**Linked cases**")
@@ -623,6 +753,28 @@ with tabs[4]:
                       xaxis=dict(visible=False), yaxis=dict(visible=False))
     st.plotly_chart(fig, width="stretch")
 
+    rel = relationships.get("cases", {}).get(c["case_id"])
+    if rel:
+        st.markdown("### Unusual account relationships")
+        st.caption("Relationship Lens: how the accounts in this case relate to each other, compared with "
+                   "what is normal across the whole bank. Adds evidence only; it never creates a case.")
+        if rel["signals"]:
+            rc = st.columns(len(rel["signals"]))
+            for col, s in zip(rc, rel["signals"]):
+                col.markdown(f'<div class="card"><h4>{s["code"]} · {s["name"].replace("_", " ").title()}</h4>'
+                             f'<p><b>{s["headline"]}</b></p><p>Case {s["case_value"]} · bank {s["bank_baseline"]}</p></div>',
+                             unsafe_allow_html=True)
+            for s in rel["signals"]:
+                st.write("• " + s["sentence"])
+        else:
+            st.caption("No unusual relationships above the bank baseline for this case.")
+        cg = relationships.get("control_group", {})
+        cs = relationships.get("case_summary", {})
+        if cg:
+            st.caption(f"Sanity check: the same five checks fire {cs.get('avg_signals_per_case')} times per case, "
+                       f"but only {cg.get('avg_signals_per_group')} times per group across {cg.get('groups')} "
+                       f"random groups of ordinary customers.")
+
     st.markdown("### AI investigator report")
     wc = written_cases.get(c["case_id"])
     if wc is None:
@@ -633,7 +785,11 @@ with tabs[4]:
         conf = n.get("confidence", {})
         conf_level = conf.get("level", "") if isinstance(conf, dict) else conf
         conf_reason = conf.get("reason", "") if isinstance(conf, dict) else ""
-        st.caption(f"Model: {wc.get('model', '?')} · generated {wc.get('generated_at', '?')}")
+        st.caption(f"Model: {wc.get('model', '?')} · generated {wc.get('generated_at', '?')}"
+                   + (f" · commissioned by {wc['commander']}" if wc.get("commander") else ""))
+        if wc.get("commander_notes"):
+            st.markdown(f'<div class="note">🏹 <b>DRONA\'s brief to SANJAYA:</b> {wc["commander_notes"]}</div>',
+                        unsafe_allow_html=True)
         for label, key in [("Summary", "summary"), ("What happened", "what_happened"),
                            ("Typology", "typology"), ("Why suspicious", "why_suspicious")]:
             st.markdown(f'<div class="narrative-box"><h5>{label}</h5><p>{n.get(key, "")}</p></div>',
@@ -681,8 +837,26 @@ with tabs[4]:
             st.session_state["log"].append({"Time": datetime.now().strftime("%H:%M:%S"), "Case": c["case_id"],
                                             "Decision": dec, "Note": note})
             st.rerun()
-    b[3].download_button("⬇ Case file (JSON)", json.dumps({k: v for k, v in c.items() if k != "layout"}, indent=2),
-                         f"{c['case_id']}.json", width="stretch")
+    officer = next((e for e in reversed(st.session_state["log"]) if e["Case"] == c["case_id"]), None)
+    officer = {"decision": officer["Decision"], "note": officer["Note"], "time": officer["Time"]} if officer else None
+    ev_rows = txn_table(c["evidence_txn_ids"])
+    ev_rows["amount"] = D["full"].set_index("txn_id").loc[ev_rows["txn_id"], "amount"].values
+    str_html = build_str_html(c, written_cases.get(c["case_id"]), relationships.get("cases", {}).get(c["case_id"]),
+                              ilog.get("items", {}).get(c["case_id"]) if ilog else None,
+                              ev_rows.to_dict("records"),
+                              {k: {"has_unverified_link": bool(a.get("has_unverified_link"))} for k, a in D["attrs"].items()},
+                              officer)
+    approved = bool(officer and officer["decision"] == "Approved")
+    b[3].download_button("📄 STR report" + (" (approved)" if approved else " (draft)"), str_html,
+                         f"STR_{c['case_id']}.html", mime="text/html", width="stretch",
+                         type="primary" if approved else "secondary")
+    if approved:
+        st.success(f"Approved. The STR report for {c['case_id']} is ready: download it, open it, and print or save it as PDF. "
+                   "The officer did not have to write a word.")
+    else:
+        st.caption("📄 The STR report downloads as a draft. Approve the case to stamp it as approved by the officer.")
+    st.download_button("⬇ Raw case data (JSON)", json.dumps({k: v for k, v in c.items() if k != "layout"}, indent=2),
+                       f"{c['case_id']}.json", key=f"json_{c['case_id']}")
 
     if D["review"]:
         with st.expander(f"Watchlist review queue ({len(D['review'])}): low priority, not a case, no accusation"):
@@ -690,7 +864,7 @@ with tabs[4]:
                 st.write(f"• `{w['finding_id']}` {w['reason']}")
 
 # ------------------------------------------------------------ scorecard ---
-with tabs[5]:
+with tabs[6]:
     pagetitle("Scorecard: checked against the hidden answer key")
     st.caption("The answer key is used only here, never by any detection or case logic.")
     caught = sum(1 for v in per_ring.values() if v[2])
