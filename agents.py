@@ -451,6 +451,27 @@ def _narrative_text(narrative):
     return " ".join(parts)
 
 
+# Typology claims are facts too. A narrative may only call the money a loop if
+# the CIRCLE detector actually proved one, and may only call it structuring if
+# THRESHOLD fired. (The model once described a mule network as a "closed loop".)
+LOOP_CLAIM_RE = re.compile(r"closed[- ]loop|\bcircular\b|round[- ]trip|cycled back|return(?:ed|ing) to (?:the |its )?(?:origin|originat)", re.I)
+STRUCTURING_CLAIM_RE = re.compile(r"\bstructuring\b|structured (?:deposits|transactions|transfers|network|payments)", re.I)
+
+
+def typology_violations(text, detectors_fired):
+    """Plain-code check that the words used for the laundering method match
+    the detector that proved it. Returns a list of failure strings."""
+    fired = set(detectors_fired or [])
+    out = []
+    m = LOOP_CLAIM_RE.search(text or "")
+    if m and "CIRCLE" not in fired:
+        out.append(f"Describes the money as a loop (\"{m.group(0)}\") but no CIRCLE was detected in this case")
+    m = STRUCTURING_CLAIM_RE.search(text or "")
+    if m and "THRESHOLD" not in fired:
+        out.append(f"Calls this structuring (\"{m.group(0)}\") but no THRESHOLD pattern was detected in this case")
+    return out
+
+
 def run_fact_check(narrative, packet):
     """
     Every ACC/TXN/PERSON id, rupee amount and date the narrative mentions
@@ -514,6 +535,14 @@ def run_fact_check(narrative, packet):
             failures.append(
                 f"Date {d.isoformat()} falls outside the case window "
                 f"({start_date} to {end_date})")
+
+    # typology words must match what the detectors proved
+    checked += 1
+    typ = typology_violations(text, packet["detectors_fired"])
+    if typ:
+        failures.extend(typ)
+    else:
+        passed += 1
 
     return {"checked": checked, "passed": passed, "failures": failures}
 

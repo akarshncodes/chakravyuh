@@ -512,6 +512,13 @@ def investigate(client, world, item, triage_note, rank):
                 problem = (f"These amounts in your reason were not shown by any tool, exactly as written: {wrong}. "
                            f"Copy amounts verbatim or leave them out.")
                 log["blocked"].append({"step": step, "invalid_amounts": wrong})
+            elif agents.typology_violations(str(args.get("reason", "")),
+                                            world.cases[item["id"]]["detectors_fired"] if kind == "CASE" else []):
+                problem = ("Your reason names a laundering method the detectors did not prove: "
+                           + "; ".join(agents.typology_violations(str(args.get("reason", "")),
+                                       world.cases[item["id"]]["detectors_fired"] if kind == "CASE" else []))
+                           + ". Describe only what the evidence shows.")
+                log["blocked"].append({"step": step, "invalid_typology": [problem]})
             elif bad:
                 problem = f"These IDs are not in this item's evidence and were rejected: {bad}. Cite only what your tools showed."
                 log["blocked"].append({"step": step, "invalid_ids": bad})
@@ -555,7 +562,14 @@ def main():
     # Resume: if an earlier run crashed part-way (e.g. rate limits), keep the
     # triage and every item already finished, and only work what is left.
     partial = {}
-    if os.path.exists(PARTIAL_PATH) and "--fresh" not in sys.argv:
+    if "--only" in sys.argv:
+        # re-investigate just these items, keep everything else from the last full run
+        only = set(sys.argv[sys.argv.index("--only") + 1].split(","))
+        with open(LOG_PATH, encoding="utf-8") as f:
+            prev = json.load(f)
+        partial = {"triage": prev["triage"], "items": {k: v for k, v in prev["items"].items() if k not in only}}
+        print(f"  re-investigating only: {sorted(only)}")
+    elif os.path.exists(PARTIAL_PATH) and "--fresh" not in sys.argv:
         with open(PARTIAL_PATH, encoding="utf-8") as f:
             partial = json.load(f)
         print(f"  resuming: {len(partial.get('items', {}))} item(s) already done")
@@ -611,7 +625,7 @@ def main():
         "facts_checked": sum(r["fact_check"]["checked"] for lg in logs for r in lg["writer_runs"][-1:]),
         "facts_confirmed": sum(r["fact_check"]["passed"] for lg in logs for r in lg["writer_runs"][-1:]),
         "blocked_citations": sum(len(b.get("invalid_ids", [])) + len(b.get("invalid_amounts", []))
-                                 for lg in logs for b in lg["blocked"]),
+                                 + len(b.get("invalid_typology", [])) for lg in logs for b in lg["blocked"]),
         "decisions": dict(decisions),
         "fallbacks": sum(1 for lg in logs if lg["decision"].get("fallback")),
     }
