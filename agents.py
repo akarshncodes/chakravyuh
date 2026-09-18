@@ -62,6 +62,9 @@ INVESTIGATOR_SYSTEM_PROMPT = """You are a financial crime analyst writing a Susp
 Rules you must follow exactly:
 - You may ONLY reference transactions, accounts, people and amounts that appear in the evidence packet you are given. Inventing any detail not present in the packet is a critical failure.
 - Write in plain, professional English. State amounts in Indian format (for example "Rs 2.4 crore", "Rs 9,85,000").
+- AMOUNTS: the packet gives you two distinct figures. amount_cycled is the largest single transaction in the case - the actual principal that moved. total_volume is the sum of every transaction in the case. If is_circular is true, the money loops back to where it started, so total_volume counts the SAME principal once per hop and is NOT the amount laundered - never state total_volume alone as if it were. Word it the way a real STR does, for example:
+  "Rs 2.4 crore was cycled through six accounts, generating Rs 14.09 crore in total transaction volume, with 95.4% of the principal returning to the originating account."
+  If is_circular is false, money genuinely moves onward (mule network, rapid layering, structuring), so simply report total_volume as the amount moved, as normal.
 - The evidence packet has already been detected and structurally proven by deterministic graph analysis. You are not deciding whether a suspicious pattern exists - it does. Your job is only to explain it clearly and accurately.
 - If any person in the "people" list has has_unverified_link = true, say so explicitly in why_suspicious or what_happened, and lower your confidence rating accordingly.
 - Respond with a single JSON object and nothing else, in exactly this shape:
@@ -165,15 +168,32 @@ def build_evidence_packet(case, txn_lookup, entities):
                 "has_unverified_link": ent.get("has_unverified_link", False),
             })
 
+    # A circular ring returns to its origin, so total_evidence_amount (the
+    # sum of every hop) counts the same principal once per hop - the hero
+    # ring's Rs 2.4 crore reads as Rs 14.09 crore if that sum is quoted as
+    # "the amount laundered". amount_cycled (the single largest evidence
+    # transaction) is the actual principal that moved; total_volume is the
+    # hop-sum, kept only as a measure of activity, never as the headline
+    # amount for a circular case. For non-circular cases the two rules
+    # still coexist fine: money genuinely moves onward, so total_volume
+    # (== total_evidence_amount) is reported as the amount as before.
+    evidence_id_set = set(case["evidence_txn_ids"])
+    evidence_amounts = [t["amount"] for t in transactions if t["txn_id"] in evidence_id_set]
+    amount_cycled = max(evidence_amounts) if evidence_amounts else 0.0
+    total_volume = case["total_evidence_amount"]
+
     return {
         "case_id": case["case_id"],
         "lane": case["lane"],
         "detectors_fired": case["detectors_fired"],
+        "is_circular": "CIRCLE" in case["detectors_fired"],
         "core_people": case["core_people"],
         "context_people": case["context_people"],
         "evidence_txn_ids": case["evidence_txn_ids"],
         "supporting_txn_ids": case["supporting_txn_ids"],
         "total_evidence_amount": case["total_evidence_amount"],
+        "amount_cycled": amount_cycled,
+        "total_volume": total_volume,
         "first_timestamp": case["first_timestamp"],
         "last_timestamp": case["last_timestamp"],
         "hours_spanned": case["hours_spanned"],
@@ -276,6 +296,11 @@ def run_fact_check(narrative, packet):
     allowed_persons = {p["entity_key"] for p in packet["core_people"] + packet["context_people"]}
     packet_amounts = [t["amount"] for t in packet["transactions"]]
     case_total = packet["total_evidence_amount"]
+    # amount_cycled (the largest single hop, i.e. the principal for a
+    # circular case) and total_volume (== case_total, the hop-sum) are both
+    # legitimate figures a narrative may cite - see build_evidence_packet.
+    amount_cycled = packet.get("amount_cycled", case_total)
+    total_volume = packet.get("total_volume", case_total)
     start_date = datetime.strptime(packet["first_timestamp"], "%Y-%m-%d %H:%M:%S").date()
     end_date = datetime.strptime(packet["last_timestamp"], "%Y-%m-%d %H:%M:%S").date()
 
@@ -306,14 +331,16 @@ def run_fact_check(narrative, packet):
 
     for amt in sorted(set(round(a) for a in extract_amounts(text))):
         checked += 1
-        ok = math.isclose(amt, case_total, rel_tol=0.01) or any(
-            math.isclose(amt, a, rel_tol=0.01) for a in packet_amounts)
+        ok = (math.isclose(amt, case_total, rel_tol=0.01) or
+              math.isclose(amt, amount_cycled, rel_tol=0.01) or
+              math.isclose(amt, total_volume, rel_tol=0.01) or
+              any(math.isclose(amt, a, rel_tol=0.01) for a in packet_amounts))
         if ok:
             passed += 1
         else:
             failures.append(
-                f"Amount Rs {amt:,.0f} matches neither the case total nor any case "
-                f"transaction amount (within 1%)")
+                f"Amount Rs {amt:,.0f} matches neither the case total, the cycled "
+                f"principal, the total volume, nor any case transaction amount (within 1%)")
 
     for d in sorted(set(extract_dates(text))):
         checked += 1
@@ -467,18 +494,36 @@ def build_fallback_narrative(packet):
                      f"in the same period, not counted as evidence)")
 
     core_names = ", ".join(p["name"] for p in packet["people"] if p["role"] == "CORE") or "unnamed parties"
+
+    # Circular cases must never quote total_volume (the hop-sum) as if it
+    # were the amount laundered - it counts the same principal once per
+    # hop. amount_cycled (the largest single evidence transaction) is the
+    # actual principal; the return percentage is computed straight from
+    # the evidence chain, exactly as a real STR would phrase it.
+    amount_cycled = packet["amount_cycled"]
+    total_volume = packet["total_volume"]
+    if packet["is_circular"] and evidence_txns and amount_cycled:
+        num_accounts = len({t["from_account"] for t in evidence_txns} |
+                           {t["to_account"] for t in evidence_txns})
+        return_pct = evidence_txns[-1]["amount"] / amount_cycled * 100
+        amount_phrase = (
+            f"Rs {amount_cycled:,.0f} was cycled through {num_accounts} accounts, "
+            f"generating Rs {total_volume:,.0f} in total transaction volume, with "
+            f"{return_pct:.1f}% of the principal returning to the originating account")
+    else:
+        amount_phrase = f"Rs {total_volume:,.0f} moved across {len(evidence_txns)} evidence transactions"
+
     return {
         "summary": (
-            f"Case {packet['case_id']}: {len(evidence_txns)} evidence transactions totalling "
-            f"Rs {packet['total_evidence_amount']:,.0f} across {packet['hours_spanned']:.2f} hours, "
+            f"Case {packet['case_id']}: {amount_phrase} over {packet['hours_spanned']:.2f} hours, "
             f"flagged by {', '.join(packet['detectors_fired'])}. Involves {core_names}."),
         "what_happened": " | ".join(lines),
         "typology": infer_typology(packet["detectors_fired"]),
         "why_suspicious": (
             f"Deterministically detected by {', '.join(packet['detectors_fired'])} across "
             f"{packet['hours_spanned']:.2f} hours spanning {', '.join(packet['banks_involved'])}. "
-            f"No AI narrative analysis was performed for this case - see typology above for "
-            f"the structural reason it was flagged."),
+            f"{amount_phrase}. No AI narrative analysis was performed for this case - see "
+            f"typology above for the structural reason it was flagged."),
         "recommended_action": "ESCALATE",
         "confidence": {
             "level": "LOW",

@@ -2,10 +2,10 @@
   "C001": {
     "case_id": "C001",
     "narrative": {
-      "summary": "Case C001: 6 evidence transactions totalling Rs 140,947,500 across 2.97 hours, flagged by CIRCLE, SPEED. Involves Jyoti Saxena & Sons, ANNA AGARWAL, P. Malik.",
+      "summary": "Case C001: Rs 24,000,000 was cycled through 6 accounts, generating Rs 140,947,500 in total transaction volume, with 95.4% of the principal returning to the originating account over 2.97 hours, flagged by CIRCLE, SPEED. Involves Jyoti Saxena & Sons, ANNA AGARWAL, P. Malik.",
       "what_happened": "2026-08-30 00:48:56: Rs 24,000,000.00 from ACC00010 to ACC00011 via RTGS (BANK_A -> BANK_A) | 2026-08-30 01:35:56: Rs 23,837,091.92 from ACC00011 to ACC00012 via RTGS (BANK_A -> BANK_B) | 2026-08-30 02:06:56: Rs 23,693,623.23 from ACC00012 to ACC00013 via RTGS (BANK_B -> BANK_B) | 2026-08-30 02:40:56: Rs 23,358,052.61 from ACC00013 to ACC00014 via RTGS (BANK_B -> BANK_A) | 2026-08-30 03:20:56: Rs 23,166,344.02 from ACC00014 to ACC00015 via RTGS (BANK_A -> BANK_B) | 2026-08-30 03:46:56: Rs 22,892,388.30 from ACC00015 to ACC00010 via RTGS (BANK_B -> BANK_A)",
       "typology": "Circular transfer / round-tripping - funds move through a closed loop of accounts and return to their point of origin, which has no legitimate economic purpose.",
-      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 2.97 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 2.97 hours spanning BANK_A, BANK_B. Rs 24,000,000 was cycled through 6 accounts, generating Rs 140,947,500 in total transaction volume, with 95.4% of the principal returning to the originating account. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -26,15 +26,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C002": {
     "case_id": "C002",
     "narrative": {
-      "summary": "Case C002: 5 evidence transactions totalling Rs 8,913,658 across 0.63 hours, flagged by CIRCLE, SPEED. Involves Suresh Kaur & Sons, Anita Sandhu, Kapoor Rekha.",
+      "summary": "Case C002: Rs 1,810,199 was cycled through 6 accounts, generating Rs 8,913,658 in total transaction volume, with 96.6% of the principal returning to the originating account over 0.63 hours, flagged by CIRCLE, SPEED. Involves Suresh Kaur & Sons, Anita Sandhu, Kapoor Rekha.",
       "what_happened": "2026-09-11 18:29:28: Rs 1,810,199.06 from ACC00112 to ACC00113 via RTGS (BANK_B -> BANK_A) | 2026-09-11 18:39:28: Rs 1,790,923.69 from ACC00113 to ACC00114 via IMPS (BANK_A -> BANK_B) | 2026-09-11 18:48:28: Rs 1,787,701.31 from ACC00114 to ACC00115 via IMPS (BANK_B -> BANK_A) | 2026-09-11 18:57:28: Rs 1,775,289.21 from ACC00115 to ACC00116 via IMPS (BANK_A -> BANK_B) | 2026-09-11 19:07:28: Rs 1,749,544.64 from ACC00116 to ACC00117 via IMPS (BANK_B -> BANK_B)",
       "typology": "Circular transfer / round-tripping - funds move through a closed loop of accounts and return to their point of origin, which has no legitimate economic purpose.",
-      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 0.63 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 0.63 hours spanning BANK_A, BANK_B. Rs 1,810,199 was cycled through 6 accounts, generating Rs 8,913,658 in total transaction volume, with 96.6% of the principal returning to the originating account. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -55,15 +55,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C003": {
     "case_id": "C003",
     "narrative": {
-      "summary": "Case C003: 7 evidence transactions totalling Rs 8,138,038 across 0.53 hours, flagged by CIRCLE, SPEED. Involves Gopal Kapoor, SWATI SENGUPTA, Kiran Tiwari & Sons, Desai Sandeep.",
+      "summary": "Case C003: Rs 1,185,004 was cycled through 8 accounts, generating Rs 8,138,038 in total transaction volume, with 95.2% of the principal returning to the originating account over 0.53 hours, flagged by CIRCLE, SPEED. Involves Gopal Kapoor, SWATI SENGUPTA, Kiran Tiwari & Sons, Desai Sandeep.",
       "what_happened": "2026-08-29 10:29:05: Rs 1,185,003.97 from ACC00118 to ACC00119 via IMPS (BANK_B -> BANK_B) | 2026-08-29 10:38:05: Rs 1,176,205.56 from ACC00119 to ACC00120 via RTGS (BANK_B -> BANK_A) | 2026-08-29 10:42:05: Rs 1,171,763.28 from ACC00120 to ACC00121 via RTGS (BANK_A -> BANK_B) | 2026-08-29 10:46:05: Rs 1,169,881.12 from ACC00121 to ACC00122 via RTGS (BANK_B -> BANK_B) | 2026-08-29 10:52:05: Rs 1,162,685.26 from ACC00122 to ACC00123 via RTGS (BANK_B -> BANK_B) | 2026-08-29 10:57:05: Rs 1,143,887.71 from ACC00123 to ACC00124 via IMPS (BANK_B -> BANK_A) | 2026-08-29 11:01:05: Rs 1,128,610.98 from ACC00124 to ACC00125 via RTGS (BANK_A -> BANK_A)",
       "typology": "Circular transfer / round-tripping - funds move through a closed loop of accounts and return to their point of origin, which has no legitimate economic purpose.",
-      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 0.53 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 0.53 hours spanning BANK_A, BANK_B. Rs 1,185,004 was cycled through 8 accounts, generating Rs 8,138,038 in total transaction volume, with 95.2% of the principal returning to the originating account. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -84,15 +84,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C004": {
     "case_id": "C004",
     "narrative": {
-      "summary": "Case C004: 8 evidence transactions totalling Rs 4,895,355 across 21.00 hours, flagged by CIRCLE, SPEED. Involves ANIL KAPOOR, Lakshmi Karu, Priya Dhillon & Sons, Chauhan Lakshmi.",
+      "summary": "Case C004: Rs 642,625 was cycled through 8 accounts, generating Rs 4,895,355 in total transaction volume, with 91.1% of the principal returning to the originating account over 21.00 hours, flagged by CIRCLE, SPEED. Involves ANIL KAPOOR, Lakshmi Karu, Priya Dhillon & Sons, Chauhan Lakshmi.",
       "what_happened": "2026-08-31 11:07:47: Rs 642,625.30 from ACC00016 to ACC00017 via NEFT (BANK_A -> BANK_A) | 2026-08-31 12:07:47: Rs 626,948.73 from ACC00017 to ACC00018 via RTGS (BANK_A -> BANK_B) | 2026-08-31 13:07:47: Rs 621,022.04 from ACC00018 to ACC00019 via NEFT (BANK_B -> BANK_B) | 2026-08-31 16:07:47: Rs 616,376.11 from ACC00019 to ACC00020 via IMPS (BANK_B -> BANK_A) | 2026-08-31 19:07:47: Rs 612,832.68 from ACC00020 to ACC00021 via RTGS (BANK_A -> BANK_B) | 2026-08-31 23:07:47: Rs 598,965.66 from ACC00021 to ACC00022 via NEFT (BANK_B -> BANK_A) | 2026-09-01 04:07:47: Rs 591,425.22 from ACC00022 to ACC00023 via IMPS (BANK_A -> BANK_B) | 2026-09-01 08:07:47: Rs 585,159.37 from ACC00023 to ACC00016 via RTGS (BANK_B -> BANK_A)",
       "typology": "Circular transfer / round-tripping - funds move through a closed loop of accounts and return to their point of origin, which has no legitimate economic purpose.",
-      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 21.00 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by CIRCLE, SPEED across 21.00 hours spanning BANK_A, BANK_B. Rs 642,625 was cycled through 8 accounts, generating Rs 4,895,355 in total transaction volume, with 91.1% of the principal returning to the originating account. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -113,15 +113,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C005": {
     "case_id": "C005",
     "narrative": {
-      "summary": "Case C005: 80 evidence transactions totalling Rs 4,577,544 across 2.98 hours, flagged by SPEED, SPRAY. Involves A. Reddy, Zubair Naidu & Sons, Harpreet Agarwal & Sons, SUNIL MUKHERJEE, Mary Bose & Sons, Neha Desai, NITHYA SHAH, Kalpana Ghosh & Sons, Sowmya Sidhu, Anita Tiwair, Ashok Dbuey, DINESH MALHOTRA, Irfan Gill, P. Yadav, NISHA DAS, Reddy Vasantha, Swati Agarwal, Manoj Paetl, Sneha Ahmed & Sons, Prakash Patel & Sons, Padma Kumar & Sons.",
+      "summary": "Case C005: Rs 4,577,544 moved across 80 evidence transactions over 2.98 hours, flagged by SPEED, SPRAY. Involves A. Reddy, Zubair Naidu & Sons, Harpreet Agarwal & Sons, SUNIL MUKHERJEE, Mary Bose & Sons, Neha Desai, NITHYA SHAH, Kalpana Ghosh & Sons, Sowmya Sidhu, Anita Tiwair, Ashok Dbuey, DINESH MALHOTRA, Irfan Gill, P. Yadav, NISHA DAS, Reddy Vasantha, Swati Agarwal, Manoj Paetl, Sneha Ahmed & Sons, Prakash Patel & Sons, Padma Kumar & Sons.",
       "what_happened": "2026-09-15 22:16:18: Rs 88,691.70 from ACC00065 to ACC00084 via IMPS (BANK_B -> BANK_A) | 2026-09-15 22:19:18: Rs 51,748.24 from ACC00065 to ACC00072 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:27:18: Rs 80,155.17 from ACC00065 to ACC00090 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:30:18: Rs 60,885.01 from ACC00065 to ACC00092 via UPI (BANK_B -> BANK_B) | 2026-09-15 22:34:18: Rs 78,285.38 from ACC00090 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-15 22:36:18: Rs 80,026.87 from ACC00065 to ACC00086 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:36:18: Rs 72,372.13 from ACC00065 to ACC00097 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:37:18: Rs 87,622.61 from ACC00065 to ACC00104 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:44:18: Rs 62,476.35 from ACC00065 to ACC00093 via IMPS (BANK_B -> BANK_A) | 2026-09-15 22:45:18: Rs 71,112.44 from ACC00097 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 22:49:18: Rs 75,012.42 from ACC00065 to ACC00069 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:50:18: Rs 86,792.76 from ACC00084 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 22:52:18: Rs 44,152.10 from ACC00065 to ACC00099 via IMPS (BANK_B -> BANK_A) | 2026-09-15 22:55:18: Rs 60,469.32 from ACC00092 to ACC00106 via UPI (BANK_B -> BANK_B) | 2026-09-15 22:58:18: Rs 87,541.67 from ACC00065 to ACC00070 via UPI (BANK_B -> BANK_B) | 2026-09-15 22:58:18: Rs 71,221.02 from ACC00065 to ACC00079 via UPI (BANK_B -> BANK_A) | 2026-09-15 22:59:18: Rs 30,011.12 from ACC00065 to ACC00103 via IMPS (BANK_B -> BANK_A) | 2026-09-15 23:00:18: Rs 85,306.71 from ACC00104 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-15 23:01:18: Rs 61,797.77 from ACC00093 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 23:04:18: Rs 51,179.45 from ACC00072 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-15 23:13:18: Rs 73,629.19 from ACC00069 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-15 23:15:18: Rs 39,315.18 from ACC00065 to ACC00071 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:16:18: Rs 78,751.69 from ACC00086 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 23:20:18: Rs 43,632.95 from ACC00099 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 23:26:18: Rs 29,457.57 from ACC00103 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 23:27:18: Rs 26,147.37 from ACC00065 to ACC00087 via IMPS (BANK_B -> BANK_B) | 2026-09-15 23:30:18: Rs 87,091.05 from ACC00070 to ACC00106 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:30:18: Rs 59,199.69 from ACC00065 to ACC00081 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:33:18: Rs 22,699.15 from ACC00065 to ACC00075 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:33:18: Rs 80,294.46 from ACC00065 to ACC00077 via UPI (BANK_B -> BANK_A) | 2026-09-15 23:33:18: Rs 64,460.35 from ACC00065 to ACC00078 via IMPS (BANK_B -> BANK_A) | 2026-09-15 23:34:18: Rs 58,866.56 from ACC00065 to ACC00085 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:36:18: Rs 45,696.36 from ACC00065 to ACC00105 via UPI (BANK_B -> BANK_A) | 2026-09-15 23:37:18: Rs 69,337.37 from ACC00079 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-15 23:39:18: Rs 25,893.28 from ACC00087 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-15 23:39:18: Rs 72,730.73 from ACC00065 to ACC00088 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:41:18: Rs 38,676.38 from ACC00071 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-15 23:42:18: Rs 22,350.64 from ACC00075 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-15 23:43:18: Rs 70,842.07 from ACC00065 to ACC00068 via UPI (BANK_B -> BANK_A) | 2026-09-15 23:49:18: Rs 41,046.59 from ACC00065 to ACC00100 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:50:18: Rs 61,917.97 from ACC00065 to ACC00067 via UPI (BANK_B -> BANK_A) | 2026-09-15 23:50:18: Rs 64,227.37 from ACC00065 to ACC00095 via IMPS (BANK_B -> BANK_A) | 2026-09-15 23:52:18: Rs 60,918.32 from ACC00065 to ACC00091 via UPI (BANK_B -> BANK_A) | 2026-09-15 23:52:18: Rs 62,907.97 from ACC00095 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-15 23:54:18: Rs 39,735.47 from ACC00065 to ACC00083 via UPI (BANK_B -> BANK_B) | 2026-09-15 23:57:18: Rs 71,386.58 from ACC00065 to ACC00073 via IMPS (BANK_B -> BANK_B) | 2026-09-15 23:58:18: Rs 59,649.14 from ACC00065 to ACC00102 via IMPS (BANK_B -> BANK_A) | 2026-09-16 00:04:18: Rs 57,899.23 from ACC00081 to ACC00106 via UPI (BANK_B -> BANK_B) | 2026-09-16 00:06:18: Rs 57,494.36 from ACC00085 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:07:18: Rs 88,059.24 from ACC00065 to ACC00089 via IMPS (BANK_B -> BANK_A) | 2026-09-16 00:08:18: Rs 44,546.75 from ACC00105 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:09:18: Rs 69,295.82 from ACC00068 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-16 00:09:18: Rs 58,266.65 from ACC00102 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:10:18: Rs 63,451.43 from ACC00078 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-16 00:10:18: Rs 35,551.37 from ACC00065 to ACC00082 via UPI (BANK_B -> BANK_A) | 2026-09-16 00:11:18: Rs 70,935.31 from ACC00073 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:12:18: Rs 71,284.72 from ACC00088 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:12:18: Rs 59,760.35 from ACC00091 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:15:18: Rs 79,750.36 from ACC00077 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:17:18: Rs 16,900.53 from ACC00065 to ACC00066 via IMPS (BANK_B -> BANK_A) | 2026-09-16 00:20:18: Rs 86,780.60 from ACC00089 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-16 00:22:18: Rs 40,221.01 from ACC00100 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:24:18: Rs 64,514.28 from ACC00065 to ACC00098 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:27:18: Rs 49,547.51 from ACC00065 to ACC00076 via UPI (BANK_B -> BANK_A) | 2026-09-16 00:30:18: Rs 45,983.67 from ACC00065 to ACC00074 via UPI (BANK_B -> BANK_B) | 2026-09-16 00:30:18: Rs 34,766.92 from ACC00082 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:32:18: Rs 38,888.24 from ACC00083 to ACC00106 via UPI (BANK_B -> BANK_B) | 2026-09-16 00:33:18: Rs 60,263.57 from ACC00067 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:43:18: Rs 57,004.07 from ACC00065 to ACC00094 via UPI (BANK_B -> BANK_B) | 2026-09-16 00:45:18: Rs 75,092.27 from ACC00065 to ACC00101 via IMPS (BANK_B -> BANK_A) | 2026-09-16 00:50:18: Rs 48,735.26 from ACC00076 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 00:53:18: Rs 55,826.80 from ACC00094 to ACC00106 via UPI (BANK_B -> BANK_B) | 2026-09-16 00:58:18: Rs 16,589.33 from ACC00066 to ACC00106 via UPI (BANK_A -> BANK_B) | 2026-09-16 00:58:18: Rs 62,739.24 from ACC00098 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 00:59:18: Rs 23,401.69 from ACC00065 to ACC00080 via UPI (BANK_B -> BANK_A) | 2026-09-16 00:59:18: Rs 22,625.37 from ACC00065 to ACC00096 via UPI (BANK_B -> BANK_A) | 2026-09-16 01:07:18: Rs 44,844.65 from ACC00074 to ACC00106 via IMPS (BANK_B -> BANK_B) | 2026-09-16 01:10:18: Rs 22,013.06 from ACC00096 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 01:10:18: Rs 74,014.96 from ACC00101 to ACC00106 via IMPS (BANK_A -> BANK_B) | 2026-09-16 01:15:18: Rs 22,773.19 from ACC00080 to ACC00106 via UPI (BANK_A -> BANK_B) | (plus 1 background/supporting transaction(s) in the same period, not counted as evidence)",
       "typology": "Mule network / fan-out fan-in - one source account disperses funds to many accounts that each immediately forward them on to a single collector.",
-      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 2.98 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 2.98 hours spanning BANK_A, BANK_B. Rs 4,577,544 moved across 80 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -142,15 +142,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C006": {
     "case_id": "C006",
     "narrative": {
-      "summary": "Case C006: 50 evidence transactions totalling Rs 2,879,871 across 3.42 hours, flagged by SPEED, SPRAY. Involves Agarwal Naveen, Arun Gill & Sons, Harpreet Naidu & Sons, NAVEEN NAIR, Divya Bose & Sons, SANDEEP SINGH, Karthik Mukherjee & Sons, M. Bose, Rohit Varghese, Meena Bsoe, A. Iyer, Anil Bhatt & Sons, Lakshmi Reddy, Balaji Malhotra & Sons, Harpreet Iyengar & Sons.",
+      "summary": "Case C006: Rs 2,879,871 moved across 50 evidence transactions over 3.42 hours, flagged by SPEED, SPRAY. Involves Agarwal Naveen, Arun Gill & Sons, Harpreet Naidu & Sons, NAVEEN NAIR, Divya Bose & Sons, SANDEEP SINGH, Karthik Mukherjee & Sons, M. Bose, Rohit Varghese, Meena Bsoe, A. Iyer, Anil Bhatt & Sons, Lakshmi Reddy, Balaji Malhotra & Sons, Harpreet Iyengar & Sons.",
       "what_happened": "2026-08-29 01:29:20: Rs 67,554.67 from ACC00038 to ACC00040 via IMPS (BANK_B -> BANK_B) | 2026-08-29 01:36:20: Rs 29,139.93 from ACC00038 to ACC00058 via IMPS (BANK_B -> BANK_A) | 2026-08-29 01:47:20: Rs 52,298.58 from ACC00038 to ACC00049 via UPI (BANK_B -> BANK_A) | 2026-08-29 01:52:20: Rs 71,128.21 from ACC00038 to ACC00046 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:00:20: Rs 66,150.67 from ACC00040 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 02:04:20: Rs 70,020.01 from ACC00046 to ACC00064 via IMPS (BANK_A -> BANK_A) | 2026-08-29 02:04:20: Rs 35,154.61 from ACC00038 to ACC00061 via UPI (BANK_B -> BANK_B) | 2026-08-29 02:05:20: Rs 28,839.92 from ACC00058 to ACC00064 via IMPS (BANK_A -> BANK_A) | 2026-08-29 02:09:20: Rs 68,484.49 from ACC00038 to ACC00053 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:10:20: Rs 49,616.72 from ACC00038 to ACC00044 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:15:20: Rs 51,269.23 from ACC00049 to ACC00064 via IMPS (BANK_A -> BANK_A) | 2026-08-29 02:18:20: Rs 76,710.25 from ACC00038 to ACC00051 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:20:20: Rs 76,262.82 from ACC00038 to ACC00055 via UPI (BANK_B -> BANK_B) | 2026-08-29 02:21:20: Rs 67,743.23 from ACC00053 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 02:22:20: Rs 48,963.21 from ACC00044 to ACC00064 via IMPS (BANK_A -> BANK_A) | 2026-08-29 02:30:20: Rs 74,902.68 from ACC00055 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 02:33:20: Rs 65,742.89 from ACC00038 to ACC00048 via IMPS (BANK_B -> BANK_B) | 2026-08-29 02:39:20: Rs 34,787.28 from ACC00061 to ACC00064 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:46:20: Rs 74,891.24 from ACC00051 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 02:49:20: Rs 60,554.49 from ACC00038 to ACC00050 via UPI (BANK_B -> BANK_A) | 2026-08-29 02:54:20: Rs 59,696.49 from ACC00050 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 02:55:20: Rs 41,543.97 from ACC00038 to ACC00042 via UPI (BANK_B -> BANK_B) | 2026-08-29 03:12:20: Rs 76,688.35 from ACC00038 to ACC00047 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:14:20: Rs 67,096.79 from ACC00038 to ACC00043 via IMPS (BANK_B -> BANK_B) | 2026-08-29 03:15:20: Rs 41,375.69 from ACC00038 to ACC00057 via IMPS (BANK_B -> BANK_B) | 2026-08-29 03:18:20: Rs 64,200.69 from ACC00048 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:28:20: Rs 40,983.59 from ACC00038 to ACC00054 via IMPS (BANK_B -> BANK_B) | 2026-08-29 03:31:20: Rs 65,770.79 from ACC00038 to ACC00041 via IMPS (BANK_B -> BANK_B) | 2026-08-29 03:31:20: Rs 75,017.49 from ACC00047 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 03:33:20: Rs 40,315.57 from ACC00042 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:35:20: Rs 40,466.37 from ACC00054 to ACC00064 via UPI (BANK_B -> BANK_A) | 2026-08-29 03:36:20: Rs 64,800.64 from ACC00041 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:40:20: Rs 63,882.07 from ACC00038 to ACC00056 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:43:20: Rs 40,283.66 from ACC00057 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:44:20: Rs 41,779.94 from ACC00038 to ACC00039 via UPI (BANK_B -> BANK_B) | 2026-08-29 03:45:20: Rs 62,647.92 from ACC00038 to ACC00059 via UPI (BANK_B -> BANK_B) | 2026-08-29 03:49:20: Rs 65,599.40 from ACC00043 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 03:53:20: Rs 46,061.71 from ACC00038 to ACC00063 via UPI (BANK_B -> BANK_A) | 2026-08-29 03:58:20: Rs 63,048.30 from ACC00056 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 04:00:20: Rs 61,005.23 from ACC00059 to ACC00064 via UPI (BANK_B -> BANK_A) | 2026-08-29 04:10:20: Rs 84,550.49 from ACC00038 to ACC00060 via UPI (BANK_B -> BANK_B) | 2026-08-29 04:12:20: Rs 55,378.82 from ACC00038 to ACC00045 via UPI (BANK_B -> BANK_B) | 2026-08-29 04:14:20: Rs 84,391.31 from ACC00038 to ACC00062 via UPI (BANK_B -> BANK_A) | 2026-08-29 04:16:20: Rs 29,104.40 from ACC00038 to ACC00052 via IMPS (BANK_B -> BANK_A) | 2026-08-29 04:21:20: Rs 82,842.10 from ACC00060 to ACC00064 via IMPS (BANK_B -> BANK_A) | 2026-08-29 04:24:20: Rs 41,304.97 from ACC00039 to ACC00064 via UPI (BANK_B -> BANK_A) | 2026-08-29 04:26:20: Rs 82,120.14 from ACC00062 to ACC00064 via UPI (BANK_A -> BANK_A) | 2026-08-29 04:36:20: Rs 54,084.07 from ACC00045 to ACC00064 via UPI (BANK_B -> BANK_A) | 2026-08-29 04:36:20: Rs 45,176.33 from ACC00063 to ACC00064 via IMPS (BANK_A -> BANK_A) | 2026-08-29 04:54:20: Rs 28,438.55 from ACC00052 to ACC00064 via IMPS (BANK_A -> BANK_A) | (plus 1 background/supporting transaction(s) in the same period, not counted as evidence)",
       "typology": "Mule network / fan-out fan-in - one source account disperses funds to many accounts that each immediately forward them on to a single collector.",
-      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 3.42 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 3.42 hours spanning BANK_A, BANK_B. Rs 2,879,871 moved across 50 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -171,15 +171,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C007": {
     "case_id": "C007",
     "narrative": {
-      "summary": "Case C007: 24 evidence transactions totalling Rs 1,536,116 across 2.58 hours, flagged by SPEED, SPRAY. Involves Anna Malik & Sons, Thomas Naveen, Manoj Pillai & Sons & Sons, Zubair Ahmde, SRINIVAS GUPTA, Ahmed Gaurav, Naveen Thoas, Ahmed Zubair, Manoj Pillai &S ons, N. Brar.",
+      "summary": "Case C007: Rs 1,536,116 moved across 24 evidence transactions over 2.58 hours, flagged by SPEED, SPRAY. Involves Anna Malik & Sons, Thomas Naveen, Manoj Pillai & Sons & Sons, Zubair Ahmde, SRINIVAS GUPTA, Ahmed Gaurav, Naveen Thoas, Ahmed Zubair, Manoj Pillai &S ons, N. Brar.",
       "what_happened": "2026-08-24 12:38:13: Rs 89,118.68 from ACC00024 to ACC00034 via UPI (BANK_A -> BANK_A) | 2026-08-24 12:45:13: Rs 62,780.98 from ACC00024 to ACC00030 via UPI (BANK_A -> BANK_A) | 2026-08-24 13:04:13: Rs 71,609.07 from ACC00024 to ACC00028 via UPI (BANK_A -> BANK_A) | 2026-08-24 13:15:13: Rs 61,416.09 from ACC00030 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 13:17:13: Rs 70,241.69 from ACC00028 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 13:22:13: Rs 88,118.53 from ACC00034 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 13:25:13: Rs 52,994.91 from ACC00024 to ACC00027 via IMPS (BANK_A -> BANK_B) | 2026-08-24 13:29:13: Rs 60,642.64 from ACC00024 to ACC00025 via UPI (BANK_A -> BANK_A) | 2026-08-24 13:47:13: Rs 51,873.85 from ACC00027 to ACC00037 via IMPS (BANK_B -> BANK_A) | 2026-08-24 13:53:13: Rs 75,243.45 from ACC00024 to ACC00029 via UPI (BANK_A -> BANK_A) | 2026-08-24 13:59:13: Rs 60,101.05 from ACC00025 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:02:13: Rs 73,854.30 from ACC00029 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:03:13: Rs 43,834.86 from ACC00024 to ACC00031 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:06:13: Rs 43,235.25 from ACC00024 to ACC00036 via UPI (BANK_A -> BANK_B) | 2026-08-24 14:09:13: Rs 71,127.28 from ACC00024 to ACC00033 via UPI (BANK_A -> BANK_A) | 2026-08-24 14:17:13: Rs 79,847.74 from ACC00024 to ACC00026 via UPI (BANK_A -> BANK_A) | 2026-08-24 14:27:13: Rs 59,668.85 from ACC00024 to ACC00035 via UPI (BANK_A -> BANK_A) | 2026-08-24 14:34:13: Rs 77,776.75 from ACC00026 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:37:13: Rs 69,235.30 from ACC00033 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:44:13: Rs 65,753.48 from ACC00024 to ACC00032 via IMPS (BANK_A -> BANK_B) | 2026-08-24 14:45:13: Rs 42,147.45 from ACC00036 to ACC00037 via UPI (BANK_B -> BANK_A) | 2026-08-24 14:48:13: Rs 42,938.82 from ACC00031 to ACC00037 via IMPS (BANK_A -> BANK_A) | 2026-08-24 14:55:13: Rs 58,311.99 from ACC00035 to ACC00037 via UPI (BANK_A -> BANK_A) | 2026-08-24 15:13:13: Rs 64,243.08 from ACC00032 to ACC00037 via IMPS (BANK_B -> BANK_A)",
       "typology": "Mule network / fan-out fan-in - one source account disperses funds to many accounts that each immediately forward them on to a single collector.",
-      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 2.58 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by SPEED, SPRAY across 2.58 hours spanning BANK_A, BANK_B. Rs 1,536,116 moved across 24 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -200,15 +200,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C008": {
     "case_id": "C008",
     "narrative": {
-      "summary": "Case C008: 27 evidence transactions totalling Rs 25,690,042 across 502.13 hours, flagged by THRESHOLD. Involves IRFAN CHATTERJEE, ZUBAIR KAUR, Bhatt Radha, Irfan Gill & Sons, Bose Vinod, A. Kapoor.",
+      "summary": "Case C008: Rs 25,690,042 moved across 27 evidence transactions over 502.13 hours, flagged by THRESHOLD. Involves IRFAN CHATTERJEE, ZUBAIR KAUR, Bhatt Radha, Irfan Gill & Sons, Bose Vinod, A. Kapoor.",
       "what_happened": "2026-08-18 17:24:25: Rs 980,264.80 from ACC00126 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-18 22:00:49: Rs 956,084.07 from ACC00130 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-20 15:37:10: Rs 961,547.84 from ACC00127 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-20 22:40:47: Rs 916,439.14 from ACC00128 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-21 13:18:30: Rs 962,270.25 from ACC00131 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-22 10:02:08: Rs 967,633.79 from ACC00134 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-22 11:40:37: Rs 904,979.62 from ACC00131 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-22 12:33:11: Rs 938,813.04 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-22 23:15:00: Rs 959,145.90 from ACC00128 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-23 12:23:36: Rs 993,643.05 from ACC00129 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-25 15:07:33: Rs 965,029.29 from ACC00127 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-26 09:55:41: Rs 930,070.25 from ACC00135 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-27 18:21:31: Rs 916,685.75 from ACC00130 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-28 13:42:18: Rs 952,794.01 from ACC00127 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-28 15:30:02: Rs 988,377.23 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-29 06:48:53: Rs 943,047.44 from ACC00128 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-29 13:01:26: Rs 923,221.86 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-08-30 13:33:18: Rs 904,014.97 from ACC00130 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-01 12:25:23: Rs 994,487.68 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-01 13:02:44: Rs 905,653.28 from ACC00130 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-01 15:49:26: Rs 991,743.40 from ACC00133 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-03 10:41:29: Rs 934,098.37 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-03 11:33:49: Rs 944,733.58 from ACC00130 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-03 16:27:25: Rs 993,762.17 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-05 18:25:36: Rs 966,845.12 from ACC00126 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-07 14:37:48: Rs 994,472.45 from ACC00132 to ACC00136 via CASH (BANK_B -> BANK_B) | 2026-09-08 15:32:00: Rs 900,183.42 from ACC00131 to ACC00136 via CASH (BANK_B -> BANK_B)",
       "typology": "Structuring - many deposits kept just under a reporting threshold.",
-      "why_suspicious": "Deterministically detected by THRESHOLD across 502.13 hours spanning BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by THRESHOLD across 502.13 hours spanning BANK_B. Rs 25,690,042 moved across 27 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -229,15 +229,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C009": {
     "case_id": "C009",
     "narrative": {
-      "summary": "Case C009: 4 evidence transactions totalling Rs 2,662,493 across 0.65 hours, flagged by SPEED. Involves Ajay Mehta & Sons, SUNITA JAIN, PADMA MALHOTRA.",
+      "summary": "Case C009: Rs 2,662,493 moved across 4 evidence transactions over 0.65 hours, flagged by SPEED. Involves Ajay Mehta & Sons, SUNITA JAIN, PADMA MALHOTRA.",
       "what_happened": "2026-08-22 16:16:43: Rs 676,229.95 from ACC00107 to ACC00108 via IMPS (BANK_B -> BANK_B) | 2026-08-22 16:29:43: Rs 672,891.57 from ACC00108 to ACC00109 via IMPS (BANK_B -> BANK_A) | 2026-08-22 16:37:43: Rs 661,701.09 from ACC00109 to ACC00110 via RTGS (BANK_A -> BANK_A) | 2026-08-22 16:55:43: Rs 651,670.15 from ACC00110 to ACC00111 via IMPS (BANK_A -> BANK_B)",
       "typology": "Rapid layering - funds move through a chain of accounts in a compressed time window, resting nowhere.",
-      "why_suspicious": "Deterministically detected by SPEED across 0.65 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by SPEED across 0.65 hours spanning BANK_A, BANK_B. Rs 2,662,493 moved across 4 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -258,15 +258,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C010": {
     "case_id": "C010",
     "narrative": {
-      "summary": "Case C010: 4 evidence transactions totalling Rs 2,410,103 across 12.00 hours, flagged by CIRCLE. Involves ZEENAT SIDHU, Sidhu Zeenat, Anna Deasi.",
+      "summary": "Case C010: Rs 619,926 was cycled through 4 accounts, generating Rs 2,410,103 in total transaction volume, with 94.0% of the principal returning to the originating account over 12.00 hours, flagged by CIRCLE. Involves ZEENAT SIDHU, Sidhu Zeenat, Anna Deasi.",
       "what_happened": "2026-08-28 13:26:18: Rs 619,926.45 from ACC00001 to ACC00002 via NEFT (BANK_A -> BANK_A) | 2026-08-28 16:26:18: Rs 609,350.45 from ACC00002 to ACC00003 via NEFT (BANK_A -> BANK_B) | 2026-08-28 21:26:18: Rs 598,277.24 from ACC00003 to ACC00004 via NEFT (BANK_B -> BANK_B) | 2026-08-29 01:26:18: Rs 582,548.64 from ACC00004 to ACC00001 via NEFT (BANK_B -> BANK_A)",
       "typology": "Circular transfer / round-tripping - funds move through a closed loop of accounts and return to their point of origin, which has no legitimate economic purpose.",
-      "why_suspicious": "Deterministically detected by CIRCLE across 12.00 hours spanning BANK_A, BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by CIRCLE across 12.00 hours spanning BANK_A, BANK_B. Rs 619,926 was cycled through 4 accounts, generating Rs 2,410,103 in total transaction volume, with 94.0% of the principal returning to the originating account. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -287,15 +287,15 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   },
   "C011": {
     "case_id": "C011",
     "narrative": {
-      "summary": "Case C011: 35 evidence transactions totalling Rs 1,659,660 across 652.97 hours, flagged by THRESHOLD. Involves Imran Sndhu, Yadav Sunita, Geeta Verma & Sons, Ajay Saxena, Manpreet Khan & Sons, KAVITA RAO.",
+      "summary": "Case C011: Rs 1,659,660 moved across 35 evidence transactions over 652.97 hours, flagged by THRESHOLD. Involves Imran Sndhu, Yadav Sunita, Geeta Verma & Sons, Ajay Saxena, Manpreet Khan & Sons, KAVITA RAO.",
       "what_happened": "2026-08-19 12:42:57: Rs 46,565.28 from ACC00140 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-19 17:50:59: Rs 47,585.93 from ACC00145 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-21 09:49:29: Rs 47,285.92 from ACC00137 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-21 17:09:44: Rs 45,135.40 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-21 17:23:27: Rs 48,671.21 from ACC00142 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-22 15:47:28: Rs 48,385.27 from ACC00137 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-22 17:27:28: Rs 48,450.89 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-22 17:42:18: Rs 49,013.21 from ACC00137 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-23 23:17:26: Rs 48,421.23 from ACC00142 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-26 09:09:39: Rs 45,513.77 from ACC00141 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-26 09:10:30: Rs 47,958.89 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-28 10:07:50: Rs 46,742.29 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-29 14:18:40: Rs 48,472.77 from ACC00139 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-29 17:32:05: Rs 48,755.68 from ACC00144 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-30 09:08:55: Rs 48,374.86 from ACC00140 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-30 10:28:53: Rs 47,464.65 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-08-31 00:26:26: Rs 47,336.38 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-01 22:26:26: Rs 46,478.31 from ACC00142 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-02 17:05:24: Rs 45,829.34 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-03 13:13:52: Rs 45,404.29 from ACC00143 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-03 14:15:57: Rs 46,264.19 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-04 18:03:31: Rs 47,006.51 from ACC00145 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-05 07:25:15: Rs 47,143.48 from ACC00138 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-06 09:38:31: Rs 48,081.59 from ACC00140 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-06 11:12:40: Rs 47,453.79 from ACC00145 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-07 11:06:56: Rs 48,791.50 from ACC00144 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-08 10:18:46: Rs 46,037.13 from ACC00139 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-09 14:11:13: Rs 48,367.92 from ACC00142 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-11 10:24:15: Rs 49,200.80 from ACC00141 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-11 11:50:39: Rs 46,420.67 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-12 12:44:07: Rs 48,801.60 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-12 15:36:41: Rs 49,005.63 from ACC00143 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-13 14:36:37: Rs 45,433.39 from ACC00146 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-14 09:25:19: Rs 48,794.73 from ACC00145 to ACC00147 via CASH (BANK_B -> BANK_B) | 2026-09-15 17:40:52: Rs 45,011.67 from ACC00142 to ACC00147 via CASH (BANK_B -> BANK_B)",
       "typology": "Structuring - many deposits kept just under a reporting threshold.",
-      "why_suspicious": "Deterministically detected by THRESHOLD across 652.97 hours spanning BANK_B. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
+      "why_suspicious": "Deterministically detected by THRESHOLD across 652.97 hours spanning BANK_B. Rs 1,659,660 moved across 35 evidence transactions. No AI narrative analysis was performed for this case - see typology above for the structural reason it was flagged.",
       "recommended_action": "ESCALATE",
       "confidence": {
         "level": "LOW",
@@ -316,6 +316,6 @@
     },
     "final_confidence": "LOW",
     "model": "template (no API key)",
-    "generated_at": "2026-09-18T17:58:22Z"
+    "generated_at": "2026-09-18T18:10:40Z"
   }
 }
