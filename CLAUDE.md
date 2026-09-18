@@ -26,7 +26,9 @@ repo and a working live deployment are both mandatory.
 | 5 | Case builder — seed, trace, expand, prune | `case_builder.py` | ✅ done |
 | 6 | Investigator agent (LLM) — writes the case | `agents.py` | ✅ done |
 | 7 | Verifier agent (LLM) — adversarial check | `agents.py` | ✅ done |
-| 8 | Streamlit dashboard + human approval | `app.py` | ✅ done |
+| 5b | Relationship Lens — unusual account relationships vs bank baseline | `relationships.py` | ✅ done |
+| — | DRONA — AI lead investigator that runs stages 6 & 7 | `orchestrator.py` | ✅ done |
+| 8 | Streamlit dashboard + human approval (War Room, Cases, STR draft) | `app.py`, `str_report.py` | ✅ done |
 
 ## Rules that must not be broken
 
@@ -56,6 +58,23 @@ repo and a working live deployment are both mandatory.
 
 7. **Commit after every working stage**, with a message naming the stage.
    Meaningful commit history is inspected by judges at the 2:30 AM checkpoint.
+
+## Run order
+
+`generate_data.py` → `entity_resolution.py` → `graph_builder.py` → `detectors.py` →
+`case_builder.py` → `relationships.py` → `orchestrator.py` (needs OPENAI_API_KEY) →
+`streamlit run app.py`. The app only reads the files these write.
+
+## The three AI agents
+
+- **DRONA** (`orchestrator.py`, gpt-4o, function calling): triage, chooses read-only
+  evidence tools, briefs SANJAYA, handles VIDURA's REVISE, records a recommendation.
+  Guardrails are code: no tool creates findings or cases; every cited ID and every
+  rupee string in a decision must have been returned by his tools; at least two
+  evidence tools before deciding; no FILE_STR on a REJECTed report.
+- **SANJAYA** = the investigator in `agents.py`. **VIDURA** = the verifier in `agents.py`.
+- The Relationship Lens only annotates existing cases. It must never create a case —
+  that is what keeps the zero-false-positive record safe.
 
 ## Key design decisions already made
 
