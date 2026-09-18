@@ -133,12 +133,14 @@ Rules you must follow exactly:
   "Rs 2.4 crore was cycled through six accounts, generating Rs 14.09 crore in total transaction volume, with 95.4% of the principal returning to the originating account."
   Copy circular_amount_summary VERBATIM into your summary and why_suspicious (you may add a leading/trailing clause of your own around it, but never alter, reorder, or recompute the two amounts or the percentage inside it). Do not independently combine amount_cycled and total_volume into a sentence of your own wording - that is exactly how the two figures get swapped.
 - The evidence packet has already been detected and structurally proven by deterministic graph analysis. You are not deciding whether a suspicious pattern exists - it does. Your job is only to explain it clearly and accurately.
+- UNUSUAL ACCOUNT RELATIONSHIPS: when "relationship_evidence" is present, each item is a finished sentence about how the accounts relate to each other (fresh accounts, one person behind several accounts, first-ever contact, shared phone numbers, hops a single bank cannot see), already measured against the bank-wide baseline. Use the relevant ones in why_suspicious, keeping their numbers and percentages exactly as written. Never compute a new figure from them.
+- If "commander_notes" is present, it is a short brief from the lead investigator saying what to focus on. Follow it only where the evidence packet supports it.
 - If any person in the "people" list has has_unverified_link = true, say so explicitly in why_suspicious or what_happened, and lower your confidence rating accordingly.
 - Respond with a single JSON object and nothing else, in exactly this shape:
 {
   "summary": "two sentences a busy compliance officer can read in 10 seconds",
   "what_happened": "the money's journey step by step, in chronological order, with real amounts, times and account numbers taken from the packet",
-  "typology": "which laundering method this matches (circular transfer / round-tripping, mule network / fan-out fan-in, rapid layering, structuring) and why",
+  "typology": "which laundering method this matches (circular transfer / round-tripping, mule network / fan-out fan-in, rapid layering, structuring, unusual account relationships) and why",
   "why_suspicious": "concrete reasoning - closed loop, value returned, time compressed, threshold proximity, no economic purpose - never vague language like 'this looks unusual'",
   "recommended_action": "one of FILE_STR, ESCALATE, MONITOR, CLOSE",
   "confidence": {"level": "HIGH, MEDIUM or LOW", "reason": "one line"}
@@ -326,7 +328,30 @@ def build_evidence_packet(case, txn_lookup, entities):
             packet["amount_cycled"], packet["total_volume"],
             packet.get("return_percentage"), num_accounts)
 
+    # Relationship Lens (relationships.py): unusual account relationships,
+    # already measured in Python against the bank-wide baseline. The model
+    # gets finished sentences to cite - it does not compute any of them.
+    rel = load_relationships().get(case["case_id"])
+    if rel and rel.get("signals"):
+        packet["relationship_evidence"] = [
+            {"code": s["code"], "name": s["name"], "sentence": s["sentence"]} for s in rel["signals"]]
+
     return packet
+
+
+_REL_CACHE = None
+
+
+def load_relationships():
+    """relationships.json is optional - without it the packet is unchanged."""
+    global _REL_CACHE
+    if _REL_CACHE is None:
+        path = os.path.join(HERE, "relationships.json")
+        _REL_CACHE = {}
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                _REL_CACHE = json.load(f).get("cases", {})
+    return _REL_CACHE
 
 
 def _circular_amount_phrase(amount_cycled, total_volume, return_percentage, num_accounts):
@@ -360,7 +385,7 @@ DATE_MDY_RE = re.compile(r"\b(" + _MONTH_NAMES + r")\s+(\d{1,2}),?\s+(\d{4})\b",
 # are ISO, account/txn ids have none). The matched TEXT is what matters,
 # not its numeric value - see run_fact_check.
 MONEY_SPAN_RE = re.compile(
-    r"(?:Rs\.?|₹|INR)\s*\d[\d,]*(?:\.\d+)?(?:\s*(?:crore|lakh))?"
+    r"(?:\bRs\.?|₹|\bINR)\s*\d[\d,]*(?:\.\d+)?(?:\s*(?:crore|lakh))?"
     r"|\b\d+(?:\.\d+)?\s*(?:crore|lakh)\b"
     r"|\b\d{1,3}(?:,\d{2,3}){1,}(?:\.\d+)?\b",
     re.I,
