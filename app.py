@@ -116,6 +116,26 @@ header[data-testid="stHeader"] {background:transparent;}
 
 # ---------------------------------------------------------------- data ----
 
+import re as _re
+from agents import format_inr as _format_inr
+
+
+def inr_text(text):
+    """Detector and case-builder text was written with western digit grouping
+    (Rs 24,000,000). Show every rupee figure in Indian format instead."""
+    return _re.sub(r"Rs\.?\s*(\d[\d,]*(?:\.\d+)?)",
+                   lambda m: _format_inr(float(m.group(1).replace(",", "")))["digits"], str(text))
+
+
+def moved(txn_ids, detectors, total):
+    """For a CIRCLE the hop-sum counts one principal once per hop; the money that
+    actually moved is the largest single transfer. Returns (label, value, note)."""
+    if "CIRCLE" in detectors:
+        amts = D["full"].set_index("txn_id").loc[list(txn_ids), "amount"]
+        return "Amount cycled", inr(float(amts.max())), f"{inr(total)} across all {len(txn_ids)} hops"
+    return "Evidence amount", inr(total), ""
+
+
 def inr(x):
     if x >= 1e7:
         return f"₹{x / 1e7:.2f} crore"
@@ -124,8 +144,14 @@ def inr(x):
     return f"₹{x:,.0f}"
 
 
+# Bump this whenever the data files or detectors change. Streamlit Cloud keeps
+# cached results across redeploys; a new value forces a fresh load (this is
+# what caused a KeyError on the live Scorecard after the extra detectors landed).
+DATA_BUILD = "2026-09-19-final"
+
+
 @st.cache_resource(show_spinner="Loading data…")
-def get_data():
+def get_data(build=DATA_BUILD):
     tx, account_to_entity, entity_attrs, account_to_bank = load_data()
     tx_sorted, recs = det.prepare(tx, account_to_entity)
     names = {e: a["canonical_name"] for e, a in entity_attrs.items()}
@@ -154,7 +180,7 @@ def get_data():
 
 
 @st.cache_data(show_spinner="Scoring against the answer key (once)…")
-def get_scoring():
+def get_scoring(build=DATA_BUILD):
     D = get_data()
     per_detector, per_ring = det.score(D["findings"])
     exact = {r.txn_id: r for r in D["recs"]}
@@ -165,7 +191,7 @@ def get_scoring():
 
 
 @st.cache_data(show_spinner=False)
-def get_relationships():
+def get_relationships(build=DATA_BUILD):
     """Relationship Lens output (relationships.py). Absent file = panel hidden."""
     path = os.path.join(HERE, "relationships.json")
     if not os.path.exists(path):
@@ -175,7 +201,7 @@ def get_relationships():
 
 
 @st.cache_data(show_spinner=False)
-def get_investigation_log():
+def get_investigation_log(build=DATA_BUILD):
     """DRONA's cached investigation (orchestrator.py). Absent file = setup hint."""
     path = os.path.join(HERE, "investigation_log.json")
     if not os.path.exists(path):
@@ -185,7 +211,7 @@ def get_investigation_log():
 
 
 @st.cache_data(show_spinner=False)
-def get_written_cases():
+def get_written_cases(build=DATA_BUILD):
     """Stage 6/7 output (agents.py). Additive: absent file means no panel shown."""
     path = os.path.join(HERE, "cases_written.json")
     if not os.path.exists(path):
@@ -204,7 +230,7 @@ cases = D["cases"]
 
 def txn_table(ids):
     t = D["full"][D["full"]["txn_id"].isin(ids)].copy()
-    t["amount"] = t["amount"].map(lambda a: f"{a:,.2f}")
+    t["amount"] = t["amount"].map(lambda a: _format_inr(a)["digits"])
     return t[["txn_id", "timestamp", "from_person", "from_account", "to_person", "to_account",
               "amount", "channel", "from_bank", "to_bank"]]
 
@@ -290,7 +316,9 @@ def loop_figure(view, hero_tx, visible_ids):
 
 def case_label(c):
     return (f"{c['case_id']} · {c['priority_level']} {c['priority_score']} · "
-            f"{'+'.join(d[:4] for d in c['detectors_fired'])} · {inr(c['total_evidence_amount'])}")
+            f"{' + '.join(c['detectors_fired'])} · "
+            f"{moved(c['evidence_txn_ids'], c['detectors_fired'], c['total_evidence_amount'])[1]}"
+            f"{' cycled' if 'CIRCLE' in c['detectors_fired'] else ''}")
 
 
 # --------------------------------------------------------------- header ---
@@ -465,19 +493,21 @@ with tabs[0]:
          "into a report an officer can read in a minute."),
         ("⚖️ VIDURA", "Sceptical reviewer", "The truth-teller of the court. Here he looks for the innocent explanation first. "
          "Every number is checked by code before he even reads it.")]):
-        col.markdown(f'<div class="card"><h4>{nm}</h4><p><b>{role}</b></p><p>{line}</p></div>', unsafe_allow_html=True)
+        col.markdown(f'<div class="card" style="min-height:215px"><h4>{nm}</h4><p><b>{role}</b></p><p>{line}</p></div>', unsafe_allow_html=True)
 
     if not ilog:
         st.info("DRONA has not run yet. Run `python orchestrator.py` (needs OPENAI_API_KEY in .env).")
     else:
         m = ilog["meta"]
         k = st.columns(6)
-        k[0].metric("Items investigated", m["items"], f"{m['cases']} cases + {m['weak_signals']} weak signals", delta_color="off")
-        k[1].metric("Tool calls DRONA chose", m["tool_calls"], f"{m['evidence_tool_calls']} evidence lookups", delta_color="off")
-        k[2].metric("Reports passed by VIDURA", f"{m['vidura_pass']} / {m['cases']}", f"{m['rewrites']} sent back for rewrite", delta_color="off")
+        k[0].metric("Items investigated", m["items"])
+        k[1].metric("Tool calls DRONA chose", m["tool_calls"])
+        k[2].metric("Reports passed by VIDURA", f"{m['vidura_pass']} / {m['cases']}")
         k[3].metric("Facts confirmed by code", f"{m['facts_confirmed']} / {m['facts_checked']}")
-        k[4].metric("Invented citations blocked", m["blocked_citations"], "rejected before any officer saw them", delta_color="off")
-        k[5].metric("Filed automatically", 0, "every decision goes to a human", delta_color="off")
+        k[4].metric("AI mistakes blocked", m["blocked_citations"])
+        k[5].metric("Filed automatically", 0)
+        st.caption(f"{m['cases']} cases + {m['weak_signals']} weak signals · {m['evidence_tool_calls']} of the tool calls were "
+                   f"evidence lookups · mistakes are rejected by code before any officer sees them · every decision goes to a human.")
 
         st.markdown("#### DRONA's triage")
         st.caption("DRONA ordered the queue himself and wrote down why. The final column is his recommendation, not a filing.")
@@ -714,19 +744,20 @@ with tabs[4]:
     lsel = fc[1].multiselect("Lane", ["DISCOVERY", "WATCHLIST"], default=["DISCOVERY", "WATCHLIST"])
     shown = [f for f in f_all if f["detector"] in dsel and f["lane"] in lsel]
     st.dataframe(pd.DataFrame([{
-        "Finding": f["finding_id"], "Detector": f["detector"], "Lane": f["lane"],
-        "People": len(f["people"]), "Txns": len(f["txn_ids"]), "Amount": inr(f["total_amount"]),
-        "First seen": f["first_timestamp"], "Why": f["reason"]} for f in shown]),
+        "Finding": f["finding_id"], "Detector": f["detector"],
+        "People": len(f["people"]), "Txns": len(f["txn_ids"]),
+        "Amount": moved(f["txn_ids"], [f["detector"]], f["total_amount"])[1],
+        "First seen": f["first_timestamp"], "Why": inr_text(f["reason"])} for f in shown]),
         hide_index=True, width="stretch", height=300)
     if shown:
         sel = st.selectbox("Inspect a finding", [f["finding_id"] for f in shown],
-                           format_func=lambda i: next(f"{f['finding_id']} · {f['detector']} · {inr(f['total_amount'])}"
+                           format_func=lambda i: next(f"{f['finding_id']} · {f['detector']} · {moved(f['txn_ids'], [f['detector']], f['total_amount'])[1]}"
                                                       for f in shown if f["finding_id"] == i))
         f = next(f for f in shown if f["finding_id"] == sel)
-        st.info(f["reason"])
+        st.info(inr_text(f["reason"]))
         a, b = st.columns([2, 3])
         a.markdown("**Numbers that triggered it**")
-        a.json(f["evidence"], expanded=False)
+        a.json(f["evidence"], expanded=True)
         b.markdown("**Exact transactions (re-checkable by hand)**")
         b.dataframe(txn_table(f["txn_ids"]), hide_index=True, width="stretch", height=250)
 
@@ -742,7 +773,9 @@ with tabs[5]:
         "Detectors": " + ".join(c["detectors_fired"]),
         "Relationship flags": " ".join(relationships.get("cases", {}).get(c["case_id"], {}).get("signals_fired", [])),
         "Core people": len(c["core_people"]), "Context": len(c["context_people"]),
-        "Evidence amount": inr(c["total_evidence_amount"]), "Hours": c["hours_spanned"],
+        "Amount moved": moved(c["evidence_txn_ids"], c["detectors_fired"], c["total_evidence_amount"])[1]
+                        + (" cycled" if "CIRCLE" in c["detectors_fired"] else ""),
+        "Hours": c["hours_spanned"],
         "Both banks": "yes" if c["crosses_banks"] else "no",
         "Found without watchlist": "yes" if c.get("found_without_watchlist") else "no"} for c in cases]),
         hide_index=True, width="stretch")
@@ -755,11 +788,14 @@ with tabs[5]:
     st.markdown(f"## {c['case_id']} &nbsp;<span class='pill {c['priority_level']}'>{c['priority_level']} · "
                 f"{c['priority_score']}</span>", unsafe_allow_html=True)
     k = st.columns(5)
-    k[0].metric("Evidence amount", inr(c["total_evidence_amount"]))
+    _lab, _val, _note = moved(c["evidence_txn_ids"], c["detectors_fired"], c["total_evidence_amount"])
+    k[0].metric(_lab, _val)
     k[1].metric("Time span", f"{c['hours_spanned']:.1f} h")
     k[2].metric("Core people", len(c["core_people"]))
     k[3].metric("Evidence txns", len(c["evidence_txn_ids"]))
     k[4].metric("Banks", " + ".join(b.replace("BANK_", "") for b in c["banks_involved"]))
+    if _note:
+        st.caption(f"Amount cycled = the principal that went round the loop. The same money counted once per hop is {_note}.")
 
     gcol, pcol = st.columns([3, 2])
     with gcol:
@@ -796,23 +832,23 @@ with tabs[5]:
     with pcol:
         st.markdown("**Why this queue position** (order of work only; the evidence is below)")
         for line in c["priority_reason"]:
-            st.write("• " + line)
+            st.write("• " + inr_text(line))
         st.markdown("**Linked cases**")
         if c.get("linked_cases"):
             for l in c["linked_cases"]:
                 st.write(f"• {l['case_id']} via {l['via_person']} (money {l['direction']}, "
-                         f"Rs {l['amount']:,.0f})")
+                         f"{_format_inr(l['amount'])['digits']})")
             st.caption("Different rings; money connects them. They are not merged.")
         else:
             st.caption("None. No context person here is accused in another case.")
         st.markdown("**Findings merged into this case**")
         for fid in c["finding_ids"]:
             f = next(x for x in D["findings"] if x["finding_id"] == fid)
-            st.write(f"• `{fid}` {f['detector']}: {f['reason']}")
+            st.write(f"• `{fid}` {f['detector']}: {inr_text(f['reason'])}")
         if c["watchlist_signals"]:
             st.markdown("**Watchlist signals (hints, not evidence)**")
             for w in c["watchlist_signals"]:
-                st.write("• " + w["reason"])
+                st.write("• " + inr_text(w["reason"]))
 
     t1, t2, t3, t4 = st.tabs(["Core people (accused)", "Context (see notes)", "Evidence transactions",
                               "Background (supporting)"])
@@ -977,12 +1013,12 @@ with tabs[6]:
     pagetitle("Scorecard: checked against the hidden answer key")
     st.caption("The answer key is used only here, never by any detection or case logic.")
     caught = sum(1 for v in per_ring.values() if v[2])
-    fa = sum(per_detector[d][2] for d in det.STRUCTURAL)
+    fa = sum(per_detector.get(d, (0, 0, 0))[2] for d in det.STRUCTURAL)
     m = st.columns(4)
     m[0].metric("Rings caught", f"{caught} of {len(per_ring)}")
     m[1].metric("False alarms (4 detectors)", fa)
     m[2].metric("Discovery only, nobody known", f"{disc[0]} of {disc[1]}", f"{disc[2]} false alarms")
-    m[3].metric("Accused precision", f"{precision[0]} / {precision[1]}", f"{precision[0] / precision[1] * 100:.0f}% of core people are ring members")
+    m[3].metric("Accused who are real ring members", f"{precision[0]} / {precision[1]}")
     st.write("**Discovery only** re-runs every detector with nobody on the watchlist, answering "
              "“you only caught them because you knew who they were.”")
     st.dataframe(pd.DataFrame([{
@@ -993,8 +1029,11 @@ with tabs[6]:
                 'outside the 72-hour circle window. We report this rather than tune the threshold to hide it.</div>',
                 unsafe_allow_html=True)
     st.write("")
-    st.dataframe(pd.DataFrame([{"Detector": d, "Findings": v[0], "True positives": v[1], "False alarms": v[2]}
+    st.dataframe(pd.DataFrame([{"Detector": (d + " (weak hints, never a case)") if d == "WATCHLIST_SIGNAL" else d,
+                                "Findings": v[0], "True positives": v[1], "False alarms": v[2]}
                                for d, v in per_detector.items()]), hide_index=True, width="stretch")
+    st.caption("Watchlist signals are hints about already-known people (e.g. money into a brand-new account). "
+               "They never open a case on their own, so their misses cannot become false accusations.")
 
 st.markdown("""
 <div class="footer"><span><b>CHAKRAVYUH</b> · Anti-Money-Laundering Investigation Portal (prototype)</span>
