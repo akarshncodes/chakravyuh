@@ -1,0 +1,3173 @@
+{
+  "cases": [
+    {
+      "case_id": "C001",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "CIRCLE",
+        "SPEED"
+      ],
+      "finding_ids": [
+        "F0001",
+        "F0002"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00008",
+          "name": "Jyoti Saxena & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00010",
+            "ACC00013"
+          ]
+        },
+        {
+          "entity_key": "PERSON00009",
+          "name": "ANNA AGARWAL",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00011",
+            "ACC00012"
+          ]
+        },
+        {
+          "entity_key": "PERSON00010",
+          "name": "P. Malik",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00014",
+            "ACC00015"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01212",
+          "name": "Vasantha Dhillon & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 46285.34,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01119",
+          "name": "KRITIKA YADAV",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 39100.65,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01192",
+          "name": "Suresh Thomas & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 17333.63,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00081",
+          "name": "Manpreet Khan & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 43135.7,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00117",
+          "name": "Kavita Agarwal",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 27330.32,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01516",
+          "name": "Pooja Rao & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 25565.45,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000010",
+        "TXN000011",
+        "TXN000012",
+        "TXN000013",
+        "TXN000014",
+        "TXN000015"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN038044",
+        "TXN063853",
+        "TXN011093",
+        "TXN078055",
+        "TXN019840",
+        "TXN077369"
+      ],
+      "total_evidence_amount": 140947500.08,
+      "first_timestamp": "2026-08-30 00:48:56",
+      "last_timestamp": "2026-08-30 03:46:56",
+      "hours_spanned": 2.97,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 9,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (CIRCLE, SPEED)",
+        "+3 evidence amount Rs 140,947,500 is at least Rs 1 crore",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [],
+      "layout": {
+        "PERSON00008": [
+          -0.5226364359638247,
+          -0.20754318321119844
+        ],
+        "PERSON00009": [
+          0.10850469619896104,
+          0.04314253138601815
+        ],
+        "PERSON00010": [
+          -1.0,
+          -0.3979894357991951
+        ],
+        "PERSON00081": [
+          -0.30162481127277985,
+          0.3604098464497749
+        ],
+        "PERSON00117": [
+          0.4961952993959217,
+          0.42890519719810277
+        ],
+        "PERSON01119": [
+          0.0845453743592145,
+          0.5900277466352718
+        ],
+        "PERSON01192": [
+          0.6581164316746408,
+          0.01921626061548489
+        ],
+        "PERSON01212": [
+          0.020712915716268397,
+          -0.4632392475329639
+        ],
+        "PERSON01516": [
+          0.4561865298915988,
+          -0.3729297157412959
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00008",
+        "PERSON00009",
+        "PERSON00010",
+        "PERSON00081",
+        "PERSON00117",
+        "PERSON01119",
+        "PERSON01192",
+        "PERSON01212",
+        "PERSON01516"
+      ]
+    },
+    {
+      "case_id": "C002",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "CIRCLE",
+        "SPEED"
+      ],
+      "finding_ids": [
+        "F0004",
+        "F0006"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00064",
+          "name": "Suresh Kaur & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00112",
+            "ACC00116"
+          ]
+        },
+        {
+          "entity_key": "PERSON00065",
+          "name": "Anita Sandhu",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00113",
+            "ACC00114"
+          ]
+        },
+        {
+          "entity_key": "PERSON00066",
+          "name": "Kapoor Rekha",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00115",
+            "ACC00117"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01062",
+          "name": "Menon Usha",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 28602.32,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01732",
+          "name": "RAMESH MEHTA",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 49722.79,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01742",
+          "name": "Susan Shah & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 41400.8,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01406",
+          "name": "Swati Pandey & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 39519.67,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000182",
+        "TXN000183",
+        "TXN000184",
+        "TXN000185",
+        "TXN000186"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN030295",
+        "TXN030459",
+        "TXN059016",
+        "TXN028042",
+        "TXN060778"
+      ],
+      "total_evidence_amount": 8913657.91,
+      "first_timestamp": "2026-09-11 18:29:28",
+      "last_timestamp": "2026-09-11 19:07:28",
+      "hours_spanned": 0.63,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (CIRCLE, SPEED)",
+        "+2 evidence amount Rs 8,913,658 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0015",
+          "people": [
+            "PERSON00064",
+            "PERSON00066"
+          ],
+          "reason": "Watchlisted Kapoor Rekha (PERSON00066) shows 1 weak signal(s): first large transfer to new counterparty x1.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000185"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00064": [
+          -0.18291007404794304,
+          -0.34898728243726324
+        ],
+        "PERSON00065": [
+          0.22547733968722147,
+          -0.03280179089524121
+        ],
+        "PERSON00066": [
+          -0.3976415189461113,
+          0.05682043104740145
+        ],
+        "PERSON01062": [
+          -1.0,
+          0.14082237196663652
+        ],
+        "PERSON01406": [
+          0.7652205385459531,
+          0.25362990363504134
+        ],
+        "PERSON01732": [
+          -0.07839491452126644,
+          0.38745664197626
+        ],
+        "PERSON01742": [
+          0.6682486292821466,
+          -0.4569402752928354
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00064",
+        "PERSON00065",
+        "PERSON00066",
+        "PERSON01062",
+        "PERSON01406",
+        "PERSON01732",
+        "PERSON01742"
+      ]
+    },
+    {
+      "case_id": "C003",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "CIRCLE",
+        "SPEED"
+      ],
+      "finding_ids": [
+        "F0005",
+        "F0007",
+        "F0009"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00067",
+          "name": "Gopal Kapoor",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00118",
+            "ACC00120"
+          ]
+        },
+        {
+          "entity_key": "PERSON00068",
+          "name": "SWATI SENGUPTA",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00119",
+            "ACC00124"
+          ]
+        },
+        {
+          "entity_key": "PERSON00069",
+          "name": "Kiran Tiwari & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00121",
+            "ACC00125"
+          ]
+        },
+        {
+          "entity_key": "PERSON00070",
+          "name": "Desai Sandeep",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00122",
+            "ACC00123"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01567",
+          "name": "Susan Yaadv",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 52057.36,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00791",
+          "name": "Neha Gupta & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 47383.83,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00134",
+          "name": "GURPREET YADAV",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 44865.83,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00860",
+          "name": "Radha Rao",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 47774.26,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01090",
+          "name": "Dhillon Nithya",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 41635.25,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00230",
+          "name": "AJAY THOMAS",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 38158.53,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000187",
+        "TXN000188",
+        "TXN000189",
+        "TXN000190",
+        "TXN000191",
+        "TXN000192",
+        "TXN000193"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN015763",
+        "TXN032229",
+        "TXN000904",
+        "TXN036482",
+        "TXN063796",
+        "TXN022031",
+        "TXN022236"
+      ],
+      "total_evidence_amount": 8138037.88,
+      "first_timestamp": "2026-08-29 10:29:05",
+      "last_timestamp": "2026-08-29 11:01:05",
+      "hours_spanned": 0.53,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (CIRCLE, SPEED)",
+        "+2 evidence amount Rs 8,138,038 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0018",
+          "people": [
+            "PERSON00068",
+            "PERSON00070"
+          ],
+          "reason": "Watchlisted Desai Sandeep (PERSON00070) shows 1 weak signal(s): first large transfer to new counterparty x1.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000192"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00067": [
+          0.4435042509156422,
+          -0.11609792631403842
+        ],
+        "PERSON00068": [
+          0.1515598801261845,
+          0.11533519731479698
+        ],
+        "PERSON00069": [
+          -0.21103199155816796,
+          -0.15787614798126137
+        ],
+        "PERSON00070": [
+          -0.3305750044335203,
+          0.3676405446189588
+        ],
+        "PERSON00134": [
+          0.44487671916450283,
+          0.590535592337281
+        ],
+        "PERSON00230": [
+          -0.7579713584296396,
+          -0.2813895267725342
+        ],
+        "PERSON00791": [
+          0.9999999999999999,
+          -0.2198093319894906
+        ],
+        "PERSON00860": [
+          -0.42652033196979555,
+          -0.6731849424981556
+        ],
+        "PERSON01090": [
+          -0.6633766724970137,
+          0.7967338441291597
+        ],
+        "PERSON01567": [
+          0.34953450868180747,
+          -0.4218873028447168
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00067",
+        "PERSON00068",
+        "PERSON00069",
+        "PERSON00070",
+        "PERSON00134",
+        "PERSON00230",
+        "PERSON00791",
+        "PERSON00860",
+        "PERSON01090",
+        "PERSON01567"
+      ]
+    },
+    {
+      "case_id": "C004",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "CIRCLE",
+        "SPEED"
+      ],
+      "finding_ids": [
+        "F0008",
+        "F0014"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00011",
+          "name": "ANIL KAPOOR",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00016",
+            "ACC00019"
+          ]
+        },
+        {
+          "entity_key": "PERSON00012",
+          "name": "Lakshmi Karu",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00017",
+            "ACC00022"
+          ]
+        },
+        {
+          "entity_key": "PERSON00013",
+          "name": "Priya Dhillon & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00018",
+            "ACC00021"
+          ]
+        },
+        {
+          "entity_key": "PERSON00014",
+          "name": "Chauhan Lakshmi",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00020",
+            "ACC00023"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01062",
+          "name": "Menon Usha",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 140642.58,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00990",
+          "name": "Anna Sidhu & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 49576.61,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00080",
+          "name": "Ajay Saxena",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 43924.79,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00667",
+          "name": "SUNITA ANSARI",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 39820.44,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01610",
+          "name": "Sunita Sharma & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 36888.0,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01011",
+          "name": "Vandana Brar & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 26662.59,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000016",
+        "TXN000017",
+        "TXN000018",
+        "TXN000019",
+        "TXN000020",
+        "TXN000021",
+        "TXN000022",
+        "TXN000023"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN064993",
+        "TXN047473",
+        "TXN006626",
+        "TXN015495",
+        "TXN040012",
+        "TXN041636"
+      ],
+      "total_evidence_amount": 4895355.11,
+      "first_timestamp": "2026-08-31 11:07:47",
+      "last_timestamp": "2026-09-01 08:07:47",
+      "hours_spanned": 21.0,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (CIRCLE, SPEED)",
+        "+2 evidence amount Rs 4,895,355 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0021",
+          "people": [
+            "PERSON00013",
+            "PERSON00014",
+            "PERSON00029"
+          ],
+          "reason": "Watchlisted Chauhan Lakshmi (PERSON00014) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x1.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000020"
+              ],
+              "money_into_new_account": [
+                "TXN014420"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00011": [
+          -0.34484708041015266,
+          -0.013628460994420697
+        ],
+        "PERSON00012": [
+          -0.034523577840658855,
+          0.3634204978696217
+        ],
+        "PERSON00013": [
+          0.1988887591880915,
+          -0.2929912053693021
+        ],
+        "PERSON00014": [
+          0.30974112954215716,
+          0.1904886429732176
+        ],
+        "PERSON00080": [
+          0.7367610362317281,
+          -0.6427077282565808
+        ],
+        "PERSON00667": [
+          -0.12132803656693339,
+          1.0
+        ],
+        "PERSON00990": [
+          0.8685663480521846,
+          0.5084233048731657
+        ],
+        "PERSON01011": [
+          -0.868630856792892,
+          -0.3877304324105607
+        ],
+        "PERSON01062": [
+          -0.9540604223308519,
+          0.21021815144432343
+        ],
+        "PERSON01610": [
+          0.20943270092732794,
+          -0.9354927701294651
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00011",
+        "PERSON00012",
+        "PERSON00013",
+        "PERSON00014",
+        "PERSON00080",
+        "PERSON00667",
+        "PERSON00990",
+        "PERSON01011",
+        "PERSON01062",
+        "PERSON01610"
+      ]
+    },
+    {
+      "case_id": "C005",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "SPEED",
+        "SPRAY"
+      ],
+      "finding_ids": [
+        "F0010",
+        "F0035",
+        "F0038"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00040",
+          "name": "A. Reddy",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00065",
+            "ACC00093"
+          ]
+        },
+        {
+          "entity_key": "PERSON00041",
+          "name": "Zubair Naidu & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00066",
+            "ACC00068"
+          ]
+        },
+        {
+          "entity_key": "PERSON00042",
+          "name": "Harpreet Agarwal & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00067",
+            "ACC00070"
+          ]
+        },
+        {
+          "entity_key": "PERSON00043",
+          "name": "SUNIL MUKHERJEE",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00069",
+            "ACC00072"
+          ]
+        },
+        {
+          "entity_key": "PERSON00044",
+          "name": "Mary Bose & Sons",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00071",
+            "ACC00074"
+          ]
+        },
+        {
+          "entity_key": "PERSON00045",
+          "name": "Neha Desai",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00073",
+            "ACC00103"
+          ]
+        },
+        {
+          "entity_key": "PERSON00046",
+          "name": "NITHYA SHAH",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00075",
+            "ACC00101"
+          ]
+        },
+        {
+          "entity_key": "PERSON00047",
+          "name": "Kalpana Ghosh & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00076",
+            "ACC00098"
+          ]
+        },
+        {
+          "entity_key": "PERSON00048",
+          "name": "Sowmya Sidhu",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00077",
+            "ACC00086"
+          ]
+        },
+        {
+          "entity_key": "PERSON00049",
+          "name": "Anita Tiwair",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00078",
+            "ACC00094"
+          ]
+        },
+        {
+          "entity_key": "PERSON00050",
+          "name": "Ashok Dbuey",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00079",
+            "ACC00087"
+          ]
+        },
+        {
+          "entity_key": "PERSON00051",
+          "name": "DINESH MALHOTRA",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00080",
+            "ACC00099"
+          ]
+        },
+        {
+          "entity_key": "PERSON00052",
+          "name": "Irfan Gill",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00081",
+            "ACC00082"
+          ]
+        },
+        {
+          "entity_key": "PERSON00053",
+          "name": "P. Yadav",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00083",
+            "ACC00096"
+          ]
+        },
+        {
+          "entity_key": "PERSON00054",
+          "name": "NISHA DAS",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00084",
+            "ACC00105"
+          ]
+        },
+        {
+          "entity_key": "PERSON00055",
+          "name": "Reddy Vasantha",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00085",
+            "ACC00095"
+          ]
+        },
+        {
+          "entity_key": "PERSON00056",
+          "name": "Swati Agarwal",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00088",
+            "ACC00106"
+          ]
+        },
+        {
+          "entity_key": "PERSON00057",
+          "name": "Manoj Paetl",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00089",
+            "ACC00092"
+          ]
+        },
+        {
+          "entity_key": "PERSON00058",
+          "name": "Sneha Ahmed & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00090",
+            "ACC00097"
+          ]
+        },
+        {
+          "entity_key": "PERSON00059",
+          "name": "Prakash Patel & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00091",
+            "ACC00100"
+          ]
+        },
+        {
+          "entity_key": "PERSON00060",
+          "name": "Padma Kumar & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00102",
+            "ACC00104"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01153",
+          "name": "P. Mehta",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 111977.71,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00783",
+          "name": "SUSAN ANSARI",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 52434.67,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01426",
+          "name": "Pooja Vagrhese",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 49657.33,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01228",
+          "name": "Sarita Pillai & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 55344.91,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01550",
+          "name": "Sunita Brar",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 47807.97,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00996",
+          "name": "Pooja Bansal",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 45335.89,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000134",
+        "TXN000110",
+        "TXN000146",
+        "TXN000150",
+        "TXN000147",
+        "TXN000138",
+        "TXN000160",
+        "TXN000174",
+        "TXN000152",
+        "TXN000161",
+        "TXN000104",
+        "TXN000135",
+        "TXN000164",
+        "TXN000151",
+        "TXN000106",
+        "TXN000124",
+        "TXN000172",
+        "TXN000175",
+        "TXN000153",
+        "TXN000111",
+        "TXN000105",
+        "TXN000108",
+        "TXN000139",
+        "TXN000165",
+        "TXN000173",
+        "TXN000140",
+        "TXN000107",
+        "TXN000128",
+        "TXN000116",
+        "TXN000120",
+        "TXN000122",
+        "TXN000136",
+        "TXN000176",
+        "TXN000125",
+        "TXN000141",
+        "TXN000142",
+        "TXN000109",
+        "TXN000117",
+        "TXN000102",
+        "TXN000166",
+        "TXN000100",
+        "TXN000156",
+        "TXN000148",
+        "TXN000157",
+        "TXN000132",
+        "TXN000112",
+        "TXN000170",
+        "TXN000129",
+        "TXN000137",
+        "TXN000144",
+        "TXN000177",
+        "TXN000103",
+        "TXN000171",
+        "TXN000123",
+        "TXN000130",
+        "TXN000113",
+        "TXN000143",
+        "TXN000149",
+        "TXN000121",
+        "TXN000098",
+        "TXN000145",
+        "TXN000167",
+        "TXN000162",
+        "TXN000118",
+        "TXN000114",
+        "TXN000131",
+        "TXN000133",
+        "TXN000101",
+        "TXN000154",
+        "TXN000168",
+        "TXN000119",
+        "TXN000155",
+        "TXN000099",
+        "TXN000163",
+        "TXN000126",
+        "TXN000158",
+        "TXN000115",
+        "TXN000159",
+        "TXN000169",
+        "TXN000127"
+      ],
+      "supporting_txn_ids": [
+        "TXN002552"
+      ],
+      "context_txn_ids": [
+        "TXN069195",
+        "TXN002788",
+        "TXN017398",
+        "TXN017363",
+        "TXN078480",
+        "TXN055800",
+        "TXN070368",
+        "TXN079721"
+      ],
+      "total_evidence_amount": 4577543.5,
+      "first_timestamp": "2026-09-15 22:16:18",
+      "last_timestamp": "2026-09-16 01:15:18",
+      "hours_spanned": 2.98,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (SPEED, SPRAY)",
+        "+2 evidence amount Rs 4,577,544 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0019",
+          "people": [
+            "PERSON00035",
+            "PERSON00040",
+            "PERSON00074",
+            "PERSON00076"
+          ],
+          "reason": "Watchlisted Irfan Gill & Sons (PERSON00074) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 2
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000208"
+              ],
+              "money_into_new_account": [
+                "TXN079549",
+                "TXN000653"
+              ]
+            },
+            "new_channels": []
+          }
+        },
+        {
+          "finding_id": "F0020",
+          "people": [
+            "PERSON00060",
+            "PERSON00062",
+            "PERSON00063"
+          ],
+          "reason": "Watchlisted SUNITA JAIN (PERSON00062) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 2
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000181"
+              ],
+              "money_into_new_account": [
+                "TXN015893",
+                "TXN062827"
+              ]
+            },
+            "new_channels": []
+          }
+        },
+        {
+          "finding_id": "F0042",
+          "people": [
+            "PERSON00035",
+            "PERSON00044"
+          ],
+          "reason": "Watchlisted Mary Bose & Sons (PERSON00044) shows 1 weak signal(s): money into new account x1.",
+          "evidence": {
+            "signals": [
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "money_into_new_account": [
+                "TXN000476"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00040": [
+          -0.0710428375651992,
+          0.0217056978922763
+        ],
+        "PERSON00041": [
+          0.514365081453197,
+          0.0957595225534058
+        ],
+        "PERSON00042": [
+          0.1882785205224718,
+          -0.4879731891809221
+        ],
+        "PERSON00043": [
+          -0.40315703032771694,
+          0.2358240576195768
+        ],
+        "PERSON00044": [
+          0.08293686555006316,
+          0.29872842671253586
+        ],
+        "PERSON00045": [
+          -0.23333230235851987,
+          0.316074836217886
+        ],
+        "PERSON00046": [
+          0.21902835442994462,
+          -0.216945709751814
+        ],
+        "PERSON00047": [
+          -0.3118704089572076,
+          -0.31750196481572396
+        ],
+        "PERSON00048": [
+          -0.08317426858062787,
+          0.37135764086128975
+        ],
+        "PERSON00049": [
+          -0.1493205040326261,
+          -0.26380950369192063
+        ],
+        "PERSON00050": [
+          -0.5482412502829694,
+          -0.2510823325356912
+        ],
+        "PERSON00051": [
+          -0.37271252992287035,
+          -0.13010408918312039
+        ],
+        "PERSON00052": [
+          0.10905891967754207,
+          0.5215713236898224
+        ],
+        "PERSON00053": [
+          -0.3256064458573256,
+          0.09872629000837649
+        ],
+        "PERSON00054": [
+          0.056435245495425994,
+          -0.3292930836246962
+        ],
+        "PERSON00055": [
+          0.23889748622175733,
+          0.03175655353375893
+        ],
+        "PERSON00056": [
+          -0.03131257889984199,
+          -0.021984958846332787
+        ],
+        "PERSON00057": [
+          0.2432748559783777,
+          0.23694113875885342
+        ],
+        "PERSON00058": [
+          -0.12550216257507893,
+          -0.4214024216604241
+        ],
+        "PERSON00059": [
+          0.41377717278681303,
+          -0.09209408056168455
+        ],
+        "PERSON00060": [
+          -0.4740104853709288,
+          0.024647729700475754
+        ],
+        "PERSON00783": [
+          -0.9968544962539457,
+          -0.4783080848486709
+        ],
+        "PERSON00996": [
+          -0.40586933166385664,
+          0.5199377571452053
+        ],
+        "PERSON01153": [
+          0.9911270402161925,
+          0.24996550721622116
+        ],
+        "PERSON01228": [
+          0.8192699525950023,
+          -0.07489808168161753
+        ],
+        "PERSON01426": [
+          0.4000795984392721,
+          -0.9375989815270662
+        ],
+        "PERSON01550": [
+          0.2554775392826564,
+          1.0
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00040",
+        "PERSON00041",
+        "PERSON00042",
+        "PERSON00043",
+        "PERSON00044",
+        "PERSON00045",
+        "PERSON00046",
+        "PERSON00047",
+        "PERSON00048",
+        "PERSON00049",
+        "PERSON00050",
+        "PERSON00051",
+        "PERSON00052",
+        "PERSON00053",
+        "PERSON00054",
+        "PERSON00055",
+        "PERSON00056",
+        "PERSON00057",
+        "PERSON00058",
+        "PERSON00059",
+        "PERSON00060",
+        "PERSON00783",
+        "PERSON00996",
+        "PERSON01153",
+        "PERSON01228",
+        "PERSON01426",
+        "PERSON01550"
+      ]
+    },
+    {
+      "case_id": "C006",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "SPEED",
+        "SPRAY"
+      ],
+      "finding_ids": [
+        "F0011",
+        "F0024",
+        "F0026"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00025",
+          "name": "Agarwal Naveen",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00038",
+            "ACC00047"
+          ]
+        },
+        {
+          "entity_key": "PERSON00026",
+          "name": "Arun Gill & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00039",
+            "ACC00060"
+          ]
+        },
+        {
+          "entity_key": "PERSON00027",
+          "name": "Harpreet Naidu & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00040",
+            "ACC00053"
+          ]
+        },
+        {
+          "entity_key": "PERSON00028",
+          "name": "NAVEEN NAIR",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00041",
+            "ACC00045"
+          ]
+        },
+        {
+          "entity_key": "PERSON00029",
+          "name": "Divya Bose & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00042",
+            "ACC00059"
+          ]
+        },
+        {
+          "entity_key": "PERSON00030",
+          "name": "SANDEEP SINGH",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00043",
+            "ACC00064"
+          ]
+        },
+        {
+          "entity_key": "PERSON00031",
+          "name": "Karthik Mukherjee & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00044",
+            "ACC00057"
+          ]
+        },
+        {
+          "entity_key": "PERSON00032",
+          "name": "M. Bose",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00046"
+          ]
+        },
+        {
+          "entity_key": "PERSON00033",
+          "name": "Rohit Varghese",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00048",
+            "ACC00051"
+          ]
+        },
+        {
+          "entity_key": "PERSON00034",
+          "name": "Meena Bsoe",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00049"
+          ]
+        },
+        {
+          "entity_key": "PERSON00035",
+          "name": "A. Iyer",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00050",
+            "ACC00056"
+          ]
+        },
+        {
+          "entity_key": "PERSON00036",
+          "name": "Anil Bhatt & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00052"
+          ]
+        },
+        {
+          "entity_key": "PERSON00037",
+          "name": "Lakshmi Reddy",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00054",
+            "ACC00061"
+          ]
+        },
+        {
+          "entity_key": "PERSON00038",
+          "name": "Balaji Malhotra & Sons",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00055",
+            "ACC00062"
+          ]
+        },
+        {
+          "entity_key": "PERSON00039",
+          "name": "Harpreet Iyengar & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00058",
+            "ACC00063"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01136",
+          "name": "Gaurav Pillai & Sons & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 84972.3,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00053",
+          "name": "P. Yadav",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 49458.67,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01774",
+          "name": "GAURAV QURESHI",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 47453.12,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00325",
+          "name": "VIJAY BOSE",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 46700.72,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00322",
+          "name": "Naveen Sharma & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 40755.58,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01169",
+          "name": "Aarti Sidhu & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 38573.53,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000050",
+        "TXN000086",
+        "TXN000068",
+        "TXN000062",
+        "TXN000051",
+        "TXN000063",
+        "TXN000092",
+        "TXN000087",
+        "TXN000076",
+        "TXN000058",
+        "TXN000069",
+        "TXN000072",
+        "TXN000080",
+        "TXN000077",
+        "TXN000059",
+        "TXN000081",
+        "TXN000066",
+        "TXN000093",
+        "TXN000073",
+        "TXN000070",
+        "TXN000071",
+        "TXN000054",
+        "TXN000064",
+        "TXN000056",
+        "TXN000084",
+        "TXN000067",
+        "TXN000078",
+        "TXN000052",
+        "TXN000065",
+        "TXN000055",
+        "TXN000079",
+        "TXN000053",
+        "TXN000082",
+        "TXN000085",
+        "TXN000048",
+        "TXN000088",
+        "TXN000057",
+        "TXN000096",
+        "TXN000083",
+        "TXN000089",
+        "TXN000090",
+        "TXN000060",
+        "TXN000094",
+        "TXN000074",
+        "TXN000091",
+        "TXN000049",
+        "TXN000095",
+        "TXN000061",
+        "TXN000097",
+        "TXN000075"
+      ],
+      "supporting_txn_ids": [
+        "TXN046019"
+      ],
+      "context_txn_ids": [
+        "TXN007240",
+        "TXN041626",
+        "TXN013356",
+        "TXN017551",
+        "TXN070727",
+        "TXN015112",
+        "TXN022035"
+      ],
+      "total_evidence_amount": 2879870.97,
+      "first_timestamp": "2026-08-29 01:29:20",
+      "last_timestamp": "2026-08-29 04:54:20",
+      "hours_spanned": 3.42,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (SPEED, SPRAY)",
+        "+2 evidence amount Rs 2,879,871 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0019",
+          "people": [
+            "PERSON00035",
+            "PERSON00040",
+            "PERSON00074",
+            "PERSON00076"
+          ],
+          "reason": "Watchlisted Irfan Gill & Sons (PERSON00074) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 2
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000208"
+              ],
+              "money_into_new_account": [
+                "TXN079549",
+                "TXN000653"
+              ]
+            },
+            "new_channels": []
+          }
+        },
+        {
+          "finding_id": "F0021",
+          "people": [
+            "PERSON00013",
+            "PERSON00014",
+            "PERSON00029"
+          ],
+          "reason": "Watchlisted Chauhan Lakshmi (PERSON00014) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x1.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000020"
+              ],
+              "money_into_new_account": [
+                "TXN014420"
+              ]
+            },
+            "new_channels": []
+          }
+        },
+        {
+          "finding_id": "F0041",
+          "people": [
+            "PERSON00038",
+            "PERSON00039"
+          ],
+          "reason": "Watchlisted Balaji Malhotra & Sons (PERSON00038) shows 1 weak signal(s): money into new account x1.",
+          "evidence": {
+            "signals": [
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "money_into_new_account": [
+                "TXN000437"
+              ]
+            },
+            "new_channels": []
+          }
+        },
+        {
+          "finding_id": "F0042",
+          "people": [
+            "PERSON00035",
+            "PERSON00044"
+          ],
+          "reason": "Watchlisted Mary Bose & Sons (PERSON00044) shows 1 weak signal(s): money into new account x1.",
+          "evidence": {
+            "signals": [
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "money_into_new_account": [
+                "TXN000476"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00025": [
+          -0.04658707750976251,
+          0.10738432799637247
+        ],
+        "PERSON00026": [
+          0.19140285824368414,
+          0.3472453130370464
+        ],
+        "PERSON00027": [
+          -0.477284233319006,
+          0.36218891703878514
+        ],
+        "PERSON00028": [
+          -0.1363289297193109,
+          0.46972309107273813
+        ],
+        "PERSON00029": [
+          -0.10781774515202683,
+          -0.5280886393289497
+        ],
+        "PERSON00030": [
+          0.009601285981153193,
+          0.09421798295810163
+        ],
+        "PERSON00031": [
+          0.2988965180774131,
+          0.10467976466139309
+        ],
+        "PERSON00032": [
+          -0.33299652468940616,
+          -0.09868103109058304
+        ],
+        "PERSON00033": [
+          0.40101142072450485,
+          0.4109899846990574
+        ],
+        "PERSON00034": [
+          -0.11538422378531085,
+          -0.19822771658277866
+        ],
+        "PERSON00035": [
+          0.458572001836625,
+          -0.07199765580130515
+        ],
+        "PERSON00036": [
+          -0.3723787853544927,
+          0.0949302317421162
+        ],
+        "PERSON00037": [
+          0.049740819172523244,
+          0.481375896574787
+        ],
+        "PERSON00038": [
+          -0.25878566579345313,
+          0.31604529421856853
+        ],
+        "PERSON00039": [
+          0.16186971380820728,
+          -0.18004935477308323
+        ],
+        "PERSON00053": [
+          0.0906994426936457,
+          -0.9568856519992667
+        ],
+        "PERSON00322": [
+          -0.8952850857545879,
+          0.616521604568314
+        ],
+        "PERSON00325": [
+          0.9143366154857396,
+          -0.21340844917355958
+        ],
+        "PERSON01136": [
+          -0.17884318621378353,
+          -1.0
+        ],
+        "PERSON01169": [
+          0.77646705986761,
+          0.7169762172721181
+        ],
+        "PERSON01774": [
+          -0.4309062785999661,
+          -0.8749401270898686
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00025",
+        "PERSON00026",
+        "PERSON00027",
+        "PERSON00028",
+        "PERSON00029",
+        "PERSON00030",
+        "PERSON00031",
+        "PERSON00032",
+        "PERSON00033",
+        "PERSON00034",
+        "PERSON00035",
+        "PERSON00036",
+        "PERSON00037",
+        "PERSON00038",
+        "PERSON00039",
+        "PERSON00053",
+        "PERSON00322",
+        "PERSON00325",
+        "PERSON01136",
+        "PERSON01169",
+        "PERSON01774"
+      ]
+    },
+    {
+      "case_id": "C007",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "SPEED",
+        "SPRAY"
+      ],
+      "finding_ids": [
+        "F0017",
+        "F0023",
+        "F0025",
+        "F0027",
+        "F0028",
+        "F0029",
+        "F0030",
+        "F0031",
+        "F0032",
+        "F0033",
+        "F0034",
+        "F0036",
+        "F0037"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00015",
+          "name": "Anna Malik & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00024",
+            "ACC00028"
+          ]
+        },
+        {
+          "entity_key": "PERSON00016",
+          "name": "Thomas Naveen",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00025"
+          ]
+        },
+        {
+          "entity_key": "PERSON00017",
+          "name": "Manoj Pillai & Sons & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00026"
+          ]
+        },
+        {
+          "entity_key": "PERSON00018",
+          "name": "Zubair Ahmde",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00027"
+          ]
+        },
+        {
+          "entity_key": "PERSON00019",
+          "name": "SRINIVAS GUPTA",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00029",
+            "ACC00030"
+          ]
+        },
+        {
+          "entity_key": "PERSON00020",
+          "name": "Ahmed Gaurav",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00031",
+            "ACC00035"
+          ]
+        },
+        {
+          "entity_key": "PERSON00021",
+          "name": "Naveen Thoas",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00032"
+          ]
+        },
+        {
+          "entity_key": "PERSON00022",
+          "name": "Ahmed Zubair",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00033"
+          ]
+        },
+        {
+          "entity_key": "PERSON00023",
+          "name": "Manoj Pillai &S ons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00034"
+          ]
+        },
+        {
+          "entity_key": "PERSON00024",
+          "name": "N. Brar",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00036",
+            "ACC00037"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON00240",
+          "name": "Ashok Snigh",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 148329.71,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01181",
+          "name": "Mehta Anita",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 120378.26,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00915",
+          "name": "Anjali Gill",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 77132.52,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01133",
+          "name": "Ritu Malhotra & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 47597.12,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00740",
+          "name": "Mishra Kavita",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 37403.86,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01507",
+          "name": "AYESHA BANSAL",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 33216.53,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000042",
+        "TXN000034",
+        "TXN000030",
+        "TXN000035",
+        "TXN000031",
+        "TXN000043",
+        "TXN000028",
+        "TXN000024",
+        "TXN000029",
+        "TXN000032",
+        "TXN000025",
+        "TXN000033",
+        "TXN000036",
+        "TXN000046",
+        "TXN000040",
+        "TXN000026",
+        "TXN000044",
+        "TXN000027",
+        "TXN000041",
+        "TXN000038",
+        "TXN000047",
+        "TXN000037",
+        "TXN000045",
+        "TXN000039"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN009129",
+        "TXN036347",
+        "TXN017563",
+        "TXN040707",
+        "TXN024540",
+        "TXN020611",
+        "TXN068222"
+      ],
+      "total_evidence_amount": 1536116.09,
+      "first_timestamp": "2026-08-24 12:38:13",
+      "last_timestamp": "2026-08-24 15:13:13",
+      "hours_spanned": 2.58,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 8,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+4 2 distinct detector(s) fired (SPEED, SPRAY)",
+        "+2 evidence amount Rs 1,536,116 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0040",
+          "people": [
+            "PERSON00024"
+          ],
+          "reason": "Watchlisted N. Brar (PERSON00024) shows 1 weak signal(s): money into new account x1.",
+          "evidence": {
+            "signals": [
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "money_into_new_account": 1
+            },
+            "signal_txn_ids": {
+              "money_into_new_account": [
+                "TXN000047"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00015": [
+          -0.021941018577457262,
+          -0.05131210686543087
+        ],
+        "PERSON00016": [
+          0.10560633519031613,
+          0.4893108835388545
+        ],
+        "PERSON00017": [
+          -0.43832557252455645,
+          0.2385592579589053
+        ],
+        "PERSON00018": [
+          -0.4436524201000823,
+          -0.20717314416890298
+        ],
+        "PERSON00019": [
+          0.30964938789954977,
+          -0.40229080196261885
+        ],
+        "PERSON00020": [
+          0.27718783146673837,
+          0.1995582702612518
+        ],
+        "PERSON00021": [
+          0.500508245086672,
+          0.004177201532735937
+        ],
+        "PERSON00022": [
+          0.009004963397993207,
+          -0.32217271224372773
+        ],
+        "PERSON00023": [
+          -0.15691450743990962,
+          0.28032020271562746
+        ],
+        "PERSON00024": [
+          0.02918028985147521,
+          0.04815043825539727
+        ],
+        "PERSON00240": [
+          0.5914395201828307,
+          -0.8164504339587716
+        ],
+        "PERSON00740": [
+          -0.8904951711676796,
+          -0.43704085481725674
+        ],
+        "PERSON00915": [
+          -0.8622403571208641,
+          0.5096938918488504
+        ],
+        "PERSON01133": [
+          0.20674403512182077,
+          0.9806249426441394
+        ],
+        "PERSON01181": [
+          -0.21575156126684747,
+          -0.5570595291787843
+        ],
+        "PERSON01507": [
+          1.0,
+          0.043104494439730405
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00015",
+        "PERSON00016",
+        "PERSON00017",
+        "PERSON00018",
+        "PERSON00019",
+        "PERSON00020",
+        "PERSON00021",
+        "PERSON00022",
+        "PERSON00023",
+        "PERSON00024",
+        "PERSON00240",
+        "PERSON00740",
+        "PERSON00915",
+        "PERSON01133",
+        "PERSON01181",
+        "PERSON01507"
+      ]
+    },
+    {
+      "case_id": "C008",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "THRESHOLD"
+      ],
+      "finding_ids": [
+        "F0003"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00071",
+          "name": "IRFAN CHATTERJEE",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00126",
+            "ACC00130"
+          ]
+        },
+        {
+          "entity_key": "PERSON00072",
+          "name": "ZUBAIR KAUR",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00127",
+            "ACC00131"
+          ]
+        },
+        {
+          "entity_key": "PERSON00073",
+          "name": "Bhatt Radha",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00128",
+            "ACC00132"
+          ]
+        },
+        {
+          "entity_key": "PERSON00074",
+          "name": "Irfan Gill & Sons",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00129",
+            "ACC00133"
+          ]
+        },
+        {
+          "entity_key": "PERSON00075",
+          "name": "Bose Vinod",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00134",
+            "ACC00135"
+          ]
+        },
+        {
+          "entity_key": "PERSON00076",
+          "name": "A. Kapoor",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00136"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON00014",
+          "name": "Chauhan Lakshmi",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 34242.67,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01266",
+          "name": "Bhatt Srinivas",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 33575.5,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00356",
+          "name": "SARITA DAS",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 32315.46,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00945",
+          "name": "Sangeeta Ghosh",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 44267.53,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00530",
+          "name": "Karthik Nair & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 43477.65,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01432",
+          "name": "Padma Iyer & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 42607.7,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000215",
+        "TXN000220",
+        "TXN000199",
+        "TXN000219",
+        "TXN000207",
+        "TXN000195",
+        "TXN000214",
+        "TXN000218",
+        "TXN000202",
+        "TXN000208",
+        "TXN000201",
+        "TXN000206",
+        "TXN000217",
+        "TXN000221",
+        "TXN000216",
+        "TXN000197",
+        "TXN000223",
+        "TXN000210",
+        "TXN000198",
+        "TXN000200",
+        "TXN000203",
+        "TXN000222",
+        "TXN000205",
+        "TXN000194",
+        "TXN000196",
+        "TXN000211",
+        "TXN000209"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN074327",
+        "TXN078977",
+        "TXN011725",
+        "TXN017625",
+        "TXN073374",
+        "TXN064858"
+      ],
+      "total_evidence_amount": 25690041.77,
+      "first_timestamp": "2026-08-18 17:24:25",
+      "last_timestamp": "2026-09-08 15:32:00",
+      "hours_spanned": 502.13,
+      "banks_involved": [
+        "BANK_B"
+      ],
+      "crosses_banks": false,
+      "priority_score": 6,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+2 1 distinct detector(s) fired (THRESHOLD)",
+        "+3 evidence amount Rs 25,690,042 is at least Rs 1 crore",
+        "+1 a core person is watchlisted"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0019",
+          "people": [
+            "PERSON00035",
+            "PERSON00040",
+            "PERSON00074",
+            "PERSON00076"
+          ],
+          "reason": "Watchlisted Irfan Gill & Sons (PERSON00074) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 2
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000208"
+              ],
+              "money_into_new_account": [
+                "TXN079549",
+                "TXN000653"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00014": [
+          -0.9528165024669939,
+          0.2805371996752966
+        ],
+        "PERSON00071": [
+          0.4300880276309493,
+          -0.31804819464314416
+        ],
+        "PERSON00072": [
+          -0.6073001434281813,
+          0.04147984197650686
+        ],
+        "PERSON00073": [
+          -0.11782636409925869,
+          0.3129263559028343
+        ],
+        "PERSON00074": [
+          0.4341873710228319,
+          0.42811599727561106
+        ],
+        "PERSON00075": [
+          -0.11684946761655775,
+          -0.5240596677146778
+        ],
+        "PERSON00076": [
+          0.00408276126543368,
+          -0.020197768886768275
+        ],
+        "PERSON00356": [
+          -1.0,
+          -0.11260927135208096
+        ],
+        "PERSON00530": [
+          0.5391991493644097,
+          0.8332916025941602
+        ],
+        "PERSON00945": [
+          0.8314528506193393,
+          0.565156353480496
+        ],
+        "PERSON01266": [
+          -0.20521296798035502,
+          -0.92719302417838
+        ],
+        "PERSON01432": [
+          0.7609952856883816,
+          -0.5593994241298529
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00014",
+        "PERSON00071",
+        "PERSON00072",
+        "PERSON00073",
+        "PERSON00074",
+        "PERSON00075",
+        "PERSON00076",
+        "PERSON00356",
+        "PERSON00530",
+        "PERSON00945",
+        "PERSON01266",
+        "PERSON01432"
+      ]
+    },
+    {
+      "case_id": "C009",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "SPEED"
+      ],
+      "finding_ids": [
+        "F0012"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00061",
+          "name": "Ajay Mehta & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00107",
+            "ACC00109"
+          ]
+        },
+        {
+          "entity_key": "PERSON00062",
+          "name": "SUNITA JAIN",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00108",
+            "ACC00110"
+          ]
+        },
+        {
+          "entity_key": "PERSON00063",
+          "name": "PADMA MALHOTRA",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00111"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01316",
+          "name": "HARPREET SIDHU",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 19154.46,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00004",
+          "name": "B. Chatterjee",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 16946.93,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01333",
+          "name": "Rekha Chauhan & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 46367.55,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01749",
+          "name": "Neha Bhatt & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 34460.48,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00450",
+          "name": "N. Bose",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 24424.76,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000178",
+        "TXN000179",
+        "TXN000180",
+        "TXN000181"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN027009",
+        "TXN042460",
+        "TXN071461",
+        "TXN075916",
+        "TXN018791"
+      ],
+      "total_evidence_amount": 2662492.76,
+      "first_timestamp": "2026-08-22 16:16:43",
+      "last_timestamp": "2026-08-22 16:55:43",
+      "hours_spanned": 0.65,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 6,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+2 1 distinct detector(s) fired (SPEED)",
+        "+2 evidence amount Rs 2,662,493 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0020",
+          "people": [
+            "PERSON00060",
+            "PERSON00062",
+            "PERSON00063"
+          ],
+          "reason": "Watchlisted SUNITA JAIN (PERSON00062) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty",
+              "money_into_new_account"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1,
+              "money_into_new_account": 2
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000181"
+              ],
+              "money_into_new_account": [
+                "TXN015893",
+                "TXN062827"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00004": [
+          -0.4477841259403624,
+          0.19657557208379245
+        ],
+        "PERSON00061": [
+          0.156617056577634,
+          0.507893218212435
+        ],
+        "PERSON00062": [
+          -0.03536277866061974,
+          -0.12079921392333659
+        ],
+        "PERSON00063": [
+          -0.5534258190558905,
+          -0.29352853608328006
+        ],
+        "PERSON00450": [
+          0.4795978898897158,
+          -0.09099657252929597
+        ],
+        "PERSON01316": [
+          0.30858222622659304,
+          1.0
+        ],
+        "PERSON01333": [
+          0.2906259430210754,
+          -0.555218848067802
+        ],
+        "PERSON01749": [
+          -0.19885039205814567,
+          -0.6439256196925127
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00004",
+        "PERSON00061",
+        "PERSON00062",
+        "PERSON00063",
+        "PERSON00450",
+        "PERSON01316",
+        "PERSON01333",
+        "PERSON01749"
+      ]
+    },
+    {
+      "case_id": "C010",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "CIRCLE"
+      ],
+      "finding_ids": [
+        "F0013"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00001",
+          "name": "ZEENAT SIDHU",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00001"
+          ]
+        },
+        {
+          "entity_key": "PERSON00002",
+          "name": "Sidhu Zeenat",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00002"
+          ]
+        },
+        {
+          "entity_key": "PERSON00003",
+          "name": "Anna Deasi",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00003",
+            "ACC00004"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON00188",
+          "name": "Naidu Nisha",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 59684.96,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01328",
+          "name": "SHOBHA SANDHU",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 41364.41,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01138",
+          "name": "R. Sheikh",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 19401.4,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01021",
+          "name": "Arjun Iyer & Sons",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 32561.77,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01523",
+          "name": "Naveen Sanduh",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 12130.01,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01302",
+          "name": "SARITA NAIDU",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 9957.5,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000001",
+        "TXN000002",
+        "TXN000003",
+        "TXN000004"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN015486",
+        "TXN026868",
+        "TXN071830",
+        "TXN050748",
+        "TXN042503",
+        "TXN065165"
+      ],
+      "total_evidence_amount": 2410102.78,
+      "first_timestamp": "2026-08-28 13:26:18",
+      "last_timestamp": "2026-08-29 01:26:18",
+      "hours_spanned": 12.0,
+      "banks_involved": [
+        "BANK_A",
+        "BANK_B"
+      ],
+      "crosses_banks": true,
+      "priority_score": 6,
+      "priority_level": "HIGH",
+      "priority_reason": [
+        "+2 1 distinct detector(s) fired (CIRCLE)",
+        "+2 evidence amount Rs 2,410,103 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted",
+        "+1 evidence transactions cross both banks"
+      ],
+      "watchlist_signals": [
+        {
+          "finding_id": "F0022",
+          "people": [
+            "PERSON00001",
+            "PERSON00003"
+          ],
+          "reason": "Watchlisted Anna Deasi (PERSON00003) shows 1 weak signal(s): first large transfer to new counterparty x1.",
+          "evidence": {
+            "signals": [
+              "first_large_transfer_to_new_counterparty"
+            ],
+            "signal_txn_counts": {
+              "first_large_transfer_to_new_counterparty": 1
+            },
+            "signal_txn_ids": {
+              "first_large_transfer_to_new_counterparty": [
+                "TXN000004"
+              ]
+            },
+            "new_channels": []
+          }
+        }
+      ],
+      "layout": {
+        "PERSON00001": [
+          -0.3257794976689892,
+          -0.03214115349982659
+        ],
+        "PERSON00002": [
+          0.40914915373790556,
+          0.14469549563397657
+        ],
+        "PERSON00003": [
+          0.2517902579252703,
+          -0.12473014167602813
+        ],
+        "PERSON00188": [
+          -0.9316164473111966,
+          -0.08731702263291058
+        ],
+        "PERSON01021": [
+          1.0,
+          0.35253937804798446
+        ],
+        "PERSON01138": [
+          0.3300109532883099,
+          0.5027895711152789
+        ],
+        "PERSON01302": [
+          0.592128927073471,
+          -0.6300321882598204
+        ],
+        "PERSON01328": [
+          -0.6165551820579257,
+          -0.5569357145405239
+        ],
+        "PERSON01523": [
+          -0.7091281649868459,
+          0.4311317758118705
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00001",
+        "PERSON00002",
+        "PERSON00003",
+        "PERSON00188",
+        "PERSON01021",
+        "PERSON01138",
+        "PERSON01302",
+        "PERSON01328",
+        "PERSON01523"
+      ]
+    },
+    {
+      "case_id": "C011",
+      "lane": "WATCHLIST",
+      "detectors_fired": [
+        "THRESHOLD"
+      ],
+      "finding_ids": [
+        "F0016"
+      ],
+      "core_people": [
+        {
+          "entity_key": "PERSON00077",
+          "name": "Imran Sndhu",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00137"
+          ]
+        },
+        {
+          "entity_key": "PERSON00078",
+          "name": "Yadav Sunita",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00138",
+            "ACC00144"
+          ]
+        },
+        {
+          "entity_key": "PERSON00079",
+          "name": "Geeta Verma & Sons",
+          "role": "CORE",
+          "is_watchlisted": true,
+          "accounts": [
+            "ACC00139",
+            "ACC00142"
+          ]
+        },
+        {
+          "entity_key": "PERSON00080",
+          "name": "Ajay Saxena",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00140",
+            "ACC00143"
+          ]
+        },
+        {
+          "entity_key": "PERSON00081",
+          "name": "Manpreet Khan & Sons",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00141",
+            "ACC00146"
+          ]
+        },
+        {
+          "entity_key": "PERSON00082",
+          "name": "KAVITA RAO",
+          "role": "CORE",
+          "is_watchlisted": false,
+          "accounts": [
+            "ACC00145",
+            "ACC00147"
+          ]
+        }
+      ],
+      "context_people": [
+        {
+          "entity_key": "PERSON01688",
+          "name": "L. Mehta",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 147856.18,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01714",
+          "name": "Sharma Swati",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 41760.35,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01246",
+          "name": "Ravi Mukherjee & Sons",
+          "role": "CONTEXT",
+          "direction": "IN",
+          "amount": 32162.92,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON01104",
+          "name": "Ashok Redyd",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 49091.87,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00873",
+          "name": "Vijay Mukhereje",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 46715.93,
+          "note": "shown for where the money came from / went to; not accused"
+        },
+        {
+          "entity_key": "PERSON00661",
+          "name": "Agarwal Harish",
+          "role": "CONTEXT",
+          "direction": "OUT",
+          "amount": 45882.94,
+          "note": "shown for where the money came from / went to; not accused"
+        }
+      ],
+      "evidence_txn_ids": [
+        "TXN000245",
+        "TXN000255",
+        "TXN000242",
+        "TXN000246",
+        "TXN000228",
+        "TXN000234",
+        "TXN000235",
+        "TXN000232",
+        "TXN000250",
+        "TXN000258",
+        "TXN000256",
+        "TXN000224",
+        "TXN000257",
+        "TXN000240",
+        "TXN000241",
+        "TXN000233",
+        "TXN000239",
+        "TXN000247",
+        "TXN000227",
+        "TXN000231",
+        "TXN000226",
+        "TXN000252",
+        "TXN000244",
+        "TXN000254",
+        "TXN000236",
+        "TXN000229",
+        "TXN000253",
+        "TXN000251",
+        "TXN000248",
+        "TXN000243",
+        "TXN000225",
+        "TXN000237",
+        "TXN000230",
+        "TXN000249",
+        "TXN000238"
+      ],
+      "supporting_txn_ids": [],
+      "context_txn_ids": [
+        "TXN068765",
+        "TXN050922",
+        "TXN016753",
+        "TXN062228",
+        "TXN005569",
+        "TXN022785"
+      ],
+      "total_evidence_amount": 1659660.17,
+      "first_timestamp": "2026-08-19 12:42:57",
+      "last_timestamp": "2026-09-15 17:40:52",
+      "hours_spanned": 652.97,
+      "banks_involved": [
+        "BANK_B"
+      ],
+      "crosses_banks": false,
+      "priority_score": 5,
+      "priority_level": "MEDIUM",
+      "priority_reason": [
+        "+2 1 distinct detector(s) fired (THRESHOLD)",
+        "+2 evidence amount Rs 1,659,660 is at least Rs 10 lakh",
+        "+1 a core person is watchlisted"
+      ],
+      "watchlist_signals": [],
+      "layout": {
+        "PERSON00077": [
+          -0.3174929246627507,
+          0.4599305227428588
+        ],
+        "PERSON00078": [
+          0.5373772607399409,
+          0.3886724379741571
+        ],
+        "PERSON00079": [
+          -0.5592723905538699,
+          -0.36280645657149313
+        ],
+        "PERSON00080": [
+          0.25997294530943255,
+          -0.37613289328830557
+        ],
+        "PERSON00081": [
+          0.03217997342778326,
+          0.46780187546788227
+        ],
+        "PERSON00082": [
+          -0.0500572862983807,
+          0.07611188797548397
+        ],
+        "PERSON00661": [
+          0.9862587989118806,
+          0.4034895244634778
+        ],
+        "PERSON00873": [
+          -0.4439235294787538,
+          0.13295555315090504
+        ],
+        "PERSON01104": [
+          0.7825967656317596,
+          0.768078680239448
+        ],
+        "PERSON01246": [
+          -0.7330703786455106,
+          -0.7734628289640965
+        ],
+        "PERSON01688": [
+          0.5054307656184692,
+          -0.7348619850945789
+        ],
+        "PERSON01714": [
+          -1.0,
+          -0.44977631809573815
+        ]
+      },
+      "highlight_nodes": [
+        "PERSON00077",
+        "PERSON00078",
+        "PERSON00079",
+        "PERSON00080",
+        "PERSON00081",
+        "PERSON00082",
+        "PERSON00661",
+        "PERSON00873",
+        "PERSON01104",
+        "PERSON01246",
+        "PERSON01688",
+        "PERSON01714"
+      ]
+    }
+  ],
+  "watchlist_review": [
+    {
+      "finding_id": "F0039",
+      "type": "WATCHLIST_REVIEW",
+      "priority": "LOW",
+      "people": [
+        "PERSON00004",
+        "PERSON00005"
+      ],
+      "txn_ids": [
+        "TXN000006"
+      ],
+      "reason": "Watchlisted Kapoor Shreya (PERSON00005) shows 1 weak signal(s): money into new account x1.",
+      "evidence": {
+        "signals": [
+          "money_into_new_account"
+        ],
+        "signal_txn_counts": {
+          "money_into_new_account": 1
+        },
+        "signal_txn_ids": {
+          "money_into_new_account": [
+            "TXN000006"
+          ]
+        },
+        "new_channels": []
+      },
+      "note": "low priority review item; not a case, no accusation"
+    }
+  ]
+}

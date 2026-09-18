@@ -23,7 +23,7 @@ repo and a working live deployment are both mandatory.
 | 2 | Entity resolution — records → real people | `entity_resolution.py` | ✅ done |
 | 3 | Graph builder — people as nodes, money as edges | `graph_builder.py` | ✅ done |
 | 4 | Detection swarm — 4 deterministic agents | `detectors.py` | ✅ done |
-| 5 | Case builder — seed, trace, expand, prune | — | pending |
+| 5 | Case builder — seed, trace, expand, prune | `case_builder.py` | ✅ done |
 | 6 | Investigator agent (LLM) — writes the case | — | pending |
 | 7 | Verifier agent (LLM) — adversarial check | — | pending |
 | 8 | Streamlit dashboard + human approval | `app.py` | pending |
