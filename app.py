@@ -170,6 +170,29 @@ table.q td.rec {font-weight:600; color:#101a3a;}
 .cf-row:last-child {border-bottom:none;} .cf-row b {font-variant-numeric:tabular-nums; color:#101a3a;}
 .cf-sum {background:#fff; border:1px solid #e1e5ee; border-left:4px solid #1F4E8C; border-radius:10px; padding:14px 16px; font-size:.95rem; color:#1c2333; line-height:1.5;}
 [data-testid="stPlotlyChart"] {border-radius:12px; overflow:hidden;}
+/* ---- controls: clearly visible, clearly clickable ---- */
+.picker-t {font-weight:700; color:#101a3a; font-size:.95rem; margin:14px 0 6px; display:flex; align-items:center; gap:8px;}
+.picker-t:before {content:""; width:4px; height:16px; background:#ff9933; border-radius:2px; display:inline-block;}
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div, [data-testid="stMultiSelect"] div[data-baseweb="select"] > div,
+[data-testid="stTextInput"] input {background:#ffffff !important; border:1.5px solid #9fb0d6 !important; border-radius:9px !important;
+     box-shadow:0 1px 3px rgba(16,26,58,.08); min-height:44px;}
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div:hover {border-color:#1F4E8C !important; box-shadow:0 0 0 3px rgba(31,78,140,.12);}
+[data-testid="stSelectbox"] div[data-baseweb="select"] span, [data-testid="stSelectbox"] div[data-baseweb="select"] div {font-weight:600; color:#101a3a;}
+[data-testid="stWidgetLabel"] p {font-weight:600 !important; color:#1c2b4a !important;}
+[data-testid="stPills"] button, [data-testid="stButtonGroup"] button {background:#ffffff; border:1.5px solid #c9d3ea; color:#1c2b4a;
+     border-radius:999px; font-weight:600; padding:6px 14px; box-shadow:0 1px 2px rgba(16,26,58,.06);}
+[data-testid="stPills"] button:hover, [data-testid="stButtonGroup"] button:hover {border-color:#1F4E8C; color:#1F4E8C;}
+[data-testid="stPills"] button[kind$="Active"], [data-testid="stButtonGroup"] button[kind$="Active"],
+[data-testid="stPills"] button[aria-checked="true"], [data-testid="stButtonGroup"] button[aria-checked="true"]
+     {background:#172a74 !important; border-color:#172a74 !important; color:#ffffff !important; box-shadow:0 3px 10px rgba(23,42,116,.30);}
+[data-testid="stPills"] button[kind$="Active"] p, [data-testid="stButtonGroup"] button[kind$="Active"] p {color:#ffffff !important;}
+[data-testid="stRadio"] label {background:#fff; border:1.5px solid #c9d3ea; border-radius:999px; padding:5px 14px 5px 10px; margin-right:6px;}
+[data-testid="stRadio"] label:has(input:checked) {border-color:#172a74; background:#eef2fc;}
+.stButton > button, [data-testid="stDownloadButton"] > button {border-radius:9px; border:1.5px solid #9fb0d6; font-weight:600; min-height:44px; background:#fff;}
+.stButton > button:hover, [data-testid="stDownloadButton"] > button:hover {border-color:#1F4E8C; color:#1F4E8C;}
+.stButton > button[kind="primary"], [data-testid="stDownloadButton"] > button[kind="primary"] {background:#172a74; border-color:#172a74; color:#fff;}
+[data-testid="stCaptionContainer"] p {color:#5a6275 !important;}
+.stTabs .stTabs [role="tablist"] {background:#fff; border:1px solid #e1e5ee;}
 @media (max-width: 1000px) {.kpis {grid-template-columns:repeat(3,1fr);} .flow {flex-wrap:wrap;}}
 @media (max-width: 800px) {.masthead .badge {display:none;} .masthead .hi {font-size:1.3rem;} .band:after,.band:before {display:none;}}
 </style>
@@ -890,8 +913,11 @@ def money_flow_3d(c, suspect):
 with tabs[2]:
     pagetitle("Case file")
     cf_ids = [x["case_id"] for x in cases]
-    cf_pick = st.selectbox("Case", cf_ids, index=0, key="cf_pick",
-                           format_func=lambda i: case_label(next(x for x in cases if x["case_id"] == i)))
+    st.markdown('<div class="picker-t">Select a case file</div>', unsafe_allow_html=True)
+    _short = {"Round-tripping": "Loop", "Mule network": "Mule", "Structuring": "Structuring", "Rapid layering": "Layering"}
+    cf_pick = st.pills("Select a case file", cf_ids, default=cf_ids[0], key="cf_pick", label_visibility="collapsed",
+                       format_func=lambda i: f"{i} · {_short.get(typology(next(x for x in cases if x['case_id'] == i)['detectors_fired']), '')}")
+    cf_pick = cf_pick or cf_ids[0]
     cf = next(x for x in cases if x["case_id"] == cf_pick)
     sus, why_sus = main_suspect(cf)
     wc_cf = written_cases.get(cf["case_id"], {})
@@ -1119,7 +1145,8 @@ with tabs[1]:
         hide_index=True, width="stretch")
 
     case_ids = [x["case_id"] for x in cases]
-    picked = st.selectbox("Open a case", case_ids, key="case_pick",
+    st.markdown('<div class="picker-t">Open a case</div>', unsafe_allow_html=True)
+    picked = st.selectbox("Open a case", case_ids, key="case_pick", label_visibility="collapsed",
                           format_func=lambda i: case_label(
                               next(x for x in cases if x["case_id"] == i)))
     c = next(x for x in cases if x["case_id"] == picked)
