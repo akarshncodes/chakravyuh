@@ -2,33 +2,33 @@
   "C001": {
     "case_id": "C001",
     "narrative": {
-      "summary": "This case involves a circular transfer of Rs 14.09 crore through a network of accounts controlled by three individuals. The funds cycled rapidly, completing in under 3 hours with a high return percentage.",
-      "what_happened": "On 2026-08-30, the transactions began with Rs 2,40,00,000 transferred from ACC00010 to ACC00011 at 00:48:56. Next, Rs 2,38,37,091.92 was sent from ACC00011 to ACC00012 at 01:35:56. Following that, Rs 2,36,93,623.23 moved from ACC00012 to ACC00013 at 02:06:56. Then, Rs 2,33,58,052.61 was transferred from ACC00013 to ACC00014 at 02:40:56. Subsequently, Rs 2,31,66,344.02 was sent from ACC00014 to ACC00015 at 03:20:56. Finally, Rs 2,28,92,388.30 returned from ACC00015 to ACC00010 at 03:46:56.",
-      "typology": "circular transfer and rapid layering due to the quick cycling of funds through multiple accounts without prior transaction history.",
-      "why_suspicious": "Rs 2.4 crore was cycled through 6 accounts, generating Rs 14.09 crore in total transaction volume, with 95.4% of the principal returning to the originating account. Additionally, 100.0% of the transfers were first-time interactions between the parties involved, and neither bank could see the entire transaction network independently.",
-      "recommended_action": "FILE_STR",
+      "summary": "A circular transaction involving Rs 2.4 crore was detected, with a total transaction volume of Rs 14.09 crore. The cycle completed in under 3 hours, involving multiple accounts linked to watchlisted individual P. Malik.",
+      "what_happened": "On 2026-08-30 at 00:48:56, Rs 2,40,00,000 was transferred from ACC00010 to ACC00011 via RTGS at BANK_A. At 01:35:56, Rs 2,38,37,091.92 moved from ACC00011 to ACC00012 via RTGS at BANK_B. At 02:06:56, Rs 2,36,93,623.23 was sent from ACC00012 to ACC00013 via RTGS at BANK_B. At 02:40:56, Rs 2,33,58,052.61 was transferred from ACC00013 to ACC00014 via RTGS at BANK_A. At 03:20:56, Rs 2,31,66,344.02 moved from ACC00014 to ACC00015 via RTGS at BANK_B. Finally, at 03:46:56, Rs 2,28,92,388.30 was sent from ACC00015 back to ACC00010 via RTGS at BANK_A.",
+      "typology": "circular transfer and unusual account relationships due to the rapid cycling of funds and first-time interactions between the involved parties.",
+      "why_suspicious": "Rs 2.4 crore was cycled through 6 accounts, generating Rs 14.09 crore in total transaction volume, with 95.4% of the principal returning to the originating account. Additionally, the 6 accounts belong to only 3 people once identity records are resolved, and 100.0% of the transfers were first-time interactions, indicating a lack of legitimate business purpose.",
+      "recommended_action": "ESCALATE",
       "confidence": {
         "level": "MEDIUM",
-        "reason": "While the evidence shows a clear pattern of circular transactions, the presence of a watchlisted individual may complicate the case."
+        "reason": "P. Malik is watchlisted, and the accounts involved are relatively new, but all links are verified."
       }
     },
     "fact_check": {
-      "checked": 15,
-      "passed": 15,
+      "checked": 17,
+      "passed": 17,
       "failures": []
     },
     "verification": {
       "verdict": "PASS",
       "confidence": "HIGH",
-      "innocent_explanation": "The transactions could be explained as legitimate business operations among the involved parties. However, the evidence rules this out as all transactions were first-time interactions with no prior history, indicating a lack of legitimate business relationship.",
+      "innocent_explanation": "The transactions could be explained by legitimate business activities among the involved parties. However, the evidence rules this out as all transactions were first-time interactions, indicating a lack of established business relationships.",
       "weaknesses": [],
-      "notes": "The rapid cycling of funds through a small network of accounts, combined with the high return percentage and the absence of prior transaction history, strongly supports the need for a Suspicious Transaction Report. The evidence clearly indicates unusual behavior that warrants further investigation."
+      "notes": "The rapid cycling of a significant amount of money through a small number of accounts, especially involving a watchlisted individual, presents a clear pattern of suspicious activity that warrants reporting."
     },
     "final_confidence": "HIGH",
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
-    "commander_notes": "Focus on the rapid cycling of Rs 2.4 crore through a 6-hop circle involving Jyoti Saxena & Sons, Anna Agarwal, and P. Malik. Highlight the fact that each hop retained at least 98.58% of the amount and the entire cycle completed in under 3 hours. Emphasize the lack of prior transaction history between these parties and the inability of individual banks to see the full network, which only becomes apparent in the consortium view.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "commander_notes": "Focus on the rapid cycling of Rs 2.4 crore through a 6-hop circle involving Jyoti Saxena & Sons, Anna Agarwal, and P. Malik. Highlight the fact that the transactions were first-time interactions between these parties, and the entire cycle completed in under 3 hours. Note that P. Malik is watchlisted, and the accounts involved are relatively new, with ages significantly below the bank median. Emphasize the inability of individual banks to see the full transaction chain, which only becomes apparent in the consortium view.",
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C002": {
     "case_id": "C002",
@@ -59,7 +59,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the rapid cycling of Rs 18.1 lakh through a 4-hop circle involving Suresh Kaur & Sons, Anita Sandhu, and Kapoor Rekha, with Kapoor Rekha being watchlisted. Highlight the fact that 2 of the 6 accounts were opened less than 30 days ago, and all transactions were first-time interactions between the parties. Note that BANK_B could see the entire chain, while BANK_A could not see the final transaction.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C003": {
     "case_id": "C003",
@@ -90,7 +90,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the rapid cycling of Rs 11.85 lakh across multiple accounts within a short time frame, indicating possible layering. Highlight the involvement of Desai Sandeep, who is watchlisted, and the use of multiple accounts by a small group of individuals. Note that the transactions form a circle and are not fully visible to any single bank, requiring consortium data to detect.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C004": {
     "case_id": "C004",
@@ -121,7 +121,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the 8-hop circle involving Rs 6,42,625 that returned to Anil Kapoor after 21 hours, highlighting the 97.56% retention at each hop. Note the 3-hop chain moving the same amount in 120 minutes with similar retention. Emphasize the relationship findings: 4 people control 8 accounts, and all transfers were first-time transactions between these parties. Highlight that neither bank can see the full network individually, only the consortium view reveals it.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C005": {
     "case_id": "C005",
@@ -152,7 +152,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the rapid movement of funds through 42 accounts controlled by 21 individuals, with a significant portion of accounts being newly opened. Highlight the speed and spray pattern across banks, particularly the funneling of funds to account ACC00106 controlled by Swati Agarwal. Note the unusual account activity of ACC00065, which moved Rs 30.97 lakh out within a short period, and the fact that 100% of the people involved control multiple accounts, a red flag for potential layering in money laundering.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C006": {
     "case_id": "C006",
@@ -183,7 +183,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the speed and spray pattern of transactions from ACC00038, which sent funds to 25 accounts within 2.78 hours, with 100% forwarding to ACC00064. Highlight the fresh account openings (R1) and the control of multiple accounts by few individuals (R2). Note that neither Bank A nor Bank B can see the entire network alone (R5). Emphasize the involvement of Balaji Malhotra & Sons, a watchlisted entity, in the network.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C007": {
     "case_id": "C007",
@@ -214,7 +214,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the speed and spray pattern across multiple banks, with 92.3% of transactions forwarded quickly to a single collector account ACC00037. Highlight the fact that 57.1% of accounts were opened less than 30 days ago, and 79.2% of transfers were first-time transactions between parties. Note the shared phone numbers among unrelated accounts, indicating potential mule activity. BANK_A can see all transactions, but BANK_B cannot, suggesting coordination across banks.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C008": {
     "case_id": "C008",
@@ -245,7 +245,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the structuring of cash deposits by A. Kapoor, who received 27 deposits just below the Rs 10,00,000 threshold within 7 days. Highlight the concentration of control among 5 individuals over 10 accounts, which obscures their connection to a single bank's view. Note the significant volume of Rs 2.57 crore within a short period and the involvement of watchlisted entity Irfan Gill & Sons.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C009": {
     "case_id": "C009",
@@ -276,7 +276,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the rapid movement of Rs 6,76,230 across a 4-hop chain in just 39 minutes, with each hop retaining at least 98.34% of the amount. Highlight that two accounts were opened less than 30 days ago, which is significantly higher than the bank's baseline. Note that Sunita Jain is watchlisted and controls two accounts involved in the transactions. Emphasize that neither Bank A nor Bank B can see the entire transaction chain independently; it is only visible in the consortium view.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C010": {
     "case_id": "C010",
@@ -307,7 +307,7 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the 4-hop circle involving Rs 6,19,926 that returned to ZEENAT SIDHU within 12 hours. Highlight the fact that 100% of these transfers were first-time transactions between the parties, indicating a lack of prior relationship. Emphasize the shared phone number between two individuals, suggesting a possible handler managing multiple accounts. Note that neither bank could see the entire network alone, requiring consortium data to reveal the full circle.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   },
   "C011": {
     "case_id": "C011",
@@ -340,6 +340,6 @@
     "model": "gpt-4o-mini",
     "commander": "DRONA (gpt-4o)",
     "commander_notes": "Focus on the pattern of cash deposits just below the Rs 50,000 threshold into Kavita Rao's accounts, indicating possible structuring to avoid reporting. Highlight the control of multiple accounts by a small group of individuals, which obscures the true nature of transactions. Note that all transactions are visible to BANK_B, suggesting internal collusion or oversight. Emphasize the connections between Kavita Rao and other individuals involved in the case, showing a network of transactions that could indicate money laundering activities.",
-    "generated_at": "2026-09-18T21:24:36Z"
+    "generated_at": "2026-09-18T22:13:47Z"
   }
 }
