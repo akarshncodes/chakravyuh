@@ -1,0 +1,1809 @@
+[
+  {
+    "finding_id": "F0001",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00008",
+      "PERSON00009",
+      "PERSON00010"
+    ],
+    "accounts": [
+      "ACC00010",
+      "ACC00011",
+      "ACC00012",
+      "ACC00013",
+      "ACC00014",
+      "ACC00015"
+    ],
+    "txn_ids": [
+      "TXN000010",
+      "TXN000011",
+      "TXN000012",
+      "TXN000013",
+      "TXN000014",
+      "TXN000015"
+    ],
+    "total_amount": 140947500.08,
+    "first_timestamp": "2026-08-30 00:48:56",
+    "last_timestamp": "2026-08-30 03:46:56",
+    "evidence": {
+      "hops": 6,
+      "hours_elapsed": 2.97,
+      "min_retention_pct": 98.58,
+      "first_hop_amount": 24000000.0,
+      "last_hop_amount": 22892388.3,
+      "origin_person": "PERSON00008",
+      "distinct_people": 3
+    },
+    "reason": "6-hop circle: Rs 24,000,000 left Jyoti Saxena & Sons (PERSON00008) and came back to them after 2.97 hours via 3 people, every hop keeping at least 98.58% of the previous amount."
+  },
+  {
+    "finding_id": "F0002",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00008",
+      "PERSON00009",
+      "PERSON00010"
+    ],
+    "accounts": [
+      "ACC00010",
+      "ACC00011",
+      "ACC00012",
+      "ACC00013",
+      "ACC00014",
+      "ACC00015"
+    ],
+    "txn_ids": [
+      "TXN000010",
+      "TXN000011",
+      "TXN000012",
+      "TXN000013",
+      "TXN000014",
+      "TXN000015"
+    ],
+    "total_amount": 140947500.08,
+    "first_timestamp": "2026-08-30 00:48:56",
+    "last_timestamp": "2026-08-30 03:46:56",
+    "evidence": {
+      "hops": 6,
+      "minutes_elapsed": 178.0,
+      "min_retention_pct": 98.58,
+      "max_gap_minutes": 47.0,
+      "start_amount": 24000000.0,
+      "end_amount": 22892388.3,
+      "min_hops_required": 2
+    },
+    "reason": "6-hop chain moved Rs 24,000,000 onward in 178.0 minutes, no hop waiting more than 47.0 minutes and each keeping at least 98.58% of the previous amount."
+  },
+  {
+    "finding_id": "F0003",
+    "detector": "THRESHOLD",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00071",
+      "PERSON00072",
+      "PERSON00073",
+      "PERSON00074",
+      "PERSON00075",
+      "PERSON00076"
+    ],
+    "accounts": [
+      "ACC00126",
+      "ACC00127",
+      "ACC00128",
+      "ACC00129",
+      "ACC00130",
+      "ACC00131",
+      "ACC00132",
+      "ACC00133",
+      "ACC00134",
+      "ACC00135",
+      "ACC00136"
+    ],
+    "txn_ids": [
+      "TXN000215",
+      "TXN000220",
+      "TXN000199",
+      "TXN000219",
+      "TXN000207",
+      "TXN000195",
+      "TXN000214",
+      "TXN000218",
+      "TXN000202",
+      "TXN000208",
+      "TXN000201",
+      "TXN000206",
+      "TXN000217",
+      "TXN000221",
+      "TXN000216",
+      "TXN000197",
+      "TXN000223",
+      "TXN000210",
+      "TXN000198",
+      "TXN000200",
+      "TXN000203",
+      "TXN000222",
+      "TXN000205",
+      "TXN000194",
+      "TXN000196",
+      "TXN000211",
+      "TXN000209"
+    ],
+    "total_amount": 25690041.77,
+    "first_timestamp": "2026-08-18 17:24:25",
+    "last_timestamp": "2026-09-08 15:32:00",
+    "evidence": {
+      "limit": 1000000.0,
+      "deposits_in_window": 12,
+      "flagged_deposits": 27,
+      "window_days": 7,
+      "min_pct_of_limit": 90.02,
+      "max_pct_of_limit": 99.45,
+      "min_deposits_required": 3,
+      "receiving_person": "PERSON00076"
+    },
+    "reason": "A. Kapoor (PERSON00076) received 12 cash deposits within 7 days, each 90.02-99.45% of the Rs 1,000,000 limit (27 such deposits in total)."
+  },
+  {
+    "finding_id": "F0004",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00064",
+      "PERSON00065",
+      "PERSON00066"
+    ],
+    "accounts": [
+      "ACC00112",
+      "ACC00113",
+      "ACC00114",
+      "ACC00115",
+      "ACC00116",
+      "ACC00117"
+    ],
+    "txn_ids": [
+      "TXN000182",
+      "TXN000183",
+      "TXN000184",
+      "TXN000185",
+      "TXN000186"
+    ],
+    "total_amount": 8913657.91,
+    "first_timestamp": "2026-09-11 18:29:28",
+    "last_timestamp": "2026-09-11 19:07:28",
+    "evidence": {
+      "hops": 5,
+      "minutes_elapsed": 38.0,
+      "min_retention_pct": 98.55,
+      "max_gap_minutes": 10.0,
+      "start_amount": 1810199.06,
+      "end_amount": 1749544.64,
+      "min_hops_required": 2
+    },
+    "reason": "5-hop chain moved Rs 1,810,199 onward in 38.0 minutes, no hop waiting more than 10.0 minutes and each keeping at least 98.55% of the previous amount."
+  },
+  {
+    "finding_id": "F0005",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00067",
+      "PERSON00068",
+      "PERSON00069",
+      "PERSON00070"
+    ],
+    "accounts": [
+      "ACC00118",
+      "ACC00119",
+      "ACC00120",
+      "ACC00121",
+      "ACC00122",
+      "ACC00123",
+      "ACC00124",
+      "ACC00125"
+    ],
+    "txn_ids": [
+      "TXN000187",
+      "TXN000188",
+      "TXN000189",
+      "TXN000190",
+      "TXN000191",
+      "TXN000192",
+      "TXN000193"
+    ],
+    "total_amount": 8138037.88,
+    "first_timestamp": "2026-08-29 10:29:05",
+    "last_timestamp": "2026-08-29 11:01:05",
+    "evidence": {
+      "hops": 7,
+      "minutes_elapsed": 32.0,
+      "min_retention_pct": 98.38,
+      "max_gap_minutes": 9.0,
+      "start_amount": 1185003.97,
+      "end_amount": 1128610.98,
+      "min_hops_required": 2
+    },
+    "reason": "7-hop chain moved Rs 1,185,004 onward in 32.0 minutes, no hop waiting more than 9.0 minutes and each keeping at least 98.38% of the previous amount."
+  },
+  {
+    "finding_id": "F0006",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00064",
+      "PERSON00065",
+      "PERSON00066"
+    ],
+    "accounts": [
+      "ACC00112",
+      "ACC00113",
+      "ACC00114",
+      "ACC00115",
+      "ACC00116"
+    ],
+    "txn_ids": [
+      "TXN000182",
+      "TXN000183",
+      "TXN000184",
+      "TXN000185"
+    ],
+    "total_amount": 7164113.27,
+    "first_timestamp": "2026-09-11 18:29:28",
+    "last_timestamp": "2026-09-11 18:57:28",
+    "evidence": {
+      "hops": 4,
+      "hours_elapsed": 0.47,
+      "min_retention_pct": 98.94,
+      "first_hop_amount": 1810199.06,
+      "last_hop_amount": 1775289.21,
+      "origin_person": "PERSON00064",
+      "distinct_people": 3
+    },
+    "reason": "4-hop circle: Rs 1,810,199 left Suresh Kaur & Sons (PERSON00064) and came back to them after 0.47 hours via 3 people, every hop keeping at least 98.94% of the previous amount."
+  },
+  {
+    "finding_id": "F0007",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00067",
+      "PERSON00068",
+      "PERSON00069",
+      "PERSON00070"
+    ],
+    "accounts": [
+      "ACC00119",
+      "ACC00120",
+      "ACC00121",
+      "ACC00122",
+      "ACC00123",
+      "ACC00124"
+    ],
+    "txn_ids": [
+      "TXN000188",
+      "TXN000189",
+      "TXN000190",
+      "TXN000191",
+      "TXN000192"
+    ],
+    "total_amount": 5824422.93,
+    "first_timestamp": "2026-08-29 10:38:05",
+    "last_timestamp": "2026-08-29 10:57:05",
+    "evidence": {
+      "hops": 5,
+      "hours_elapsed": 0.32,
+      "min_retention_pct": 98.38,
+      "first_hop_amount": 1176205.56,
+      "last_hop_amount": 1143887.71,
+      "origin_person": "PERSON00068",
+      "distinct_people": 4
+    },
+    "reason": "5-hop circle: Rs 1,176,206 left SWATI SENGUPTA (PERSON00068) and came back to them after 0.32 hours via 4 people, every hop keeping at least 98.38% of the previous amount."
+  },
+  {
+    "finding_id": "F0008",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00011",
+      "PERSON00012",
+      "PERSON00013",
+      "PERSON00014"
+    ],
+    "accounts": [
+      "ACC00016",
+      "ACC00017",
+      "ACC00018",
+      "ACC00019",
+      "ACC00020",
+      "ACC00021",
+      "ACC00022",
+      "ACC00023"
+    ],
+    "txn_ids": [
+      "TXN000016",
+      "TXN000017",
+      "TXN000018",
+      "TXN000019",
+      "TXN000020",
+      "TXN000021",
+      "TXN000022",
+      "TXN000023"
+    ],
+    "total_amount": 4895355.11,
+    "first_timestamp": "2026-08-31 11:07:47",
+    "last_timestamp": "2026-09-01 08:07:47",
+    "evidence": {
+      "hops": 8,
+      "hours_elapsed": 21.0,
+      "min_retention_pct": 97.56,
+      "first_hop_amount": 642625.3,
+      "last_hop_amount": 585159.37,
+      "origin_person": "PERSON00011",
+      "distinct_people": 4
+    },
+    "reason": "8-hop circle: Rs 642,625 left ANIL KAPOOR (PERSON00011) and came back to them after 21.0 hours via 4 people, every hop keeping at least 97.56% of the previous amount."
+  },
+  {
+    "finding_id": "F0009",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00068",
+      "PERSON00069",
+      "PERSON00070"
+    ],
+    "accounts": [
+      "ACC00121",
+      "ACC00122",
+      "ACC00123",
+      "ACC00124",
+      "ACC00125"
+    ],
+    "txn_ids": [
+      "TXN000190",
+      "TXN000191",
+      "TXN000192",
+      "TXN000193"
+    ],
+    "total_amount": 4605065.07,
+    "first_timestamp": "2026-08-29 10:46:05",
+    "last_timestamp": "2026-08-29 11:01:05",
+    "evidence": {
+      "hops": 4,
+      "hours_elapsed": 0.25,
+      "min_retention_pct": 98.38,
+      "first_hop_amount": 1169881.12,
+      "last_hop_amount": 1128610.98,
+      "origin_person": "PERSON00069",
+      "distinct_people": 3
+    },
+    "reason": "4-hop circle: Rs 1,169,881 left Kiran Tiwari & Sons (PERSON00069) and came back to them after 0.25 hours via 3 people, every hop keeping at least 98.38% of the previous amount."
+  },
+  {
+    "finding_id": "F0010",
+    "detector": "SPRAY",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00040",
+      "PERSON00041",
+      "PERSON00042",
+      "PERSON00043",
+      "PERSON00044",
+      "PERSON00045",
+      "PERSON00046",
+      "PERSON00047",
+      "PERSON00048",
+      "PERSON00049",
+      "PERSON00050",
+      "PERSON00051",
+      "PERSON00052",
+      "PERSON00053",
+      "PERSON00054",
+      "PERSON00055",
+      "PERSON00056",
+      "PERSON00057",
+      "PERSON00058",
+      "PERSON00059",
+      "PERSON00060"
+    ],
+    "accounts": [
+      "ACC00065",
+      "ACC00066",
+      "ACC00067",
+      "ACC00068",
+      "ACC00069",
+      "ACC00070",
+      "ACC00071",
+      "ACC00072",
+      "ACC00073",
+      "ACC00074",
+      "ACC00075",
+      "ACC00076",
+      "ACC00077",
+      "ACC00078",
+      "ACC00079",
+      "ACC00080",
+      "ACC00081",
+      "ACC00082",
+      "ACC00083",
+      "ACC00084",
+      "ACC00085",
+      "ACC00086",
+      "ACC00087",
+      "ACC00088",
+      "ACC00089",
+      "ACC00090",
+      "ACC00091",
+      "ACC00092",
+      "ACC00093",
+      "ACC00094",
+      "ACC00095",
+      "ACC00096",
+      "ACC00097",
+      "ACC00098",
+      "ACC00099",
+      "ACC00100",
+      "ACC00101",
+      "ACC00102",
+      "ACC00103",
+      "ACC00104",
+      "ACC00105",
+      "ACC00106"
+    ],
+    "txn_ids": [
+      "TXN000134",
+      "TXN000110",
+      "TXN000146",
+      "TXN000150",
+      "TXN000147",
+      "TXN000138",
+      "TXN000160",
+      "TXN000174",
+      "TXN000152",
+      "TXN000161",
+      "TXN000104",
+      "TXN000135",
+      "TXN000164",
+      "TXN000151",
+      "TXN000106",
+      "TXN000124",
+      "TXN000172",
+      "TXN000175",
+      "TXN000153",
+      "TXN000111",
+      "TXN000105",
+      "TXN000108",
+      "TXN000139",
+      "TXN000165",
+      "TXN000173",
+      "TXN000140",
+      "TXN000107",
+      "TXN000128",
+      "TXN000116",
+      "TXN000120",
+      "TXN000122",
+      "TXN000136",
+      "TXN000176",
+      "TXN000125",
+      "TXN000141",
+      "TXN000142",
+      "TXN000109",
+      "TXN000117",
+      "TXN000102",
+      "TXN000166",
+      "TXN000100",
+      "TXN000156",
+      "TXN000148",
+      "TXN000157",
+      "TXN000132",
+      "TXN000112",
+      "TXN000170",
+      "TXN000129",
+      "TXN000137",
+      "TXN000144",
+      "TXN000177",
+      "TXN000103",
+      "TXN000171",
+      "TXN000123",
+      "TXN000130",
+      "TXN000113",
+      "TXN000143",
+      "TXN000149",
+      "TXN000121",
+      "TXN000098",
+      "TXN000145",
+      "TXN000167",
+      "TXN000162",
+      "TXN000118",
+      "TXN000114",
+      "TXN000131",
+      "TXN000133",
+      "TXN000101",
+      "TXN000154",
+      "TXN000168",
+      "TXN000119",
+      "TXN000155",
+      "TXN000099",
+      "TXN000163",
+      "TXN000126",
+      "TXN000158",
+      "TXN000115",
+      "TXN000159",
+      "TXN000169",
+      "TXN000127"
+    ],
+    "total_amount": 4577543.5,
+    "first_timestamp": "2026-09-15 22:16:18",
+    "last_timestamp": "2026-09-16 01:15:18",
+    "evidence": {
+      "source_account": "ACC00065",
+      "collector_account": "ACC00106",
+      "receivers": 40,
+      "forwarding_mules": 40,
+      "forward_pct": 100.0,
+      "spray_window_hours": 2.72,
+      "min_forward_retention_pct": 97.25,
+      "max_forward_delay_minutes": 45.0,
+      "min_receivers_required": 4
+    },
+    "reason": "Account ACC00065 sent to 40 distinct accounts within 2.72 hours; 40 of them (100.0%) forwarded at least 97.25% within 45.0 minutes to the same collector ACC00106."
+  },
+  {
+    "finding_id": "F0011",
+    "detector": "SPRAY",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00025",
+      "PERSON00026",
+      "PERSON00027",
+      "PERSON00028",
+      "PERSON00029",
+      "PERSON00030",
+      "PERSON00031",
+      "PERSON00032",
+      "PERSON00033",
+      "PERSON00034",
+      "PERSON00035",
+      "PERSON00036",
+      "PERSON00037",
+      "PERSON00038",
+      "PERSON00039"
+    ],
+    "accounts": [
+      "ACC00038",
+      "ACC00039",
+      "ACC00040",
+      "ACC00041",
+      "ACC00042",
+      "ACC00043",
+      "ACC00044",
+      "ACC00045",
+      "ACC00046",
+      "ACC00047",
+      "ACC00048",
+      "ACC00049",
+      "ACC00050",
+      "ACC00051",
+      "ACC00052",
+      "ACC00053",
+      "ACC00054",
+      "ACC00055",
+      "ACC00056",
+      "ACC00057",
+      "ACC00058",
+      "ACC00059",
+      "ACC00060",
+      "ACC00061",
+      "ACC00062",
+      "ACC00063",
+      "ACC00064"
+    ],
+    "txn_ids": [
+      "TXN000050",
+      "TXN000086",
+      "TXN000068",
+      "TXN000062",
+      "TXN000051",
+      "TXN000063",
+      "TXN000092",
+      "TXN000087",
+      "TXN000076",
+      "TXN000058",
+      "TXN000069",
+      "TXN000072",
+      "TXN000080",
+      "TXN000077",
+      "TXN000059",
+      "TXN000081",
+      "TXN000066",
+      "TXN000093",
+      "TXN000073",
+      "TXN000070",
+      "TXN000071",
+      "TXN000054",
+      "TXN000064",
+      "TXN000056",
+      "TXN000084",
+      "TXN000067",
+      "TXN000078",
+      "TXN000052",
+      "TXN000065",
+      "TXN000055",
+      "TXN000079",
+      "TXN000053",
+      "TXN000082",
+      "TXN000085",
+      "TXN000048",
+      "TXN000088",
+      "TXN000057",
+      "TXN000096",
+      "TXN000083",
+      "TXN000089",
+      "TXN000090",
+      "TXN000060",
+      "TXN000094",
+      "TXN000074",
+      "TXN000091",
+      "TXN000049",
+      "TXN000095",
+      "TXN000061",
+      "TXN000097",
+      "TXN000075"
+    ],
+    "total_amount": 2879870.97,
+    "first_timestamp": "2026-08-29 01:29:20",
+    "last_timestamp": "2026-08-29 04:54:20",
+    "evidence": {
+      "source_account": "ACC00038",
+      "collector_account": "ACC00064",
+      "receivers": 25,
+      "forwarding_mules": 25,
+      "forward_pct": 100.0,
+      "spray_window_hours": 2.78,
+      "min_forward_retention_pct": 97.04,
+      "max_forward_delay_minutes": 45.0,
+      "min_receivers_required": 4
+    },
+    "reason": "Account ACC00038 sent to 25 distinct accounts within 2.78 hours; 25 of them (100.0%) forwarded at least 97.04% within 45.0 minutes to the same collector ACC00064."
+  },
+  {
+    "finding_id": "F0012",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00061",
+      "PERSON00062",
+      "PERSON00063"
+    ],
+    "accounts": [
+      "ACC00107",
+      "ACC00108",
+      "ACC00109",
+      "ACC00110",
+      "ACC00111"
+    ],
+    "txn_ids": [
+      "TXN000178",
+      "TXN000179",
+      "TXN000180",
+      "TXN000181"
+    ],
+    "total_amount": 2662492.76,
+    "first_timestamp": "2026-08-22 16:16:43",
+    "last_timestamp": "2026-08-22 16:55:43",
+    "evidence": {
+      "hops": 4,
+      "minutes_elapsed": 39.0,
+      "min_retention_pct": 98.34,
+      "max_gap_minutes": 18.0,
+      "start_amount": 676229.95,
+      "end_amount": 651670.15,
+      "min_hops_required": 2
+    },
+    "reason": "4-hop chain moved Rs 676,230 onward in 39.0 minutes, no hop waiting more than 18.0 minutes and each keeping at least 98.34% of the previous amount."
+  },
+  {
+    "finding_id": "F0013",
+    "detector": "CIRCLE",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00001",
+      "PERSON00002",
+      "PERSON00003"
+    ],
+    "accounts": [
+      "ACC00001",
+      "ACC00002",
+      "ACC00003",
+      "ACC00004"
+    ],
+    "txn_ids": [
+      "TXN000001",
+      "TXN000002",
+      "TXN000003",
+      "TXN000004"
+    ],
+    "total_amount": 2410102.78,
+    "first_timestamp": "2026-08-28 13:26:18",
+    "last_timestamp": "2026-08-29 01:26:18",
+    "evidence": {
+      "hops": 4,
+      "hours_elapsed": 12.0,
+      "min_retention_pct": 97.37,
+      "first_hop_amount": 619926.45,
+      "last_hop_amount": 582548.64,
+      "origin_person": "PERSON00001",
+      "distinct_people": 3
+    },
+    "reason": "4-hop circle: Rs 619,926 left ZEENAT SIDHU (PERSON00001) and came back to them after 12.0 hours via 3 people, every hop keeping at least 97.37% of the previous amount."
+  },
+  {
+    "finding_id": "F0014",
+    "detector": "SPEED",
+    "lane": "DISCOVERY",
+    "people": [
+      "PERSON00011",
+      "PERSON00012",
+      "PERSON00013"
+    ],
+    "accounts": [
+      "ACC00016",
+      "ACC00017",
+      "ACC00018",
+      "ACC00019"
+    ],
+    "txn_ids": [
+      "TXN000016",
+      "TXN000017",
+      "TXN000018"
+    ],
+    "total_amount": 1890596.07,
+    "first_timestamp": "2026-08-31 11:07:47",
+    "last_timestamp": "2026-08-31 13:07:47",
+    "evidence": {
+      "hops": 3,
+      "minutes_elapsed": 120.0,
+      "min_retention_pct": 97.56,
+      "max_gap_minutes": 60.0,
+      "start_amount": 642625.3,
+      "end_amount": 621022.04,
+      "min_hops_required": 3
+    },
+    "reason": "3-hop chain moved Rs 642,625 onward in 120.0 minutes, no hop waiting more than 60.0 minutes and each keeping at least 97.56% of the previous amount."
+  },
+  {
+    "finding_id": "F0015",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00064",
+      "PERSON00066"
+    ],
+    "accounts": [
+      "ACC00115",
+      "ACC00116"
+    ],
+    "txn_ids": [
+      "TXN000185"
+    ],
+    "total_amount": 1775289.21,
+    "first_timestamp": "2026-09-11 18:57:28",
+    "last_timestamp": "2026-09-11 18:57:28",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000185"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Kapoor Rekha (PERSON00066) shows 1 weak signal(s): first large transfer to new counterparty x1."
+  },
+  {
+    "finding_id": "F0016",
+    "detector": "THRESHOLD",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00077",
+      "PERSON00078",
+      "PERSON00079",
+      "PERSON00080",
+      "PERSON00081",
+      "PERSON00082"
+    ],
+    "accounts": [
+      "ACC00137",
+      "ACC00138",
+      "ACC00139",
+      "ACC00140",
+      "ACC00141",
+      "ACC00142",
+      "ACC00143",
+      "ACC00144",
+      "ACC00145",
+      "ACC00146",
+      "ACC00147"
+    ],
+    "txn_ids": [
+      "TXN000245",
+      "TXN000255",
+      "TXN000242",
+      "TXN000246",
+      "TXN000228",
+      "TXN000234",
+      "TXN000235",
+      "TXN000232",
+      "TXN000250",
+      "TXN000258",
+      "TXN000256",
+      "TXN000224",
+      "TXN000257",
+      "TXN000240",
+      "TXN000241",
+      "TXN000233",
+      "TXN000239",
+      "TXN000247",
+      "TXN000227",
+      "TXN000231",
+      "TXN000226",
+      "TXN000252",
+      "TXN000244",
+      "TXN000254",
+      "TXN000236",
+      "TXN000229",
+      "TXN000253",
+      "TXN000251",
+      "TXN000248",
+      "TXN000243",
+      "TXN000225",
+      "TXN000237",
+      "TXN000230",
+      "TXN000249",
+      "TXN000238"
+    ],
+    "total_amount": 1659660.17,
+    "first_timestamp": "2026-08-19 12:42:57",
+    "last_timestamp": "2026-09-15 17:40:52",
+    "evidence": {
+      "limit": 50000.0,
+      "deposits_in_window": 11,
+      "flagged_deposits": 35,
+      "window_days": 7,
+      "min_pct_of_limit": 90.02,
+      "max_pct_of_limit": 98.4,
+      "min_deposits_required": 3,
+      "receiving_person": "PERSON00082"
+    },
+    "reason": "KAVITA RAO (PERSON00082) received 11 cash deposits within 7 days, each 90.02-98.4% of the Rs 50,000 limit (35 such deposits in total)."
+  },
+  {
+    "finding_id": "F0017",
+    "detector": "SPRAY",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00016",
+      "PERSON00017",
+      "PERSON00018",
+      "PERSON00019",
+      "PERSON00020",
+      "PERSON00021",
+      "PERSON00022",
+      "PERSON00023",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00025",
+      "ACC00026",
+      "ACC00027",
+      "ACC00028",
+      "ACC00029",
+      "ACC00030",
+      "ACC00031",
+      "ACC00032",
+      "ACC00033",
+      "ACC00034",
+      "ACC00035",
+      "ACC00036",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000042",
+      "TXN000034",
+      "TXN000030",
+      "TXN000035",
+      "TXN000031",
+      "TXN000043",
+      "TXN000028",
+      "TXN000024",
+      "TXN000029",
+      "TXN000032",
+      "TXN000025",
+      "TXN000033",
+      "TXN000036",
+      "TXN000046",
+      "TXN000040",
+      "TXN000026",
+      "TXN000044",
+      "TXN000027",
+      "TXN000041",
+      "TXN000038",
+      "TXN000047",
+      "TXN000037",
+      "TXN000045",
+      "TXN000039"
+    ],
+    "total_amount": 1536116.09,
+    "first_timestamp": "2026-08-24 12:38:13",
+    "last_timestamp": "2026-08-24 15:13:13",
+    "evidence": {
+      "source_account": "ACC00024",
+      "collector_account": "ACC00037",
+      "receivers": 13,
+      "forwarding_mules": 12,
+      "forward_pct": 92.3,
+      "spray_window_hours": 2.1,
+      "min_forward_retention_pct": 97.34,
+      "max_forward_delay_minutes": 45.0,
+      "min_receivers_required": 4
+    },
+    "reason": "Account ACC00024 sent to 13 distinct accounts within 2.1 hours; 12 of them (92.3%) forwarded at least 97.34% within 45.0 minutes to the same collector ACC00037."
+  },
+  {
+    "finding_id": "F0018",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00068",
+      "PERSON00070"
+    ],
+    "accounts": [
+      "ACC00123",
+      "ACC00124"
+    ],
+    "txn_ids": [
+      "TXN000192"
+    ],
+    "total_amount": 1143887.71,
+    "first_timestamp": "2026-08-29 10:57:05",
+    "last_timestamp": "2026-08-29 10:57:05",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000192"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Desai Sandeep (PERSON00070) shows 1 weak signal(s): first large transfer to new counterparty x1."
+  },
+  {
+    "finding_id": "F0019",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00035",
+      "PERSON00040",
+      "PERSON00074",
+      "PERSON00076"
+    ],
+    "accounts": [
+      "ACC00056",
+      "ACC00065",
+      "ACC00129",
+      "ACC00133",
+      "ACC00136"
+    ],
+    "txn_ids": [
+      "TXN000208",
+      "TXN079549",
+      "TXN000653"
+    ],
+    "total_amount": 1021015.25,
+    "first_timestamp": "2026-08-23 12:23:36",
+    "last_timestamp": "2026-09-11 18:22:52",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty",
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1,
+        "money_into_new_account": 2
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000208"
+        ],
+        "money_into_new_account": [
+          "TXN079549",
+          "TXN000653"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Irfan Gill & Sons (PERSON00074) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2."
+  },
+  {
+    "finding_id": "F0020",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00060",
+      "PERSON00062",
+      "PERSON00063"
+    ],
+    "accounts": [
+      "ACC00104",
+      "ACC00108",
+      "ACC00110",
+      "ACC00111"
+    ],
+    "txn_ids": [
+      "TXN015893",
+      "TXN062827",
+      "TXN000181"
+    ],
+    "total_amount": 701290.78,
+    "first_timestamp": "2026-08-19 13:12:09",
+    "last_timestamp": "2026-08-22 16:55:43",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty",
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1,
+        "money_into_new_account": 2
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000181"
+        ],
+        "money_into_new_account": [
+          "TXN015893",
+          "TXN062827"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted SUNITA JAIN (PERSON00062) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x2."
+  },
+  {
+    "finding_id": "F0021",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00013",
+      "PERSON00014",
+      "PERSON00029"
+    ],
+    "accounts": [
+      "ACC00020",
+      "ACC00021",
+      "ACC00059"
+    ],
+    "txn_ids": [
+      "TXN000020",
+      "TXN014420"
+    ],
+    "total_amount": 633423.62,
+    "first_timestamp": "2026-08-31 19:07:47",
+    "last_timestamp": "2026-09-10 01:58:42",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty",
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1,
+        "money_into_new_account": 1
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000020"
+        ],
+        "money_into_new_account": [
+          "TXN014420"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Chauhan Lakshmi (PERSON00014) shows 2 weak signal(s): first large transfer to new counterparty x1; money into new account x1."
+  },
+  {
+    "finding_id": "F0022",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00001",
+      "PERSON00003"
+    ],
+    "accounts": [
+      "ACC00001",
+      "ACC00004"
+    ],
+    "txn_ids": [
+      "TXN000004"
+    ],
+    "total_amount": 582548.64,
+    "first_timestamp": "2026-08-29 01:26:18",
+    "last_timestamp": "2026-08-29 01:26:18",
+    "evidence": {
+      "signals": [
+        "first_large_transfer_to_new_counterparty"
+      ],
+      "signal_txn_counts": {
+        "first_large_transfer_to_new_counterparty": 1
+      },
+      "signal_txn_ids": {
+        "first_large_transfer_to_new_counterparty": [
+          "TXN000004"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Anna Deasi (PERSON00003) shows 1 weak signal(s): first large transfer to new counterparty x1."
+  },
+  {
+    "finding_id": "F0023",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00023",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00034",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000042",
+      "TXN000043"
+    ],
+    "total_amount": 177237.21,
+    "first_timestamp": "2026-08-24 12:38:13",
+    "last_timestamp": "2026-08-24 13:22:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 44.0,
+      "min_retention_pct": 98.88,
+      "max_gap_minutes": 44.0,
+      "start_amount": 89118.68,
+      "end_amount": 88118.53,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 89,119 onward in 44.0 minutes, no hop waiting more than 44.0 minutes and each keeping at least 98.88% of the previous amount."
+  },
+  {
+    "finding_id": "F0024",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00025",
+      "PERSON00030",
+      "PERSON00038"
+    ],
+    "accounts": [
+      "ACC00038",
+      "ACC00062",
+      "ACC00064"
+    ],
+    "txn_ids": [
+      "TXN000094",
+      "TXN000095"
+    ],
+    "total_amount": 166511.45,
+    "first_timestamp": "2026-08-29 04:14:20",
+    "last_timestamp": "2026-08-29 04:26:20",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 12.0,
+      "min_retention_pct": 97.31,
+      "max_gap_minutes": 12.0,
+      "start_amount": 84391.31,
+      "end_amount": 82120.14,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 84,391 onward in 12.0 minutes, no hop waiting more than 12.0 minutes and each keeping at least 97.31% of the previous amount."
+  },
+  {
+    "finding_id": "F0025",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00017",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00026",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000026",
+      "TXN000027"
+    ],
+    "total_amount": 157624.49,
+    "first_timestamp": "2026-08-24 14:17:13",
+    "last_timestamp": "2026-08-24 14:34:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 17.0,
+      "min_retention_pct": 97.41,
+      "max_gap_minutes": 17.0,
+      "start_amount": 79847.74,
+      "end_amount": 77776.75,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 79,848 onward in 17.0 minutes, no hop waiting more than 17.0 minutes and each keeping at least 97.41% of the previous amount."
+  },
+  {
+    "finding_id": "F0026",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00025",
+      "PERSON00030",
+      "PERSON00038"
+    ],
+    "accounts": [
+      "ACC00038",
+      "ACC00055",
+      "ACC00064"
+    ],
+    "txn_ids": [
+      "TXN000080",
+      "TXN000081"
+    ],
+    "total_amount": 151165.5,
+    "first_timestamp": "2026-08-29 02:20:20",
+    "last_timestamp": "2026-08-29 02:30:20",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 10.0,
+      "min_retention_pct": 98.22,
+      "max_gap_minutes": 10.0,
+      "start_amount": 76262.82,
+      "end_amount": 74902.68,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 76,263 onward in 10.0 minutes, no hop waiting more than 10.0 minutes and each keeping at least 98.22% of the previous amount."
+  },
+  {
+    "finding_id": "F0027",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00019",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00029",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000032",
+      "TXN000033"
+    ],
+    "total_amount": 149097.75,
+    "first_timestamp": "2026-08-24 13:53:13",
+    "last_timestamp": "2026-08-24 14:02:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 9.0,
+      "min_retention_pct": 98.15,
+      "max_gap_minutes": 9.0,
+      "start_amount": 75243.45,
+      "end_amount": 73854.3,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 75,243 onward in 9.0 minutes, no hop waiting more than 9.0 minutes and each keeping at least 98.15% of the previous amount."
+  },
+  {
+    "finding_id": "F0028",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00028",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000030",
+      "TXN000031"
+    ],
+    "total_amount": 141850.76,
+    "first_timestamp": "2026-08-24 13:04:13",
+    "last_timestamp": "2026-08-24 13:17:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 13.0,
+      "min_retention_pct": 98.09,
+      "max_gap_minutes": 13.0,
+      "start_amount": 71609.07,
+      "end_amount": 70241.69,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 71,609 onward in 13.0 minutes, no hop waiting more than 13.0 minutes and each keeping at least 98.09% of the previous amount."
+  },
+  {
+    "finding_id": "F0029",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00022",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00033",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000040",
+      "TXN000041"
+    ],
+    "total_amount": 140362.58,
+    "first_timestamp": "2026-08-24 14:09:13",
+    "last_timestamp": "2026-08-24 14:37:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 28.0,
+      "min_retention_pct": 97.34,
+      "max_gap_minutes": 28.0,
+      "start_amount": 71127.28,
+      "end_amount": 69235.3,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 71,127 onward in 28.0 minutes, no hop waiting more than 28.0 minutes and each keeping at least 97.34% of the previous amount."
+  },
+  {
+    "finding_id": "F0030",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00021",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00032",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000038",
+      "TXN000039"
+    ],
+    "total_amount": 129996.56,
+    "first_timestamp": "2026-08-24 14:44:13",
+    "last_timestamp": "2026-08-24 15:13:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 29.0,
+      "min_retention_pct": 97.7,
+      "max_gap_minutes": 29.0,
+      "start_amount": 65753.48,
+      "end_amount": 64243.08,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 65,753 onward in 29.0 minutes, no hop waiting more than 29.0 minutes and each keeping at least 97.7% of the previous amount."
+  },
+  {
+    "finding_id": "F0031",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00019",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00030",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000034",
+      "TXN000035"
+    ],
+    "total_amount": 124197.07,
+    "first_timestamp": "2026-08-24 12:45:13",
+    "last_timestamp": "2026-08-24 13:15:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 30.0,
+      "min_retention_pct": 97.83,
+      "max_gap_minutes": 30.0,
+      "start_amount": 62780.98,
+      "end_amount": 61416.09,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 62,781 onward in 30.0 minutes, no hop waiting more than 30.0 minutes and each keeping at least 97.83% of the previous amount."
+  },
+  {
+    "finding_id": "F0032",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00016",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00025",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000024",
+      "TXN000025"
+    ],
+    "total_amount": 120743.69,
+    "first_timestamp": "2026-08-24 13:29:13",
+    "last_timestamp": "2026-08-24 13:59:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 30.0,
+      "min_retention_pct": 99.11,
+      "max_gap_minutes": 30.0,
+      "start_amount": 60642.64,
+      "end_amount": 60101.05,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 60,643 onward in 30.0 minutes, no hop waiting more than 30.0 minutes and each keeping at least 99.11% of the previous amount."
+  },
+  {
+    "finding_id": "F0033",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00020",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00035",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000044",
+      "TXN000045"
+    ],
+    "total_amount": 117980.84,
+    "first_timestamp": "2026-08-24 14:27:13",
+    "last_timestamp": "2026-08-24 14:55:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 28.0,
+      "min_retention_pct": 97.73,
+      "max_gap_minutes": 28.0,
+      "start_amount": 59668.85,
+      "end_amount": 58311.99,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 59,669 onward in 28.0 minutes, no hop waiting more than 28.0 minutes and each keeping at least 97.73% of the previous amount."
+  },
+  {
+    "finding_id": "F0034",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00018",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00027",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000028",
+      "TXN000029"
+    ],
+    "total_amount": 104868.76,
+    "first_timestamp": "2026-08-24 13:25:13",
+    "last_timestamp": "2026-08-24 13:47:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 22.0,
+      "min_retention_pct": 97.88,
+      "max_gap_minutes": 22.0,
+      "start_amount": 52994.91,
+      "end_amount": 51873.85,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 52,995 onward in 22.0 minutes, no hop waiting more than 22.0 minutes and each keeping at least 97.88% of the previous amount."
+  },
+  {
+    "finding_id": "F0035",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00040",
+      "PERSON00044",
+      "PERSON00056"
+    ],
+    "accounts": [
+      "ACC00065",
+      "ACC00074",
+      "ACC00106"
+    ],
+    "txn_ids": [
+      "TXN000114",
+      "TXN000115"
+    ],
+    "total_amount": 90828.32,
+    "first_timestamp": "2026-09-16 00:30:18",
+    "last_timestamp": "2026-09-16 01:07:18",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 37.0,
+      "min_retention_pct": 97.52,
+      "max_gap_minutes": 37.0,
+      "start_amount": 45983.67,
+      "end_amount": 44844.65,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 45,984 onward in 37.0 minutes, no hop waiting more than 37.0 minutes and each keeping at least 97.52% of the previous amount."
+  },
+  {
+    "finding_id": "F0036",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00020",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00031",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000036",
+      "TXN000037"
+    ],
+    "total_amount": 86773.68,
+    "first_timestamp": "2026-08-24 14:03:13",
+    "last_timestamp": "2026-08-24 14:48:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 45.0,
+      "min_retention_pct": 97.96,
+      "max_gap_minutes": 45.0,
+      "start_amount": 43834.86,
+      "end_amount": 42938.82,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 43,835 onward in 45.0 minutes, no hop waiting more than 45.0 minutes and each keeping at least 97.96% of the previous amount."
+  },
+  {
+    "finding_id": "F0037",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00015",
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00024",
+      "ACC00036",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000046",
+      "TXN000047"
+    ],
+    "total_amount": 85382.7,
+    "first_timestamp": "2026-08-24 14:06:13",
+    "last_timestamp": "2026-08-24 14:45:13",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 39.0,
+      "min_retention_pct": 97.48,
+      "max_gap_minutes": 39.0,
+      "start_amount": 43235.25,
+      "end_amount": 42147.45,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 43,235 onward in 39.0 minutes, no hop waiting more than 39.0 minutes and each keeping at least 97.48% of the previous amount."
+  },
+  {
+    "finding_id": "F0038",
+    "detector": "SPEED",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00040",
+      "PERSON00044",
+      "PERSON00056"
+    ],
+    "accounts": [
+      "ACC00065",
+      "ACC00071",
+      "ACC00106"
+    ],
+    "txn_ids": [
+      "TXN000108",
+      "TXN000109"
+    ],
+    "total_amount": 77991.56,
+    "first_timestamp": "2026-09-15 23:15:18",
+    "last_timestamp": "2026-09-15 23:41:18",
+    "evidence": {
+      "hops": 2,
+      "minutes_elapsed": 26.0,
+      "min_retention_pct": 98.38,
+      "max_gap_minutes": 26.0,
+      "start_amount": 39315.18,
+      "end_amount": 38676.38,
+      "min_hops_required": 2
+    },
+    "reason": "2-hop chain moved Rs 39,315 onward in 26.0 minutes, no hop waiting more than 26.0 minutes and each keeping at least 98.38% of the previous amount."
+  },
+  {
+    "finding_id": "F0039",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00004",
+      "PERSON00005"
+    ],
+    "accounts": [
+      "ACC00006",
+      "ACC00007"
+    ],
+    "txn_ids": [
+      "TXN000006"
+    ],
+    "total_amount": 69436.82,
+    "first_timestamp": "2026-09-13 11:26:48",
+    "last_timestamp": "2026-09-13 11:26:48",
+    "evidence": {
+      "signals": [
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "money_into_new_account": 1
+      },
+      "signal_txn_ids": {
+        "money_into_new_account": [
+          "TXN000006"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Kapoor Shreya (PERSON00005) shows 1 weak signal(s): money into new account x1."
+  },
+  {
+    "finding_id": "F0040",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00024"
+    ],
+    "accounts": [
+      "ACC00036",
+      "ACC00037"
+    ],
+    "txn_ids": [
+      "TXN000047"
+    ],
+    "total_amount": 42147.45,
+    "first_timestamp": "2026-08-24 14:45:13",
+    "last_timestamp": "2026-08-24 14:45:13",
+    "evidence": {
+      "signals": [
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "money_into_new_account": 1
+      },
+      "signal_txn_ids": {
+        "money_into_new_account": [
+          "TXN000047"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted N. Brar (PERSON00024) shows 1 weak signal(s): money into new account x1."
+  },
+  {
+    "finding_id": "F0041",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00038",
+      "PERSON00039"
+    ],
+    "accounts": [
+      "ACC00058",
+      "ACC00062"
+    ],
+    "txn_ids": [
+      "TXN000437"
+    ],
+    "total_amount": 3066.18,
+    "first_timestamp": "2026-08-18 13:28:21",
+    "last_timestamp": "2026-08-18 13:28:21",
+    "evidence": {
+      "signals": [
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "money_into_new_account": 1
+      },
+      "signal_txn_ids": {
+        "money_into_new_account": [
+          "TXN000437"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Balaji Malhotra & Sons (PERSON00038) shows 1 weak signal(s): money into new account x1."
+  },
+  {
+    "finding_id": "F0042",
+    "detector": "WATCHLIST_SIGNAL",
+    "lane": "WATCHLIST",
+    "people": [
+      "PERSON00035",
+      "PERSON00044"
+    ],
+    "accounts": [
+      "ACC00056",
+      "ACC00074"
+    ],
+    "txn_ids": [
+      "TXN000476"
+    ],
+    "total_amount": 1283.61,
+    "first_timestamp": "2026-08-29 18:38:51",
+    "last_timestamp": "2026-08-29 18:38:51",
+    "evidence": {
+      "signals": [
+        "money_into_new_account"
+      ],
+      "signal_txn_counts": {
+        "money_into_new_account": 1
+      },
+      "signal_txn_ids": {
+        "money_into_new_account": [
+          "TXN000476"
+        ]
+      },
+      "new_channels": []
+    },
+    "reason": "Watchlisted Mary Bose & Sons (PERSON00044) shows 1 weak signal(s): money into new account x1."
+  }
+]

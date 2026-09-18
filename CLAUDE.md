@@ -22,7 +22,7 @@ repo and a working live deployment are both mandatory.
 | 1 | Synthetic data with 12 hidden laundering rings | `generate_data.py` | ✅ done |
 | 2 | Entity resolution — records → real people | `entity_resolution.py` | ✅ done |
 | 3 | Graph builder — people as nodes, money as edges | `graph_builder.py` | ✅ done |
-| 4 | Detection swarm — 4 deterministic agents | — | pending |
+| 4 | Detection swarm — 4 deterministic agents | `detectors.py` | ✅ done |
 | 5 | Case builder — seed, trace, expand, prune | — | pending |
 | 6 | Investigator agent (LLM) — writes the case | — | pending |
 | 7 | Verifier agent (LLM) — adversarial check | — | pending |
