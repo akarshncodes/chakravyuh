@@ -536,6 +536,18 @@ def run_fact_check(narrative, packet):
                 f"Date {d.isoformat()} falls outside the case window "
                 f"({start_date} to {end_date})")
 
+    # a circular case's summary must name the principal that actually moved,
+    # not just the hop-sum (which counts that principal once per hop)
+    if packet.get("amount_cycled"):
+        checked += 1
+        summ = str(narrative.get("summary", ""))
+        if (packet["amount_cycled"]["words"] in summ) or (packet["amount_cycled"]["digits"] in summ):
+            passed += 1
+        else:
+            failures.append(
+                f"Summary of a circular case must state the principal cycled "
+                f"({packet['amount_cycled']['words']}), not only the total volume")
+
     # typology words must match what the detectors proved
     checked += 1
     typ = typology_violations(text, packet["detectors_fired"])
