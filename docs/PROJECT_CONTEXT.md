@@ -11,7 +11,7 @@
 | | |
 | --- | --- |
 | Team | Tech Coders |
-| Team ID | 7-300 |
+| Team ID | T-300 |
 | Team Leader | Akarsh N (GitHub: akarshncodes) |
 | Domain | FinTech & Cyber |
 | Problem Statement | **FC-02** — AI-Powered Anti-Money-Laundering Investigation System |

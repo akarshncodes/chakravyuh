@@ -4,7 +4,7 @@ Read this before doing anything in this folder.
 
 **What this is:** an AI anti-money-laundering investigation system, built for the
 IGNITRRON'26 / Project J.A.R.V.I.S. 24-hour hackathon at KPR Institute,
-18–19 September 2026. Team Tech Coders (7-300), problem statement FC-02,
+18–19 September 2026. Team Tech Coders (T-300), problem statement FC-02,
 domain FinTech & Cyber.
 
 **The idea in one line:** existing systems score transactions; we score

@@ -6,7 +6,7 @@
 
 **AI-Powered Anti-Money-Laundering Investigation System**
 
-IGNITRRON'26 · Project J.A.R.V.I.S. · Team Tech Coders (7-300) · Problem Statement **FC-02** · Domain: FinTech & Cyber
+IGNITRRON'26 · Project J.A.R.V.I.S. · Team Tech Coders (T-300) · Problem Statement **FC-02** · Domain: FinTech & Cyber
 
 **Live demo:** https://chakravyuh-bnkiuzjcv44pm79vn7jaxr.streamlit.app/
 

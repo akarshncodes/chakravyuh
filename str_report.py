@@ -159,5 +159,5 @@ def build_str_html(case, written, rel, drona, txns, entities, officer=None):
 <div>Date of filing: ______________</div></div>
 <div class="foot">This draft was assembled from deterministic detection results and AI-written text that passed an automated
 fact-check and an independent AI review. Nothing is filed automatically; filing is the Principal Officer's decision.
-Prototype built for IGNITRRON'26 (Team Tech Coders, 7-300) on synthetic data. Not an official FIU-IND form.</div>
+Prototype built for IGNITRRON'26 (Team Tech Coders, T-300) on synthetic data. Not an official FIU-IND form.</div>
 </div></body></html>"""
