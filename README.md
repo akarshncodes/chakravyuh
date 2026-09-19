@@ -1,6 +1,6 @@
 # CHAKRAVYUH · चक्रव्यूह
 
-**AI-powered anti-money-laundering investigation system** · IGNITRRON'26 · Problem Statement **FC-02** · Team **Tech Coders (7-300)**
+**AI-powered anti-money-laundering investigation system** · IGNITRRON'26 · Problem Statement **FC-02** · Team **Tech Coders (T-300)**
 
 [**▶ Live demo**](https://chakravyuh-bnkiuzjcv44pm79vn7jaxr.streamlit.app/) · [**▶ Demo video**](https://drive.google.com/file/d/1DcThqp_D1bDghtR9tl4Vzy596FecWCZb/view?usp=sharing) · [Full technical docs](docs/TECHNICAL.md) · [Development log](docs/DEVELOPMENT_LOG.md)
 
@@ -117,34 +117,38 @@ Five Dutch banks built exactly this in 2020. They pooled their transaction data,
 
 ```mermaid
 flowchart TB
-    subgraph A["🏦 BANK A sees"]
+    subgraph A["🏦 BANK A sees — half the ring, then a dead end"]
         direction LR
         a1(("A1")) --> a2(("A2")) --> ax(("???"))
         axx(("???")) --> a3(("A3"))
     end
 
-    subgraph B["🏦 BANK B sees"]
+    subgraph B["🏦 BANK B sees — the other half, then a dead end"]
         direction LR
         b1(("B1")) --> b2(("B2")) --> bx(("???"))
         bxx(("???")) --> b3(("B3"))
     end
 
-    subgraph C["🔗 CONSORTIUM sees — scrambled codes only"]
-        direction LR
-        c1(("P1")) --> c2(("P2")) --> c3(("P3"))
-        c3 --> c4(("P4")) --> c5(("P5")) --> c6(("P6"))
-        c6 --> c1
-    end
-
-    A -->|"no names"| C
-    B -->|"no names"| C
-
     style A fill:#fff5f5,stroke:#e03131,stroke-width:2px
     style B fill:#fff5f5,stroke:#e03131,stroke-width:2px
-    style C fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
 ```
 
 Each bank sees only its own customers. Anyone at the other bank is an unreadable **???** — and a bank cannot even tell that two of those unknowns are the same person. One hop of the ring happens entirely inside each bank, so **neither can ever close the loop alone.**
+
+Now the same six accounts seen through the consortium — **scrambled codes only, no names, no PANs, no addresses.** The loop closes:
+
+```mermaid
+flowchart LR
+    c1(("P1")) --> c2(("P2")) --> c3(("P3")) --> c4(("P4")) --> c5(("P5")) --> c6(("P6")) --> c1
+
+    style c1 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+    style c2 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+    style c3 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+    style c4 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+    style c5 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+    style c6 fill:#ebfbee,stroke:#2f9e44,stroke-width:3px
+```
+
 
 | | Can it see the ₹2.4 crore ring? |
 |---|:---:|
@@ -378,7 +382,7 @@ We would rather tell you than have you find it.
 
 ---
 
-## Team Tech Coders (7-300)
+## Team Tech Coders (T-300)
 
 | | Role |
 |---|---|
