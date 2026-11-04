@@ -526,3 +526,11 @@ Every figure above can be checked.
 *Synthetic data only. Prototype, not an official bank or government system. Nothing is ever filed automatically.*
 
 # We score networks, not transactions.
+
+---
+
+## Author
+
+Built by **Akarsh N** (team lead, Team Tech Coders), B.E. Computer Science and Engineering at PSNA College of Engineering and Technology, using AI-assisted development (Claude Code).
+
+[Portfolio](https://akarshncodes.github.io) · [LinkedIn](https://www.linkedin.com/in/akarsh-n-864794416/) · akarshn.codes@gmail.com
